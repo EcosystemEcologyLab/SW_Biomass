@@ -45,5 +45,7 @@ library(ncdf4)
   names(out.stack) <- as.character(seq(1993,2012,1))
   
   # Return output raster stack (multiply by 2.2 to convert from MgC/ha to Mg/ha)
-  out.stack * 2.2
+  out.stack <- out.stack * 2.2
+  terra::units(out.stack) <-  "Mg/ha"
+  out.stack
 }
