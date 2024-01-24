@@ -5,8 +5,7 @@
 #' @return a SpatRaster object
 #' 
 liu_nc_to_rast = function(path) {
-library(ncdf4)
-  
+
   # Open Liu AGBc netCDF file
   liu.nc <- nc_open(list.files(path, pattern = '.nc', full.names = TRUE))
   
