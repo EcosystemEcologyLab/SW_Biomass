@@ -1,13 +1,12 @@
 #' Read Liu .nc file and convert to raster with correct projection and units
 #'
-#' @param path the file path to the directory containing Liu .nc files
-#'
+#' @param path data/rasters/Liu/Aboveground_Carbon_1993_2012.nc
 #' @return a SpatRaster object
 #' 
-liu_nc_to_rast = function(path) {
+read_clean_liu = function(path) {
 
   # Open Liu AGBc netCDF file
-  liu.nc <- nc_open(list.files(path, pattern = '.nc', full.names = TRUE))
+  liu.nc <- nc_open(path)
   
   # Extract lat/lon attributes
   lat <- ncvar_get(liu.nc, 'latitude')
@@ -45,6 +44,8 @@ liu_nc_to_rast = function(path) {
   
   # Return output raster stack (multiply by 2.2 to convert from MgC/ha to Mg/ha)
   out.stack <- out.stack * 2.2
-  terra::units(out.stack) <-  "Mg/ha"
-  out.stack
+  out_2010 <- out.stack[[18]]
+  varnames(out_2010) <- "AGB"
+  terra::units(out_2010) <-  "Mg/ha"
+  out_2010
 }

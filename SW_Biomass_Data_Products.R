@@ -8,14 +8,16 @@ source('R/Liu_AGB_Raster_Function.R')
 sw_shps  <- dir_ls("data/shapefiles/", glob = "*.shp")
 sw_box   <- vect(sw_shps[3]) #SW region
 gw_box   <- vect(sw_shps[1]) #goldwater range
-nnss_box <- vect(sw_shps[2]) 
+nnss_box <- vect(sw_shps[2])
 ws_box   <- vect(sw_shps[4]) #white sands
 
-# Read 2010 AGB data products ------------ 
+# Read 2010 AGB data products ------------
 
 # Chopping
 chopping_agb_2010 <-
   rast("data/rasters/Chopping/MISR_agb_estimates_20002021.tif")[[10]]
+units(chopping_agb_2010) <- "Mg/ha"
+varnames(chopping_agb_2010) <- "AGB"
 
 # Liu
 liu_agb <- liu_nc_to_rast("data/rasters/Liu/")
@@ -24,7 +26,7 @@ names(liu_agb_2010) <- varnames(liu_agb_2010) <- "AGB"
 
 # ESA CCI
 esa_agb_2010_f1 <- rast("data/rasters/ESA_CCI/N40W110_ESACCI-BIOMASS-L4-AGB-MERGED-100m-2010-fv4.0.tif", win = ext(sw_box), snap = "out")
-esa_agb_2010_f2 <- rast("data/rasters/ESA_CCI/N40W120_ESACCI-BIOMASS-L4-AGB-MERGED-100m-2010-fv4.0.tif", win = ext(sw_box), snap = "out") 
+esa_agb_2010_f2 <- rast("data/rasters/ESA_CCI/N40W120_ESACCI-BIOMASS-L4-AGB-MERGED-100m-2010-fv4.0.tif", win = ext(sw_box), snap = "out")
 #Combine tiles
 esa_agb_2010 <- merge(esa_agb_2010_f1, esa_agb_2010_f2)
 # ext(esa_agb_2010_f1)
@@ -82,25 +84,25 @@ sw_esa_agb_2010 <- crop(esa_agb_2010, sw_box)
 # transformation. It is not obvious what this resolution is if you are using
 # lon/lat data that spans a large North-South extent."
 
-sw_chopping_agb_2010 <- 
+sw_chopping_agb_2010 <-
   project(chopping_agb_2010, sw_esa_agb_2010,
           method = "bilinear", #this is the default, other options might be better
           threads = 4)
 # plot(sw_chopping_agb_2010)
 
-sw_liu_agb_2010 <- 
+sw_liu_agb_2010 <-
   project(liu_agb_2010, sw_esa_agb_2010,
           method = "bilinear", #this is the default, other options might be better
           threads = 4)
 # plot(sw_liu_agb_2010)
 
-sw_xu_agb_2010 <- 
+sw_xu_agb_2010 <-
   project(xu_agb_2010, sw_esa_agb_2010,
           method = "bilinear",
           threads = 4)
 # plot(sw_xu_agb_2010)
 
-sw_rap_agb_2010 <- 
+sw_rap_agb_2010 <-
   project(rap_agb_2010, sw_esa_agb_2010,
           method = "bilinear",
           threads = 4)

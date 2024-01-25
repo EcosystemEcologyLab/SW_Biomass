@@ -5,57 +5,57 @@
 
 # Load packages required to define the pipeline:
 library(targets)
-# library(tarchetypes) # Load other packages as needed.
+library(tarchetypes)
+# library(qs)
 
 # Set target options:
 tar_option_set(
-  packages = c("tibble") # packages that your targets need to run
-  # format = "qs", # Optionally set the default storage format. qs is fast.
+  packages = c("ncdf4", "terra", "fs", "purrr", "units"), # packages that your targets need to run
+  # format = "qs",
   #
   # For distributed computing in tar_make(), supply a {crew} controller
   # as discussed at https://books.ropensci.org/targets/crew.html.
   # Choose a controller that suits your needs. For example, the following
   # sets a controller with 2 workers which will run as local R processes:
   #
-  #   controller = crew::crew_controller_local(workers = 2)
-  #
-  # Alternatively, if you want workers to run on a high-performance computing
-  # cluster, select a controller from the {crew.cluster} package. The following
-  # example is a controller for Sun Grid Engine (SGE).
-  # 
-  #   controller = crew.cluster::crew_controller_sge(
-  #     workers = 50,
-  #     # Many clusters install R as an environment module, and you can load it
-  #     # with the script_lines argument. To select a specific verison of R,
-  #     # you may need to include a version string, e.g. "module load R/4.3.0".
-  #     # Check with your system administrator if you are unsure.
-  #     script_lines = "module load R"
-  #   )
-  #
-  # Set other options as needed.
+  # controller = crew::crew_controller_local(workers = 3)
 )
-
-# tar_make_clustermq() is an older (pre-{crew}) way to do distributed computing
-# in {targets}, and its configuration for your machine is below.
-options(clustermq.scheduler = "multicore")
-
-# tar_make_future() is an older (pre-{crew}) way to do distributed computing
-# in {targets}, and its configuration for your machine is below.
-# Install packages {{future}}, {{future.callr}}, and {{future.batchtools}} to allow use_targets() to configure tar_make_future() options.
 
 # Run the R scripts in the R/ folder with your custom functions:
 tar_source()
 # source("other_functions.R") # Source other scripts as needed.
 
-# Replace the target list below with your own:
-list(
-  tar_target(
-    name = data,
-    command = tibble(x = rnorm(100), y = rnorm(100))
-    # format = "feather" # efficient storage for large data frames
-  ),
-  tar_target(
-    name = model,
-    command = coefficients(lm(y ~ x, data = data))
+# terra objects can't be serialized without `wrap()`ing them.  This is a custom
+# format for dealing with that.  NOTE: this breaks if the targets pipeline is
+# run with more than 1 worker. Discussion on how to deal with this:
+# https://github.com/ropensci/targets/discussions/1213
+format_terra <- tar_format(
+  read = function(path) terra::unwrap(readRDS(path)),
+  write = function(object, path) saveRDS(object = terra::wrap(object), file = path)
   )
+
+tar_plan(
+  # Get shapefiles for spatial subsets ---------------
+
+  tar_file(sw_box_file, "data/shapefiles/SW_Region_Box.shp"),
+  tar_target(sw_box, vect(sw_box_file), format = format_terra),
+  tar_file(gw_box_file, "data/shapefiles/Goldwater_Range_Box.shp"),
+  tar_target(gw_box, vect(gw_box_file), format = format_terra),
+  tar_file(nnss_box_file, "data/shapefiles/NNSS_Box.shp"),
+  tar_target(nnss_box, vect(nnss_box_file), format = format_terra),
+  tar_file(ws_box_file, "data/shapefiles/White_Sands_Box.shp"),
+  tar_target(ws_box, vect(ws_box_file), format = format_terra),
+  
+  # Read 2010 AGB data products ------------
+  tar_file(chopping_file, "data/rasters/Chopping/MISR_agb_estimates_20002021.tif"),
+  tar_target(chopping_agb, read_clean_chopping(chopping_file), format = format_terra),
+  tar_file(liu_file, "data/rasters/Liu/Aboveground_Carbon_1993_2012.nc"),
+  tar_target(liu_agb, read_clean_liu(liu_file), format = format_terra),
+  tar_files(esa_files, dir_ls("data/rasters/ESA_CCI/", glob = "*.tif")),
+  tar_target(esa_agb, read_clean_esa(esa_files, sw_box), format = format_terra),
+  tar_file(xu_file, "data/rasters/Xu/test10a_cd_ab_pred_corr_2000_2019_v2.tif"),
+  tar_target(xu_agb, read_clean_xu(xu_file, sw_box), format = format_terra),
+  tar_file(rap_file, "data/rasters/RAP/vegetation-biomass-v3-2010.tif"),
+  tar_target(rap_agb, read_clean_rap(rap_file, sw_box), format = format_terra),
+  
 )
