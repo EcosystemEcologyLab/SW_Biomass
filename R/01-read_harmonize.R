@@ -1,15 +1,10 @@
 # Packages and Functions ---------------------------------------------------
 library(terra)
-library(fs)
 
 source('R/Liu_AGB_Raster_Function.R')
 
 # Get shapefiles for spatial subsets ---------------
-sw_shps  <- dir_ls("data/shapefiles/", glob = "*.shp")
-sw_box   <- vect(sw_shps[3]) #SW region
-gw_box   <- vect(sw_shps[1]) #goldwater range
-nnss_box <- vect(sw_shps[2]) 
-ws_box   <- vect(sw_shps[4]) #white sands
+sw_box   <- vect("data/shapefiles/SW_Region_Box.shp") #SW region
 
 # Read 2010 AGB data products ------------ 
 
