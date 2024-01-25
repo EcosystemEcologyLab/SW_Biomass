@@ -110,3 +110,12 @@ sw_rap_perennial_2010 <- sw_rap_agb_2010[[2]]
 
 # plot(sw_rap_annual_2010)
 # plot(sw_rap_perennial_2010)
+
+
+# Write geotiffs ----------------------------------------------------------
+
+writeRaster(sw_chopping_agb_2010, "data/rasters/harmonized/chopping.tiff")
+writeRaster(sw_liu_agb_2010, "data/rasters/harmonized/liu.tiff")
+writeRaster(sw_xu_agb_2010, "data/rasters/harmonized/xu.tiff")
+writeRaster(sw_rap_agb_2010, "data/rasters/harmonized/rap.tiff")
+
