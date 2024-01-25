@@ -2,3 +2,6 @@
 data/rasters/
 *.tif
 *.nc
+
+#figures
+*.png
