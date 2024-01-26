@@ -1,13 +1,12 @@
 #' Title
+#' 
+#' README: http://rangeland.ntsg.umt.edu/data/rap/rap-vegetation-biomass/v3/README
 #'
 #' @param file "data/rasters/RAP/vegetation-biomass-v3-2010.tif"
 #' @param sw_box SpatVector of southwest
 #'
 #' @return SpatRaster object with two layers
-#' 
 read_clean_rap <- function(file, esa) {
-  #RAP
-  #README: http://rangeland.ntsg.umt.edu/data/rap/rap-vegetation-biomass/v3/README
   rap_agb_2010 <-
     terra::rast(file, win = ext(esa), snap = "out")
   #or, download just SW directly from web

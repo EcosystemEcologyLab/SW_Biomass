@@ -44,6 +44,7 @@ format_geotiff <- tar_format(
 tar_plan(
   # Get shapefiles for spatial subsets ---------------
   tar_file(sw_box_file, "data/shapefiles/SW_Region_Box.shp"),
+  #TODO crop and mask to arizona instead of sw_box
 
   # Read and harmonize 2010 AGB data products ------------
   tar_file(esa_dir, "data/rasters/ESA_CCI/"),
