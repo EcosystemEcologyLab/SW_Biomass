@@ -10,7 +10,8 @@ library(tarchetypes)
 
 # Set target options:
 tar_option_set(
-  packages = c("ncdf4", "terra", "fs", "purrr", "units"), # packages that your targets need to run
+  # packages that your targets need to run
+  packages = c("ncdf4", "terra", "fs", "purrr", "units", "tidyterra", "ggplot2", "sf", "maps"), 
   # format = "qs",
   #
   # For distributed computing in tar_make(), supply a {crew} controller
@@ -34,28 +35,38 @@ format_terra <- tar_format(
   write = function(object, path) saveRDS(object = terra::wrap(object), file = path)
   )
 
+# This still doesn't work with multiple workers
+format_geotiff <- tar_format(
+  read = function(path) terra::rast(path),
+  write = function(object, path) terra::writeRaster(x = object, filename = path, filetype = "GTiff", overwrite = TRUE)
+)
+
 tar_plan(
   # Get shapefiles for spatial subsets ---------------
-
   tar_file(sw_box_file, "data/shapefiles/SW_Region_Box.shp"),
-  tar_target(sw_box, vect(sw_box_file), format = format_terra),
-  tar_file(gw_box_file, "data/shapefiles/Goldwater_Range_Box.shp"),
-  tar_target(gw_box, vect(gw_box_file), format = format_terra),
-  tar_file(nnss_box_file, "data/shapefiles/NNSS_Box.shp"),
-  tar_target(nnss_box, vect(nnss_box_file), format = format_terra),
-  tar_file(ws_box_file, "data/shapefiles/White_Sands_Box.shp"),
-  tar_target(ws_box, vect(ws_box_file), format = format_terra),
-  
-  # Read 2010 AGB data products ------------
+
+  # Read and harmonize 2010 AGB data products ------------
+  tar_file(esa_dir, "data/rasters/ESA_CCI/"),
+  tar_target(esa_agb, read_clean_esa(esa_dir, sw_box_file), format = format_geotiff),
   tar_file(chopping_file, "data/rasters/Chopping/MISR_agb_estimates_20002021.tif"),
-  tar_target(chopping_agb, read_clean_chopping(chopping_file), format = format_terra),
+  tar_target(chopping_agb, read_clean_chopping(chopping_file, esa_agb), format = format_geotiff),
   tar_file(liu_file, "data/rasters/Liu/Aboveground_Carbon_1993_2012.nc"),
-  tar_target(liu_agb, read_clean_liu(liu_file), format = format_terra),
-  tar_files(esa_files, dir_ls("data/rasters/ESA_CCI/", glob = "*.tif")),
-  tar_target(esa_agb, read_clean_esa(esa_files, sw_box), format = format_terra),
+  tar_target(liu_agb, read_clean_liu(liu_file, esa_agb), format = format_geotiff),
   tar_file(xu_file, "data/rasters/Xu/test10a_cd_ab_pred_corr_2000_2019_v2.tif"),
-  tar_target(xu_agb, read_clean_xu(xu_file, sw_box), format = format_terra),
+  tar_target(xu_agb, read_clean_xu(xu_file, esa_agb), format = format_geotiff),
   tar_file(rap_file, "data/rasters/RAP/vegetation-biomass-v3-2010.tif"),
-  tar_target(rap_agb, read_clean_rap(rap_file, sw_box), format = format_terra),
+  tar_target(rap_agb, read_clean_rap(rap_file, esa_agb), format = format_geotiff),
   
+
+  # Stack em! ---------------------------------------------------------------
+  # I think this will be helpful for calculations and plotting?
+  # Downside: will create a big file.
+  # Default format (.rds) doesn't work—883 KB, 0.003 seconds
+  # format_terra (wrap()ed .rds) 1.3GB, 6.15 minutes
+  # format_geotiff 1.5GB, 1.35 minutes
+  
+  #ignoring RAP for the moment
+  tar_target(agb_stack, c(esa_agb, chopping_agb, liu_agb, xu_agb), format = format_geotiff),
+  tar_target(agb_map, plot_agb_map(agb_stack, width = 7, height = 6), format = "file"),
+  tar_target(sd_map, plot_sd_map(agb_stack), format = "file")
 )

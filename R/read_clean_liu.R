@@ -1,12 +1,13 @@
 #' Read Liu .nc file and convert to raster with correct projection and units
 #'
-#' @param path data/rasters/Liu/Aboveground_Carbon_1993_2012.nc
+#' @param file data/rasters/Liu/Aboveground_Carbon_1993_2012.nc
+#' @param esa SpatRaster for ESA dataset to be used as template for extent and projection
 #' @return a SpatRaster object
 #' 
-read_clean_liu = function(path) {
+read_clean_liu = function(file, esa) {
 
   # Open Liu AGBc netCDF file
-  liu.nc <- nc_open(path)
+  liu.nc <- nc_open(file)
   
   # Extract lat/lon attributes
   lat <- ncvar_get(liu.nc, 'latitude')
@@ -42,10 +43,15 @@ read_clean_liu = function(path) {
   # Set names for raster stack (years 1993 to 2012)
   names(out.stack) <- as.character(seq(1993,2012,1))
   
+  out_sw <- project_to_esa(out.stack, esa)
+  
   # Return output raster stack (multiply by 2.2 to convert from MgC/ha to Mg/ha)
-  out.stack <- out.stack * 2.2
-  out_2010 <- out.stack[[18]]
+  out_sw <- out_sw * 2.2
+  out_2010 <- out_sw[[18]]
   varnames(out_2010) <- "AGB"
+  names(out_2010) <- "liu_agb_2010"
   terra::units(out_2010) <-  "Mg/ha"
+  
+  #return
   out_2010
 }
