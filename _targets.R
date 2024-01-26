@@ -11,7 +11,7 @@ library(tarchetypes)
 # Set target options:
 tar_option_set(
   # packages that your targets need to run
-  packages = c("ncdf4", "terra", "fs", "purrr", "units", "tidyterra", "ggplot2", "sf", "maps"), 
+  packages = c("ncdf4", "terra", "fs", "purrr", "units", "tidyterra", "ggplot2", "sf", "maps", "tidyr"), 
   # format = "qs",
   #
   # For distributed computing in tar_make(), supply a {crew} controller
@@ -19,7 +19,8 @@ tar_option_set(
   # Choose a controller that suits your needs. For example, the following
   # sets a controller with 2 workers which will run as local R processes:
   #
-  # controller = crew::crew_controller_local(workers = 3)
+  controller = crew::crew_controller_local(workers = 3)
+  #TODO: check if multiple workers is even faster.  It might not be because of the overhead of moving the geotiffs to and from parallel workers
 )
 
 # Run the R scripts in the R/ folder with your custom functions:
@@ -38,10 +39,13 @@ format_terra <- tar_format(
 # This still doesn't work with multiple workers
 format_geotiff <- tar_format(
   read = function(path) terra::rast(path),
-  write = function(object, path) terra::writeRaster(x = object, filename = path, filetype = "GTiff", overwrite = TRUE)
+  write = function(object, path) terra::writeRaster(x = object, filename = path, filetype = "GTiff", overwrite = TRUE),
+  marshal = function(object) terra::wrap(object),
+  unmarshal = function(object) terra::unwrap(object)
 )
 
 tar_plan(
+  #TODO add a target for "data_dir" and modify other file targets to use it so can be more flexible in terms of where the data is placed (e.g. on an external drive).  E.g. fs::path(data_dir, "shapefiles", "SW_Region_Box_.shp")
   # Get shapefiles for spatial subsets ---------------
   tar_file(sw_box_file, "data/shapefiles/SW_Region_Box.shp"),
   #TODO crop and mask to arizona instead of sw_box
