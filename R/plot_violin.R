@@ -8,7 +8,7 @@ plot_violin <- function(agb_stack, ...) {
   p <- agb_df |> 
     ggplot(aes(x = dataset, y = AGB)) +
     geom_violin(draw_quantiles = c(0.25, 0.5, 0.75), scale = "width") +
-    scale_x_discrete(labels = \(x) str_remove(x, "_agb_2010")) +
+    scale_x_discrete(labels = \(x) str_remove(x, "_agb_.+")) +
     labs(title = "Sample (n = 5000) of AGB raster data for AZ", y = "AGB (Mg/ha)", x = "Data Product")
   ggsave("fig/violin.png", p, ...)
 }

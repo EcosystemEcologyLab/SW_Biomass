@@ -11,7 +11,7 @@ library(tarchetypes)
 # Set target options:
 tar_option_set(
   # packages that your targets need to run
-  packages = c("ncdf4", "terra", "fs", "purrr", "units", "tidyterra", "ggplot2", "sf", "maps", "tidyr", "dplyr", "stringr"), 
+  packages = c("ncdf4", "terra", "fs", "purrr", "units", "tidyterra", "ggplot2", "sf", "maps", "tidyr", "dplyr", "stringr", "stars"), 
   # format = "qs",
   #
   # For distributed computing in tar_make(), supply a {crew} controller
@@ -64,7 +64,8 @@ tar_plan(
   tar_target(rap_agb, read_clean_rap(rap_file, esa_agb), format = format_geotiff),
   tar_file(ltgnn_dir, "data/rasters/LT_GNN/"),
   tar_target(ltgnn_agb, read_clean_lt_gnn(ltgnn_dir, esa_agb), format = format_geotiff),
-  
+  tar_file(menlove_dir, "data/rasters/Menlove/data/"),
+  tar_target(menlove_agb, read_clean_menlove(menlove_dir, esa_agb), format = format_geotiff),
 
   # Stack em! ---------------------------------------------------------------
   # I think this will be helpful for calculations and plotting?
@@ -73,7 +74,7 @@ tar_plan(
   #ignoring RAP for the moment
   tar_target(
     agb_stack,
-    c(esa_agb, chopping_agb, liu_agb, xu_agb, ltgnn_agb),
+    c(esa_agb, chopping_agb, liu_agb, xu_agb, ltgnn_agb, menlove_agb),
     format = format_geotiff
   ),
   tar_target(agb_map, plot_agb_map(agb_stack, width = 7, height = 6), format = "file"),
