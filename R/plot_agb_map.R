@@ -14,6 +14,7 @@ plot_agb_map <- function(agb_stack, save_path = "fig/agb_map.png", ...) {
     st_as_sf() |> 
     st_transform(crs(agb_stack))
   
+  #TODO move this step into the read_clean functions
   agb_az <- agb_stack |> crop(az_border_sf, mask = TRUE) #can't crop more than 4 layers at once.
   
   p <- ggplot() +
