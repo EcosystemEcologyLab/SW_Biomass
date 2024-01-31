@@ -11,7 +11,7 @@ library(tarchetypes)
 # Set target options:
 tar_option_set(
   # packages that your targets need to run
-  packages = c("ncdf4", "terra", "fs", "purrr", "units", "tidyterra", "ggplot2", "sf", "maps", "tidyr"), 
+  packages = c("ncdf4", "terra", "fs", "purrr", "units", "tidyterra", "ggplot2", "sf", "maps", "tidyr", "dplyr", "stringr"), 
   # format = "qs",
   #
   # For distributed computing in tar_make(), supply a {crew} controller
@@ -46,11 +46,10 @@ format_geotiff <- tar_format(
 
 tar_plan(
   tar_target(esa_crs, get_esa_crs()),
-  tar_target(az_sf, make_az_sf(esa_crs)),
   #TODO add a target for "data_dir" and modify other file targets to use it so can be more flexible in terms of where the data is placed (e.g. on an external drive).  E.g. fs::path(data_dir, "shapefiles", "SW_Region_Box_.shp")
-  # Get shapefiles for spatial subsets ---------------
-  # tar_file(sw_box_file, "data/shapefiles/SW_Region_Box.shp"),
-  #TODO crop and mask to arizona instead of sw_box
+  
+  # Get polygon for cropping to AZ ---------------
+  tar_target(az_sf, make_az_sf(esa_crs)),
 
   # Read and harmonize 2010 AGB data products ------------
   tar_file(esa_dir, "data/rasters/ESA_CCI/"),
@@ -70,12 +69,14 @@ tar_plan(
   # Stack em! ---------------------------------------------------------------
   # I think this will be helpful for calculations and plotting?
   # Downside: will create a big file.
-  # Default format (.rds) doesn't work—883 KB, 0.003 seconds
-  # format_terra (wrap()ed .rds) 1.3GB, 6.15 minutes
-  # format_geotiff 1.5GB, 1.35 minutes
   
   #ignoring RAP for the moment
-  tar_target(agb_stack, c(esa_agb, chopping_agb, liu_agb, xu_agb, ltgnn_agb), format = format_geotiff),
+  tar_target(
+    agb_stack,
+    c(esa_agb, chopping_agb, liu_agb, xu_agb, ltgnn_agb),
+    format = format_geotiff
+  ),
   tar_target(agb_map, plot_agb_map(agb_stack, width = 7, height = 6), format = "file"),
-  tar_target(sd_map, plot_sd_map(agb_stack), format = "file")
+  tar_target(sd_map, plot_sd_map(agb_stack), format = "file"),
+  tar_target(violin_plot, plot_violin(agb_stack), format = "file")
 )
