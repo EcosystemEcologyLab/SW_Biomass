@@ -8,7 +8,7 @@
 #'
 #' @examples
 #' plot_agb_map(agb_stack, width = 7, height = 6)
-plot_agb_map <- function(agb_stack, save_path = "fig/agb_map.png", ...) {
+plot_agb_map <- function(agb_stack, save_path = "docs/fig/agb_map.png", ...) {
   az_border_sf <- 
     maps::map("state", "arizona", plot = FALSE, fill = TRUE) |> 
     st_as_sf() |> 

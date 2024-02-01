@@ -1,0 +1,52 @@
+---
+title: "AZ Carbon Stores"
+format: html
+editor: visual
+---
+
+## Data
+
+So far the data products include:
+
+| Product                               | Downloaded | Wrangled |
+|---------------------------------------|------------|----------|
+| Xu AGBC                               | ✅         | ✅       |
+| Liu AGBC                              | ✅         | ✅       |
+| LT-GNN AGB                            | ✅         | ✅       |
+| Chopping AGB                          | ✅         | ✅       |
+| Menlove AGB                           | ✅         | ✅       |
+| ESA CCI/GlobBiomass AGB v004          | ✅         | ✅       |
+| GEDI L4B AGB v2.1                     | ✅         |          |
+| Rangeland Analysis Platform (RAP) AGB | ✅         | ✅       |
+
+RAP is a model product only for rangelands (i.e. annual or perennial grasses and forbs) and is not included in comparisons right now.
+
+## Figures
+
+@fig-agbmap shows all of the data products transformed to the same extent and resolution.
+In an attempt to get a spatial sense of where these datasets agree/disagree the most, @fig-sdmap shows the standard deviation across the pixels.
+@fig-violin shows the distribution of (a sample of) AGB values for each data product.
+
+Observations:
+
+-   The Liu product doesn't include *any* zeros
+
+-   The Xu product has the largest area of low but not zero values
+
+-   The ESA product has the greatest total range of values
+
+-   The ESA product has some very high AGB pixels surrounded by very low (maybe zero?) AGB pixels—this may be an artifact of some kind?
+
+![Maps of aboveground biomass for each data product in Arizona.](fig/agb_map.png){#fig-agbmap}
+
+{{< downloadthis fig/agb_map.png >}}
+
+<!--# TODO: add download button for .eps file as well so Dave can open in Adobe easily -->
+
+![Map of standard deviation of each raster pixel across all datasets. This is a "placeholder" for a map of agreement/disagreement across the data products. Standard deviation almost certainly isn't the best metric for this, but it at least gives a sense of where there is more or less variability.](fig/sd_map.png){#fig-sdmap}
+
+{{< downloadthis fig/sd_map.png >}}
+
+![Violin plot showing distribution of a sample (n = 5000) of pixels in Arizona for each data product. Horizontal lines represent interquartile range and median.](fig/violin.png){#fig-violin}
+
+{{< downloadthis fig/violin.png >}}

@@ -79,5 +79,8 @@ tar_plan(
   ),
   tar_target(agb_map, plot_agb_map(agb_stack, width = 7, height = 6), format = "file"),
   tar_target(sd_map, plot_sd_map(agb_stack), format = "file"),
-  tar_target(violin_plot, plot_violin(agb_stack), format = "file")
+  tar_target(violin_plot, plot_violin(agb_stack), format = "file"),
+  
+  #report
+  tar_quarto(report, "report.qmd", extra_files = "fig/")
 )

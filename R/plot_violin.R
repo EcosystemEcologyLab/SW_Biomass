@@ -1,4 +1,4 @@
-plot_violin <- function(agb_stack, ...) {
+plot_violin <- function(agb_stack, save_path = "docs/fig/violin.png", ...) {
   agb_df <- 
     as.data.frame(agb_stack) |> 
     dplyr::as_tibble() |> 
@@ -10,5 +10,5 @@ plot_violin <- function(agb_stack, ...) {
     geom_violin(draw_quantiles = c(0.25, 0.5, 0.75), scale = "width") +
     scale_x_discrete(labels = \(x) str_remove(x, "_agb_.+")) +
     labs(title = "Sample (n = 5000) of AGB raster data for AZ", y = "AGB (Mg/ha)", x = "Data Product")
-  ggsave("fig/violin.png", p, ...)
+  ggsave(save_path, p, ...)
 }
