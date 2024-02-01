@@ -39,6 +39,8 @@ Observations:
 
 -   The ESA product has some very high AGB pixels surrounded by very low (maybe zero?) AGB pixels—this may be an artifact of some kind?
 
+### Maps
+
 ![Maps of aboveground biomass for each data product in Arizona.](fig/agb_map.png){#fig-agbmap}
 
 {{< downloadthis fig/agb_map.png >}}
@@ -49,6 +51,24 @@ Observations:
 
 {{< downloadthis fig/sd_map.png >}}
 
+### Data distribution
+
 ![Violin plot showing distribution of a sample (n = 5000) of pixels in Arizona for each data product. Horizontal lines represent interquartile range and median.](fig/violin.png){#fig-violin}
 
 {{< downloadthis fig/violin.png >}}
+
+### Pointdensity
+
+These plots are intended to compare data product with the "gold standard" ESA product.
+
+A point density plot is great for when a scatter plot contains so many over-plotted points that it becomes kind of unreadable.
+Color represents density of data points under each colored point.
+Because of the abundance of zeros, if the full dataset is plotted, there is always a single bright spot in the lower left corner and basically all other points are dark purple.
+Also, only the slower computation method seems to work when all the zeros are included.
+I've come up with three options for dealing with this that I think could make sense.
+
+![](fig/scatter1.png)
+
+![](fig/scatter2.png)
+
+![](fig/scatter3.png)
