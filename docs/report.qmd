@@ -37,7 +37,7 @@ Observations:
 
 -   The ESA product has some very high AGB pixels surrounded by very low (maybe zero?) AGB pixels—this may be an artifact of some kind?
 
-![Maps of aboveground biomass for each data product in Arizona.](fig/agb_map.png){#fig-agbmap}
+![Maps of aboveground biomass for each data product in Arizona.](docs/fig/agb_map.png){#fig-agbmap}
 
 {{< downloadthis fig/agb_map.png >}}
 
