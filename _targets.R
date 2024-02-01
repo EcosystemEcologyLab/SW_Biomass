@@ -81,6 +81,11 @@ tar_plan(
   tar_target(sd_map, plot_sd_map(agb_stack), format = "file"),
   tar_target(violin_plot, plot_violin(agb_stack), format = "file"),
   
+
+  # Render docs -------------------------------------------------------------
   #report
-  tar_quarto(report, "report.qmd", extra_files = "fig/")
+  tar_quarto(report, "docs/report.qmd", extra_files = "docs/fig/"),
+  
+  #README
+  tar_quarto(readme, "README.qmd")
 )

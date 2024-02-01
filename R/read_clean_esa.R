@@ -14,7 +14,7 @@ read_clean_esa <- function(dir, az_sf) {
       terra::rast(x, win = ext(az_sf), snap = "near") 
     }) |> 
     terra::sprc() |> 
-    terra::mosaic() # mosaic() is much faster apparently
+    terra::mosaic() # mosaic() is much faster than merge() apparently
     
   units(esa_agb_2010) <- "Mg/ha"
   names(esa_agb_2010) <- "esa_agb_2010"
