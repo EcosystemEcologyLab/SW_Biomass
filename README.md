@@ -29,7 +29,7 @@ When opening this repo as an RStudio Project for the first time, `renv` should a
 This project uses the [`targets`
 package](https://docs.ropensci.org/targets/) for workflow management.
 Run `targets::tar_make()` from the console to run the workflow and
-reproduce all results.
+reproduce all results. The graph below shows the workflow:
 
 ``` mermaid
 graph LR
@@ -37,27 +37,17 @@ graph LR
   style Graph fill:#FFFFFF00,stroke:#000000;
   subgraph Legend
     direction LR
+    x0a52b03877696646([""Outdated""]):::outdated --- x7420bd9270f8d27d([""Up to date""]):::uptodate
     x7420bd9270f8d27d([""Up to date""]):::uptodate --- xa8565c104d8f0705([""Dispatched""]):::dispatched
     xa8565c104d8f0705([""Dispatched""]):::dispatched --- xbf4603d6c2c2ad6b([""Stem""]):::none
-    xbf4603d6c2c2ad6b([""Stem""]):::none --- xf0bce276fe2b9d3e>""Function""]:::none
-    xf0bce276fe2b9d3e>""Function""]:::none --- x5bffbffeae195fc9{{""Object""}}:::none
   end
   subgraph Graph
     direction LR
-    x15053a1937322e53>"project_to_esa"]:::uptodate --> xde19c2d7710a74aa>"read_clean_rap"]:::uptodate
-    x15053a1937322e53>"project_to_esa"]:::uptodate --> x2ee228b19c0d6b2e>"read_clean_lt_gnn"]:::uptodate
-    x15053a1937322e53>"project_to_esa"]:::uptodate --> xbfd36d72c68a4204>"read_clean_xu"]:::uptodate
-    x15053a1937322e53>"project_to_esa"]:::uptodate --> x2e41000e16e546a0>"read_clean_chopping"]:::uptodate
-    x15053a1937322e53>"project_to_esa"]:::uptodate --> x1370436f84d35134>"read_clean_liu"]:::uptodate
     x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> xb420f92ea294cb0b(["menlove_agb"]):::uptodate
     x5086af9665941a9e(["menlove_dir"]):::uptodate --> xb420f92ea294cb0b(["menlove_agb"]):::uptodate
-    x27c0fa2f25cfb3e9>"read_clean_menlove"]:::uptodate --> xb420f92ea294cb0b(["menlove_agb"]):::uptodate
     x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> xe4f3f2f15e724def(["liu_agb"]):::uptodate
     x26d0dae1bf6fcb39(["liu_file"]):::uptodate --> xe4f3f2f15e724def(["liu_agb"]):::uptodate
-    x1370436f84d35134>"read_clean_liu"]:::uptodate --> xe4f3f2f15e724def(["liu_agb"]):::uptodate
     x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> xfe73ce9654aaf612(["violin_plot"]):::uptodate
-    xedcb472b0f99a86e>"plot_violin"]:::uptodate --> xfe73ce9654aaf612(["violin_plot"]):::uptodate
-    x484a8c2275f038c1>"get_esa_crs"]:::uptodate --> xe27203ab4d91def0(["esa_crs"]):::uptodate
     x10672e980111f5c2(["chopping_agb"]):::uptodate --> x74a8a38fc5a3e271(["agb_stack"]):::uptodate
     x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> x74a8a38fc5a3e271(["agb_stack"]):::uptodate
     xe4f3f2f15e724def(["liu_agb"]):::uptodate --> x74a8a38fc5a3e271(["agb_stack"]):::uptodate
@@ -65,42 +55,30 @@ graph LR
     xb420f92ea294cb0b(["menlove_agb"]):::uptodate --> x74a8a38fc5a3e271(["agb_stack"]):::uptodate
     x6bb719b45bfee760(["xu_agb"]):::uptodate --> x74a8a38fc5a3e271(["agb_stack"]):::uptodate
     x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> x6bb719b45bfee760(["xu_agb"]):::uptodate
-    xbfd36d72c68a4204>"read_clean_xu"]:::uptodate --> x6bb719b45bfee760(["xu_agb"]):::uptodate
     x39b0a131ab7dd2d0(["xu_file"]):::uptodate --> x6bb719b45bfee760(["xu_agb"]):::uptodate
     x80cf9d1bb79c21e3(["chopping_file"]):::uptodate --> x10672e980111f5c2(["chopping_agb"]):::uptodate
     x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> x10672e980111f5c2(["chopping_agb"]):::uptodate
-    x2e41000e16e546a0>"read_clean_chopping"]:::uptodate --> x10672e980111f5c2(["chopping_agb"]):::uptodate
     xf416ae3442540291(["az_sf"]):::uptodate --> x9f7f8cade5fecf35(["esa_agb"]):::uptodate
     xb91305eee1f5b0b5(["esa_dir"]):::uptodate --> x9f7f8cade5fecf35(["esa_agb"]):::uptodate
-    x512622e89e705564>"read_clean_esa"]:::uptodate --> x9f7f8cade5fecf35(["esa_agb"]):::uptodate
     x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> x5688b5ef6bcea6f9(["rap_agb"]):::uptodate
     x9889d33e942dc03b(["rap_file"]):::uptodate --> x5688b5ef6bcea6f9(["rap_agb"]):::uptodate
-    xde19c2d7710a74aa>"read_clean_rap"]:::uptodate --> x5688b5ef6bcea6f9(["rap_agb"]):::uptodate
     xe27203ab4d91def0(["esa_crs"]):::uptodate --> xf416ae3442540291(["az_sf"]):::uptodate
-    x002baa940db17278>"make_az_sf"]:::uptodate --> xf416ae3442540291(["az_sf"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> xd959ad20dd7fd009(["agb_map"]):::uptodate
-    x36e40ad674dfb886>"plot_agb_map"]:::uptodate --> xd959ad20dd7fd009(["agb_map"]):::uptodate
+    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> xd959ad20dd7fd009(["agb_map"]):::outdated
     x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> x7ff1622cd5d030f8(["ltgnn_agb"]):::uptodate
     xc968c07864940097(["ltgnn_dir"]):::uptodate --> x7ff1622cd5d030f8(["ltgnn_agb"]):::uptodate
-    x2ee228b19c0d6b2e>"read_clean_lt_gnn"]:::uptodate --> x7ff1622cd5d030f8(["ltgnn_agb"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x7dce032f25b5c564(["sd_map"]):::uptodate
-    xfa8cb7ee3b5a88ac>"plot_sd_map"]:::uptodate --> x7dce032f25b5c564(["sd_map"]):::uptodate
+    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x7dce032f25b5c564(["sd_map"]):::outdated
     x6e52cb0f1668cc22(["readme"]):::dispatched --> x6e52cb0f1668cc22(["readme"]):::dispatched
-    xe0fba61fbc506510(["report"]):::uptodate --> xe0fba61fbc506510(["report"]):::uptodate
-    x2c2b2c1581769871{{"format_terra"}}:::uptodate --> x2c2b2c1581769871{{"format_terra"}}:::uptodate
-    xbc9cd486be05e6c1{{"format_geotiff"}}:::uptodate --> xbc9cd486be05e6c1{{"format_geotiff"}}:::uptodate
+    xe0fba61fbc506510(["report"]):::outdated --> xe0fba61fbc506510(["report"]):::outdated
   end
+  classDef outdated stroke:#000000,color:#000000,fill:#78B7C5;
   classDef uptodate stroke:#000000,color:#ffffff,fill:#354823;
   classDef dispatched stroke:#000000,color:#000000,fill:#DC863B;
   classDef none stroke:#000000,color:#000000,fill:#94a4ac;
   linkStyle 0 stroke-width:0px;
   linkStyle 1 stroke-width:0px;
   linkStyle 2 stroke-width:0px;
-  linkStyle 3 stroke-width:0px;
-  linkStyle 45 stroke-width:0px;
-  linkStyle 46 stroke-width:0px;
-  linkStyle 47 stroke-width:0px;
-  linkStyle 48 stroke-width:0px;
+  linkStyle 27 stroke-width:0px;
+  linkStyle 28 stroke-width:0px;
 ```
 
 ## File structure
@@ -145,9 +123,11 @@ fs::dir_tree(recurse = 1)
     │   └── report_files
     ├── notes
     │   ├── mosaic_tiles.R
+    │   ├── pointdensity_plots.R
     │   └── violin_plots.R
     ├── run.R
-    └── run.sh
+    ├── run.sh
+    └── trim_image.R
 
 - `R/` contains functions used in the `targets` pipeline.
 - `_targets` is generated by `targets::tar_make()` and only the metadata

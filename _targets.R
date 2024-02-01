@@ -11,7 +11,7 @@ library(tarchetypes)
 # Set target options:
 tar_option_set(
   # packages that your targets need to run
-  packages = c("ncdf4", "terra", "fs", "purrr", "units", "tidyterra", "ggplot2", "sf", "maps", "tidyr", "dplyr", "stringr", "stars"), 
+  packages = c("ncdf4", "terra", "fs", "purrr", "units", "tidyterra", "ggplot2", "sf", "maps", "tidyr", "dplyr", "stringr", "stars", "magick"), 
   # format = "qs",
   #
   # For distributed computing in tar_make(), supply a {crew} controller

@@ -27,4 +27,5 @@ plot_agb_map <- function(agb_stack, save_path = "docs/fig/agb_map.png", ...) {
     theme(axis.text.x = element_text(angle = 45, hjust = 1))
   
   ggsave(save_path, p, ...)
+  trim_image(save_path)
 }
