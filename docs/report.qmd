@@ -1,6 +1,8 @@
 ---
 title: "AZ Carbon Stores"
-format: html
+format: 
+  html:
+    toc: true
 editor: visual
 ---
 
