@@ -66,6 +66,8 @@ tar_plan(
   tar_target(ltgnn_agb, read_clean_lt_gnn(ltgnn_dir, esa_agb), format = format_geotiff),
   tar_file(menlove_dir, "data/rasters/Menlove/data/"),
   tar_target(menlove_agb, read_clean_menlove(menlove_dir, esa_agb), format = format_geotiff),
+  tar_file(gedi_file, "data/rasters/GEDI_L4B_v2.1/data/GEDI04_B_MW019MW223_02_002_02_R01000M_MU.tif"),
+  tar_target(gedi_agb, read_clean_gedi(gedi_file, esa_agb), format = format_geotiff),
 
   # Stack em! ---------------------------------------------------------------
   # I think this will be helpful for calculations and plotting?
@@ -74,7 +76,7 @@ tar_plan(
   #ignoring RAP for the moment
   tar_target(
     agb_stack,
-    c(esa_agb, chopping_agb, liu_agb, xu_agb, ltgnn_agb, menlove_agb),
+    c(esa_agb, chopping_agb, liu_agb, xu_agb, ltgnn_agb, menlove_agb, gedi_agb),
     format = format_geotiff
   ),
   tar_target(agb_map, plot_agb_map(agb_stack, width = 7, height = 6), format = "file"),

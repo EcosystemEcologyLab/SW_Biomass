@@ -18,7 +18,7 @@ So far the data products include:
 | Chopping AGB                          | ✅         | ✅       |
 | Menlove AGB                           | ✅         | ✅       |
 | ESA CCI/GlobBiomass AGB v004          | ✅         | ✅       |
-| GEDI L4B AGB v2.1                     | ✅         |          |
+| GEDI L4B AGB v2.1                     | ✅         | ✅       |
 | Rangeland Analysis Platform (RAP) AGB | ✅         | ✅       |
 
 RAP is a model product only for rangelands (i.e. annual or perennial grasses and forbs) and is not included in comparisons right now.
@@ -59,7 +59,7 @@ Observations:
 
 ### Pointdensity
 
-These plots are intended to compare data product with the "gold standard" ESA product.
+These plots are intended to compare each data product with the "gold standard" ESA product.
 
 A point density plot is great for when a scatter plot contains so many over-plotted points that it becomes kind of unreadable.
 Color represents density of data points under each colored point.

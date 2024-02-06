@@ -12,5 +12,5 @@
 project_to_esa <- function(rast, esa) {
   project(rast, esa,
           method = "bilinear", #this is the default, other options might be better
-          threads = 4) 
+          threads = 4)
 }
