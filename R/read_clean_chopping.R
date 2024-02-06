@@ -7,7 +7,7 @@
 read_clean_chopping <- function(file, esa) {
   chopping_agb_2010 <- terra::rast(file)[[10]]
   units(chopping_agb_2010) <- "Mg/ha"
-  names(chopping_agb_2010) <- "chopping_agb_2010"
+  names(chopping_agb_2010) <- "Chopping et al."
   varnames(chopping_agb_2010) <- "AGB"
 
   #return:

@@ -49,7 +49,7 @@ read_clean_liu = function(file, esa) {
   out_sw <- out_sw * 2.2
   out_2010 <- out_sw[[18]]
   varnames(out_2010) <- "AGB"
-  names(out_2010) <- "liu_agb_2010"
+  names(out_2010) <- "Liu et al."
   terra::units(out_2010) <-  "Mg/ha"
   
   #return

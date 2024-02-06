@@ -1,3 +1,11 @@
+#' Read and clean Menlove & Healey product
+#' 
+#' This uses just the live + dead layer for now
+#'
+#' @param dir data/rasters/Menlove/data/
+#' @param esa SpatRaster for ESA dataset to be used as template for extent and projection
+#'
+#' @return a SpatRaster object
 read_clean_menlove <- function(dir, esa) {
   menlove_sf <- sf::read_sf(dir)
   #extract just the CRM_LIVE_D layer for live + dead trees
@@ -25,7 +33,7 @@ read_clean_menlove <- function(dir, esa) {
   menlove_rast <- terra::rast(menlove_stars)
   units(menlove_rast) <- "Mg/ha"
   varnames(menlove_rast) <- "AGB"
-  names(menlove_rast) <- "menlove_live&dead_agb_2009-2019"
+  names(menlove_rast) <- "Menlove & Healey"
   
   #return
   menlove_rast

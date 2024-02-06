@@ -9,17 +9,14 @@ read_clean_esa <- function(dir, az_sf) {
   esa_agb_2010 <- 
     dir |>
     dir_ls(glob = "*.tif") |> 
-    purrr::map(function(x) {
-      #snap = "near" is the default for crop().  Other datsets use snap = "out" to get extra pixels so data isn't lost when projecting to be the same resolution and extent as this one.
-      terra::rast(x, win = ext(az_sf), snap = "near") 
-    }) |> 
+    purrr::map(terra::rast) |> 
     terra::sprc() |> 
     terra::mosaic() # mosaic() is much faster than merge() apparently
     
   units(esa_agb_2010) <- "Mg/ha"
-  names(esa_agb_2010) <- "esa_agb_2010"
+  names(esa_agb_2010) <- "ESA CCI"
   varnames(esa_agb_2010) <- "AGB"
   
   #return
-  esa_agb_2010
+  esa_agb_az
 }

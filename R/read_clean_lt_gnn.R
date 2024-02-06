@@ -1,3 +1,10 @@
+#' Title
+#'
+#' @param dir data/rasters/LT_GNN/
+#' @param esa SpatRaster for ESA dataset to be used as template for extent and projection
+#'
+#' @return a SpatRaster object
+#' 
 read_clean_lt_gnn <- function(dir, esa) {
 
   zips <- fs::dir_ls(dir, glob = "*.zip")
@@ -25,7 +32,7 @@ read_clean_lt_gnn <- function(dir, esa) {
   #TODO source metadata states scale factor = 10.  What does that mean? Do I need to divide/multiply by 10?
   
   varnames(tiles_combined) <- "AGB"
-  names(tiles_combined) <- c("lt_gnn_agb_2010")
+  names(tiles_combined) <- c("LT-GNN")
   units(tiles_combined) <- c("Mg/ha")
 
   #Return

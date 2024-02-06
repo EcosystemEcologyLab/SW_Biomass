@@ -3,7 +3,7 @@
 #' README: http://rangeland.ntsg.umt.edu/data/rap/rap-vegetation-biomass/v3/README
 #'
 #' @param file "data/rasters/RAP/vegetation-biomass-v3-2010.tif"
-#' @param sw_box SpatVector of southwest
+#' @param esa SpatRaster for ESA dataset to be used as template for extent and projection
 #'
 #' @return SpatRaster object with two layers
 read_clean_rap <- function(file, esa) {
@@ -17,7 +17,7 @@ read_clean_rap <- function(file, esa) {
     units::set_units(1, "lb/acre") |> units::set_units("Mg/ha") |> as.numeric()
   rap_agb_2010 <- rap_agb_2010 * conv_factor #not sure how to speed this up.
   varnames(rap_agb_2010) <- "AGB"
-  names(rap_agb_2010) <- c("rap_agb_2010_annual", "rap_agb_2010_perennial")
+  names(rap_agb_2010) <- c("RAP annuals", "RAP perrenials")
   units(rap_agb_2010) <- c("Mg/ha", "Mg/ha")
   
   #return:

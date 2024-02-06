@@ -10,7 +10,7 @@ read_clean_xu <- function(file, esa) {
   xu_agb_2010 <-
     terra::rast(file, win = ext(esa), snap = "out")[[10]] * 2.2 #conversion from MgC/ha to Mg/ha
   units(xu_agb_2010) <- "Mg/ha"
-  names(xu_agb_2010) <- "xu_agb_2010"
+  names(xu_agb_2010) <- "Xu et al."
   varnames(xu_agb_2010) <- "AGB"
   
   #return
