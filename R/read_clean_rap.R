@@ -20,6 +20,12 @@ read_clean_rap <- function(file, esa) {
   names(rap_agb_2010) <- c("RAP annuals", "RAP perrenials")
   units(rap_agb_2010) <- c("Mg/ha", "Mg/ha")
   
-  #return:
-  project_to_esa(rap_agb_2010, esa)
+  # Project and crop to AZ
+  az_sf <- 
+    maps::map("state", "arizona", plot = FALSE, fill = TRUE) |> 
+    st_as_sf() |> 
+    st_transform(st_crs(esa))
+  
+  project_to_esa(rap_agb_2010, esa) |> 
+    crop(az_sf, mask = TRUE)
 }

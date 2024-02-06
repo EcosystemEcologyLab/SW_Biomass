@@ -6,17 +6,19 @@
 #' @return SpatRaster object
 #' 
 read_clean_esa <- function(dir, az_sf) {
+  # read in tiles and combine
   esa_agb_2010 <- 
     dir |>
     dir_ls(glob = "*.tif") |> 
     purrr::map(terra::rast) |> 
     terra::sprc() |> 
     terra::mosaic() # mosaic() is much faster than merge() apparently
-    
+  
+  # set units and names  
   units(esa_agb_2010) <- "Mg/ha"
   names(esa_agb_2010) <- "ESA CCI"
   varnames(esa_agb_2010) <- "AGB"
   
-  #return
-  esa_agb_az
+  # return
+  esa_agb_2010
 }

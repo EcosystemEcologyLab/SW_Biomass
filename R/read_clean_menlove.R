@@ -4,7 +4,7 @@
 #'
 #' @param dir data/rasters/Menlove/data/
 #' @param esa SpatRaster for ESA dataset to be used as template for extent and projection
-#'
+#' 
 #' @return a SpatRaster object
 read_clean_menlove <- function(dir, esa) {
   menlove_sf <- sf::read_sf(dir)

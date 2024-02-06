@@ -14,12 +14,11 @@ plot_sd_map <- function(agb_stack, save_path = "docs/fig/sd_map.png", ...) {
     st_as_sf() |> 
     st_transform(crs(agb_stack))
   
-  agb_sd_az <- agb_stack |> 
-    crop(az_border_sf, mask = TRUE) |>  #can't crop more than 4 layers at once. might want to move this into read_wrangle functions
+  agb_sd <- agb_stack |> 
     stdev(na.rm = TRUE)
   
   p <- ggplot() +
-    tidyterra::geom_spatraster(data = agb_sd_az) +
+    tidyterra::geom_spatraster(data = agb_sd) +
     geom_sf(data = az_border_sf, fill = NA) +
     scale_fill_viridis_c(option = "D", na.value = "transparent") +
     coord_sf() +

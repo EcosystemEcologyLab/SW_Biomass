@@ -35,6 +35,12 @@ read_clean_lt_gnn <- function(dir, esa) {
   names(tiles_combined) <- c("LT-GNN")
   units(tiles_combined) <- c("Mg/ha")
 
-  #Return
-  project_to_esa(tiles_combined, esa)
+  # Project and crop to AZ
+  az_sf <- 
+    maps::map("state", "arizona", plot = FALSE, fill = TRUE) |> 
+    st_as_sf() |> 
+    st_transform(st_crs(esa))
+  
+  project_to_esa(tiles_combined, esa) |> 
+    crop(az_sf, mask = TRUE)
 }

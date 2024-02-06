@@ -5,7 +5,6 @@
 #' @return a SpatRaster object
 #' 
 read_clean_liu = function(file, esa) {
-
   # Open Liu AGBc netCDF file
   liu.nc <- nc_open(file)
   
@@ -43,15 +42,24 @@ read_clean_liu = function(file, esa) {
   # Set names for raster stack (years 1993 to 2012)
   names(out.stack) <- as.character(seq(1993,2012,1))
   
-  out_sw <- project_to_esa(out.stack, esa)
+  # Project to ext and res of ESA data
+  out_2010 <- out.stack[[18]] #layer 18 is 2010
+  out_az_2010 <- project_to_esa(out_2010, esa)
   
-  # Return output raster stack (multiply by 2.2 to convert from MgC/ha to Mg/ha)
-  out_sw <- out_sw * 2.2
-  out_2010 <- out_sw[[18]]
-  varnames(out_2010) <- "AGB"
-  names(out_2010) <- "Liu et al."
-  terra::units(out_2010) <-  "Mg/ha"
+  #TODO: ask Charlie if this should happen before projecting or OK to happen after?
+  # Convert from AGBC (MgC/ha) to AGB (Mg/ha) by multiplying by 2.2
+  out_az_2010 <- out_az_2010 * 2.2
   
-  #return
-  out_2010
+  # Set names and units
+  varnames(out_az_2010) <- "AGB"
+  names(out_az_2010) <- "Liu et al."
+  terra::units(out_az_2010) <-  "Mg/ha"
+  
+  # Crop to AZ border
+  az_sf <- 
+    maps::map("state", "arizona", plot = FALSE, fill = TRUE) |> 
+    st_as_sf() |> 
+    st_transform(st_crs(esa))
+  
+  crop(out_az_2010, az_sf, mask = TRUE)
 }
