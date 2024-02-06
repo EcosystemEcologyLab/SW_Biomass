@@ -29,7 +29,8 @@ read_clean_lt_gnn <- function(dir, esa) {
     tiles_sprc |> 
     terra::mosaic() #slow step
   
-  #TODO source metadata states scale factor = 10.  What does that mean? Do I need to divide/multiply by 10?
+  #TODO source metadata states scale factor = 10.  What does that mean? Do I
+  #need to divide/multiply by 10? The values seem reasonable as they are.
   
   varnames(tiles_combined) <- "AGB"
   names(tiles_combined) <- c("LT-GNN")

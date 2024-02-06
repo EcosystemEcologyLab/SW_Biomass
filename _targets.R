@@ -45,15 +45,11 @@ format_geotiff <- tar_format(
 )
 
 tar_plan(
-  tar_target(esa_crs, get_esa_crs()),
   #TODO add a target for "data_dir" and modify other file targets to use it so can be more flexible in terms of where the data is placed (e.g. on an external drive).  E.g. fs::path(data_dir, "shapefiles", "SW_Region_Box_.shp")
-  
-  # Get polygon for cropping to AZ ---------------
-  tar_target(az_sf, make_az_sf(esa_crs)),
 
   # Read and harmonize 2010 AGB data products ------------
   tar_file(esa_dir, "data/rasters/ESA_CCI/"),
-  tar_target(esa_agb, read_clean_esa(esa_dir, az_sf), format = format_geotiff),
+  tar_target(esa_agb, read_clean_esa(esa_dir), format = format_geotiff),
   tar_file(chopping_file, "data/rasters/Chopping/MISR_agb_estimates_20002021.tif"),
   tar_target(chopping_agb, read_clean_chopping(chopping_file, esa_agb), format = format_geotiff),
   tar_file(liu_file, "data/rasters/Liu/Aboveground_Carbon_1993_2012.nc"),
@@ -86,7 +82,7 @@ tar_plan(
 
   # Render docs -------------------------------------------------------------
   #report
-  tar_quarto(report, "docs/report.qmd", extra_files = "docs/fig/"),
+  tar_quarto(report, "docs/report.qmd", extra_files = fs::dir_ls("docs/fig/", glob = "*.png")),
   
   #README
   tar_quarto(readme, "README.qmd")

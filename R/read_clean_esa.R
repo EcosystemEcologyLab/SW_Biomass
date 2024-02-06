@@ -1,11 +1,10 @@
 #' Title
 #'
 #' @param dir "data/rasters/ESA_CCI/"
-#' @param az_sf MULTIPOLYGON simple feature for state of arizona
 #'
 #' @return SpatRaster object
 #' 
-read_clean_esa <- function(dir, az_sf) {
+read_clean_esa <- function(dir) {
   # read in tiles and combine
   esa_agb_2010 <- 
     dir |>
@@ -19,6 +18,12 @@ read_clean_esa <- function(dir, az_sf) {
   names(esa_agb_2010) <- "ESA CCI"
   varnames(esa_agb_2010) <- "AGB"
   
-  # return
-  esa_agb_2010
+  # Crop to AZ
+  az_sf <- 
+    maps::map("state", "arizona", plot = FALSE, fill = TRUE) |> 
+    st_as_sf() |> 
+    st_transform(st_crs(esa_agb_2010))
+  
+  esa_agb_2010 |> 
+    crop(az_sf, mask = TRUE)
 }
