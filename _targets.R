@@ -11,7 +11,7 @@ library(tarchetypes)
 # Set target options:
 tar_option_set(
   # packages that your targets need to run
-  packages = c("ncdf4", "terra", "fs", "purrr", "units", "tidyterra", "ggplot2", "sf", "maps", "tidyr", "dplyr", "stringr", "stars", "magick"), 
+  packages = c("ncdf4", "terra", "fs", "purrr", "units", "tidyterra", "ggplot2", "sf", "maps", "tidyr", "dplyr", "stringr", "stars", "magick", "ggridges"), 
   # format = "qs",
   #
   # For distributed computing in tar_make(), supply a {crew} controller
@@ -78,6 +78,14 @@ tar_plan(
   tar_target(agb_map, plot_agb_map(agb_stack, width = 7, height = 6), format = "file"),
   tar_target(sd_map, plot_sd_map(agb_stack), format = "file"),
   tar_target(violin_plot, plot_violin(agb_stack), format = "file"),
+  tar_target(ridge_plot,
+             plot_agb_ridges(
+               agb_stack,
+               n = 10000,
+               height = 2,
+               width = 4
+             ),
+             format = "file"),
   
 
   # Render docs -------------------------------------------------------------
