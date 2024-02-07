@@ -57,18 +57,27 @@ Observations:
 
 {{< downloadthis fig/violin.png >}}
 
-### Pointdensity
+Alternatively, we can use ridge plots to display this.
+
+![](fig/agb_ridge.png){fig-align="center"}
+
+{{< downloadthis fig/agb_ridge.png >}}
+
+This might be more readable if we transform the x-axis (e.g. log(x+1) or sqrt()).
+
+### Scatter plots
 
 These plots are intended to compare each data product with the "gold standard" ESA product.
 
-A point density plot is great for when a scatter plot contains so many over-plotted points that it becomes kind of unreadable.
-Color represents density of data points under each colored point.
-Because of the abundance of zeros, if the full dataset is plotted, there is always a single bright spot in the lower left corner and basically all other points are dark purple.
-Also, only the slower computation method seems to work when all the zeros are included.
+A point density plot is great for when a scatter plot contains many over-plotted points.
+Color represents density of data under each point.
+Because of the abundance of zeros, if the full dataset is plotted, there is always a tight bright spot in the lower left corner and basically all other points are dark purple.
 I've come up with three options for dealing with this that I think could make sense.
 
-![](fig/scatter1.png)
+![](fig/scatter_all.png)
 
-![](fig/scatter2.png)
+![](fig/scatter_non0.png)
 
-![](fig/scatter3.png)
+![](fig/scatter_gr10.png)
+
+![](fig/scatter_log.png)
