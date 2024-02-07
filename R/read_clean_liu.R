@@ -44,11 +44,13 @@ read_clean_liu = function(file, esa) {
   
   # Project to ext and res of ESA data
   out_2010 <- out.stack[[18]] #layer 18 is 2010
-  out_az_2010 <- project_to_esa(out_2010, esa)
   
   #TODO: ask Charlie if this should happen before projecting or OK to happen after?
   # Convert from AGBC (MgC/ha) to AGB (Mg/ha) by multiplying by 2.2
-  out_az_2010 <- out_az_2010 * 2.2
+  out_2010 <- out_2010 * 2.2
+  
+  out_az_2010 <- project_to_esa(out_2010, esa)
+  
   
   # Set names and units
   varnames(out_az_2010) <- "AGB"
