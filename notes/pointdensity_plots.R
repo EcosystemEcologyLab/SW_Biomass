@@ -42,7 +42,7 @@ non0 <-
   map(comp, \(x) {
     agb_samp |> 
       #need to remove columns where both datasets agree on zero AGB for the plot to be useful
-      filter(`ESA CCI` > 0 & .data[[x]] > 0) |>
+      filter(!(`ESA CCI` == 0 & .data[[x]] == 0)) |>
       ggplot(aes(x = stage(`ESA CCI`, after_stat = x[order(density)]), y = stage(.data[[x]], after_stat = y[order(density)]), color = after_stat(sort(density))))  +
       geom_pointdensity(adjust = adj) +
       scale_color_viridis_c() +
@@ -54,6 +54,24 @@ p_non0 <- wrap_plots(non0, ncol = 1) +
   plot_annotation(title = "Exclude pixels equal to 0 in both datasets", caption = cap)
 p_non0
 ggsave("docs/fig/scatter_non0.png", p_non0, height = 5, width = 4)
+
+# Exclude points that are zero in *either* dataset?
+any0 <- 
+  map(comp, \(x) {
+    agb_samp |> 
+      filter(`ESA CCI` > 0, .data[[x]] > 0) |> 
+      #this is a "trick" to plot brightest points on top https://github.com/LKremer/ggpointdensity/issues/15
+      ggplot(aes(x = stage(`ESA CCI`, after_stat = x[order(density)]), y = stage(.data[[x]], after_stat = y[order(density)]), color = after_stat(sort(density)))) +
+      geom_pointdensity(adjust = adj) + 
+      scale_color_viridis_c() +
+      labs(x = "ESA CCI", y = x, color = "density") +
+      theme_linedraw(base_size = 9)
+  })
+p_any0 <- wrap_plots(all, ncol = 1) + 
+  plot_layout(axes = "collect_x") + 
+  plot_annotation(title = "Exclude pixels equal to 0 in either dataset", caption = cap)
+p_any0
+ggsave("docs/fig/scatter_anynon0.png", p_any0, height = 5, width = 4)
 
 gr10 <- map(comp, \(x) {
   agb_samp |> 
@@ -78,3 +96,16 @@ ggsave("docs/fig/scatter_gr10.png", p_gr10, height = 5, width = 4)
 p_log <- p_non0 & scale_color_viridis_c(trans = "log10") & plot_annotation(subtitle = "Color on log scale")
 p_log
 ggsave("docs/fig/scatter_log.png", p_log, height = 5, width = 4)
+
+
+
+# df <- tibble(x = c(0, 1, 1, 0, 1), 
+#              y = c(0, 0, 1, 1, 1))
+# df |> filter(x > 0, y > 0)
+# df |> filter(!(x == 0 & y == 0))
+# x = "Xu et al."
+# 
+# agb_samp |> 
+#   filter(`ESA CCI` > 0, .data[[x]] > 0) |> pull(`Xu et al.`) -> xu
+# any(xu == 0)
+# any(agb_samp$`Xu et al.` == 0)

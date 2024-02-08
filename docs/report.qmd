@@ -78,6 +78,8 @@ I've come up with three options for dealing with this that I think could make se
 
 ![](fig/scatter_non0.png)
 
+![](fig/scatter_anynon0.png)
+
 ![](fig/scatter_gr10.png)
 
 ![](fig/scatter_log.png)
