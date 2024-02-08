@@ -12,10 +12,14 @@ plot(liu_raw[[21]])
 liu_raw <- liu_raw[[1:20]]
 
 #need to flip
-liu_flipped <- (trans(liu_raw))
+liu_flipped <- rev(trans(liu_raw))
+ext(liu_raw)
+ext(liu_flipped)
+ext(rev(liu_flipped[[1]]))
 plot(liu_flipped[[1]])
+
 ext(liu_flipped) <- c(-180, 180, -90, 90) #lol, this doesn't seem like it should work
-plot(liu_flipped[[1]])
+liu_flipped <- flip(liu_flipped)
 
 
 #set crs manually
@@ -26,6 +30,9 @@ plot(liu_flipped[[18]])
 
 #get just 2010
 liu_2010 <- liu_flipped[[18]]
+liu_2010
+
+plot(liu_2010 == 0)
 
 #crop early for testing purposes
 az_sf <- 
