@@ -12,19 +12,21 @@ agb_df <-
 #get a sample.  Full dataset takes a looooooong time to render plots
 set.seed(134)
 n <- 20000
+adj <- 10 # passed to geom_pointdensity(adjust = )
 cap <- glue::glue("Sample (n = {scales::number(n, big.mark = ",")})")
 
 agb_samp <-
   agb_df |> 
   slice_sample(n = n)
 
+#example datasets to compare to
 comp <- c("Xu et al.", "Liu et al.", "LT-GNN")
 
 all <- 
   map(comp, \(x) {
     agb_samp |> 
       ggplot(aes(x = `ESA CCI`, y = .data[[x]])) +
-      geom_pointdensity() + 
+      geom_pointdensity(adjust = adj) + 
       scale_color_viridis_c()
   })
 p_all <- wrap_plots(all, ncol = 1) + 
@@ -39,7 +41,7 @@ non0 <-
     #need to remove columns where both datasets agree on zero AGB for the plot to be useful
     filter(`ESA CCI` > 0 & .data[[x]] > 0) |>
     ggplot(aes(x = `ESA CCI`, y = .data[[x]])) +
-    geom_pointdensity() +
+    geom_pointdensity(adjust = adj) +
     scale_color_viridis_c() 
 })
 p_non0 <- wrap_plots(non0, ncol = 1) + 
@@ -55,7 +57,7 @@ gr10 <- map(comp, \(x) {
     # but actually this is still not very useful, since there are many values close to zero, but not zero.  Unfortunately, I think this threshold is arbitrary?
     filter(`ESA CCI` > 10 & .data[[x]] > 10) |> 
     ggplot(aes(x = `ESA CCI`, y = .data[[x]])) +
-    geom_pointdensity() +
+    geom_pointdensity(adjust = adj) +
     scale_color_viridis_c() 
 })
 p_gr10 <- wrap_plots(gr10, ncol = 1) + 
