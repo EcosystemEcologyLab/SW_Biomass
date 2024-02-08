@@ -93,5 +93,5 @@ tar_plan(
   tar_quarto(report, "docs/report.qmd", extra_files = fs::dir_ls("docs/fig/", glob = "*.png")),
   
   #README
-  tar_quarto(readme, "README.qmd")
+  tar_quarto(readme, "README.qmd", cue = tar_cue(mode = "always"))
 )
