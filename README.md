@@ -31,7 +31,9 @@ package](https://docs.ropensci.org/targets/) for workflow management.
 Run `targets::tar_make()` from the console to run the workflow and
 reproduce all results. The graph below shows the workflow:
 
-Warning message: package ‘tarchetypes’ was built under R version 4.3.2
+Warning messages: 1: package ‘tarchetypes’ was built under R version
+4.3.2 2: package ‘tidyr’ was built under R version 4.3.2 3: package
+‘ggridges’ was built under R version 4.3.2
 
 ``` mermaid
 graph LR
@@ -39,50 +41,55 @@ graph LR
   style Graph fill:#FFFFFF00,stroke:#000000;
   subgraph Legend
     direction LR
+    x0a52b03877696646([""Outdated""]):::outdated --- x7420bd9270f8d27d([""Up to date""]):::uptodate
     x7420bd9270f8d27d([""Up to date""]):::uptodate --- xa8565c104d8f0705([""Dispatched""]):::dispatched
-    xa8565c104d8f0705([""Dispatched""]):::dispatched --- x0a52b03877696646([""Outdated""]):::outdated
-    x0a52b03877696646([""Outdated""]):::outdated --- xbf4603d6c2c2ad6b([""Stem""]):::none
+    xa8565c104d8f0705([""Dispatched""]):::dispatched --- xbf4603d6c2c2ad6b([""Stem""]):::none
+    xbf4603d6c2c2ad6b([""Stem""]):::none --- x70a5fa6bea6f298d[""Pattern""]:::none
   end
   subgraph Graph
     direction LR
+    x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> xe4f3f2f15e724def(["liu_agb"]):::outdated
+    x26d0dae1bf6fcb39(["liu_file"]):::uptodate --> xe4f3f2f15e724def(["liu_agb"]):::outdated
+    x74a8a38fc5a3e271(["agb_stack"]):::outdated --> xa9c8870bcb5985fd["scatter_plots"]:::outdated
+    xa5177effe50f87b0(["plot_comparisons"]):::outdated --> xa9c8870bcb5985fd["scatter_plots"]:::outdated
+    x10672e980111f5c2(["chopping_agb"]):::outdated --> x74a8a38fc5a3e271(["agb_stack"]):::outdated
+    x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> x74a8a38fc5a3e271(["agb_stack"]):::outdated
+    x5bee436f312cca80(["gedi_agb"]):::outdated --> x74a8a38fc5a3e271(["agb_stack"]):::outdated
+    xe4f3f2f15e724def(["liu_agb"]):::outdated --> x74a8a38fc5a3e271(["agb_stack"]):::outdated
+    x7ff1622cd5d030f8(["ltgnn_agb"]):::outdated --> x74a8a38fc5a3e271(["agb_stack"]):::outdated
+    xb420f92ea294cb0b(["menlove_agb"]):::uptodate --> x74a8a38fc5a3e271(["agb_stack"]):::outdated
+    x6bb719b45bfee760(["xu_agb"]):::outdated --> x74a8a38fc5a3e271(["agb_stack"]):::outdated
+    x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> x6bb719b45bfee760(["xu_agb"]):::outdated
+    x39b0a131ab7dd2d0(["xu_file"]):::uptodate --> x6bb719b45bfee760(["xu_agb"]):::outdated
+    x74a8a38fc5a3e271(["agb_stack"]):::outdated --> x7dce032f25b5c564(["sd_map"]):::outdated
+    x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> x7ff1622cd5d030f8(["ltgnn_agb"]):::outdated
+    xc968c07864940097(["ltgnn_dir"]):::uptodate --> x7ff1622cd5d030f8(["ltgnn_agb"]):::outdated
+    x80cf9d1bb79c21e3(["chopping_file"]):::uptodate --> x10672e980111f5c2(["chopping_agb"]):::outdated
+    x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> x10672e980111f5c2(["chopping_agb"]):::outdated
+    x74a8a38fc5a3e271(["agb_stack"]):::outdated --> xd959ad20dd7fd009(["agb_map"]):::outdated
+    x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> x5688b5ef6bcea6f9(["rap_agb"]):::outdated
+    x9889d33e942dc03b(["rap_file"]):::uptodate --> x5688b5ef6bcea6f9(["rap_agb"]):::outdated
     x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> xb420f92ea294cb0b(["menlove_agb"]):::uptodate
     x5086af9665941a9e(["menlove_dir"]):::uptodate --> xb420f92ea294cb0b(["menlove_agb"]):::uptodate
-    x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> xe4f3f2f15e724def(["liu_agb"]):::uptodate
-    x26d0dae1bf6fcb39(["liu_file"]):::uptodate --> xe4f3f2f15e724def(["liu_agb"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> xfe73ce9654aaf612(["violin_plot"]):::uptodate
-    x10672e980111f5c2(["chopping_agb"]):::uptodate --> x74a8a38fc5a3e271(["agb_stack"]):::uptodate
-    x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> x74a8a38fc5a3e271(["agb_stack"]):::uptodate
-    x5bee436f312cca80(["gedi_agb"]):::uptodate --> x74a8a38fc5a3e271(["agb_stack"]):::uptodate
-    xe4f3f2f15e724def(["liu_agb"]):::uptodate --> x74a8a38fc5a3e271(["agb_stack"]):::uptodate
-    x7ff1622cd5d030f8(["ltgnn_agb"]):::uptodate --> x74a8a38fc5a3e271(["agb_stack"]):::uptodate
-    xb420f92ea294cb0b(["menlove_agb"]):::uptodate --> x74a8a38fc5a3e271(["agb_stack"]):::uptodate
-    x6bb719b45bfee760(["xu_agb"]):::uptodate --> x74a8a38fc5a3e271(["agb_stack"]):::uptodate
-    x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> x6bb719b45bfee760(["xu_agb"]):::uptodate
-    x39b0a131ab7dd2d0(["xu_file"]):::uptodate --> x6bb719b45bfee760(["xu_agb"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x13774cf4f2cc9b83(["ridge_plot"]):::uptodate
-    x80cf9d1bb79c21e3(["chopping_file"]):::uptodate --> x10672e980111f5c2(["chopping_agb"]):::uptodate
-    x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> x10672e980111f5c2(["chopping_agb"]):::uptodate
-    x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> x5bee436f312cca80(["gedi_agb"]):::uptodate
-    x8d7fb25f1e16bc4f(["gedi_file"]):::uptodate --> x5bee436f312cca80(["gedi_agb"]):::uptodate
+    x74a8a38fc5a3e271(["agb_stack"]):::outdated --> x13774cf4f2cc9b83(["ridge_plot"]):::outdated
+    x74a8a38fc5a3e271(["agb_stack"]):::outdated --> xfe73ce9654aaf612(["violin_plot"]):::outdated
     xb91305eee1f5b0b5(["esa_dir"]):::uptodate --> x9f7f8cade5fecf35(["esa_agb"]):::uptodate
-    x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> x5688b5ef6bcea6f9(["rap_agb"]):::uptodate
-    x9889d33e942dc03b(["rap_file"]):::uptodate --> x5688b5ef6bcea6f9(["rap_agb"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> xd959ad20dd7fd009(["agb_map"]):::uptodate
-    x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> x7ff1622cd5d030f8(["ltgnn_agb"]):::uptodate
-    xc968c07864940097(["ltgnn_dir"]):::uptodate --> x7ff1622cd5d030f8(["ltgnn_agb"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x7dce032f25b5c564(["sd_map"]):::uptodate
+    x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> x5bee436f312cca80(["gedi_agb"]):::outdated
+    x8d7fb25f1e16bc4f(["gedi_file"]):::uptodate --> x5bee436f312cca80(["gedi_agb"]):::outdated
+    x74a8a38fc5a3e271(["agb_stack"]):::outdated --> xa5177effe50f87b0(["plot_comparisons"]):::outdated
     x6e52cb0f1668cc22(["readme"]):::dispatched --> x6e52cb0f1668cc22(["readme"]):::dispatched
-    xe0fba61fbc506510(["report"]):::outdated --> xe0fba61fbc506510(["report"]):::outdated
+    xe0fba61fbc506510(["report"]):::uptodate --> xe0fba61fbc506510(["report"]):::uptodate
   end
+  classDef outdated stroke:#000000,color:#000000,fill:#78B7C5;
   classDef uptodate stroke:#000000,color:#ffffff,fill:#354823;
   classDef dispatched stroke:#000000,color:#000000,fill:#DC863B;
-  classDef outdated stroke:#000000,color:#000000,fill:#78B7C5;
   classDef none stroke:#000000,color:#000000,fill:#94a4ac;
   linkStyle 0 stroke-width:0px;
   linkStyle 1 stroke-width:0px;
   linkStyle 2 stroke-width:0px;
-  linkStyle 29 stroke-width:0px;
-  linkStyle 30 stroke-width:0px;
+  linkStyle 3 stroke-width:0px;
+  linkStyle 33 stroke-width:0px;
+  linkStyle 34 stroke-width:0px;
 ```
 
 ## File structure
@@ -135,7 +142,8 @@ fs::dir_tree(recurse = 1)
     │   ├── pointdensity_plots.R
     │   └── violin_plots.R
     ├── run.R
-    └── run.sh
+    ├── run.sh
+    └── test_rasterized_alldata.png
 
 - `R/` contains functions used in the `targets` pipeline.
 - `_targets` is generated by `targets::tar_make()` and only the metadata

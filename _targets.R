@@ -11,7 +11,7 @@ library(tarchetypes)
 # Set target options:
 tar_option_set(
   # packages that your targets need to run
-  packages = c("ncdf4", "terra", "fs", "purrr", "units", "tidyterra", "ggplot2", "sf", "maps", "tidyr", "dplyr", "stringr", "stars", "magick", "ggridges"), 
+  packages = c("ncdf4", "terra", "fs", "purrr", "units", "tidyterra", "ggplot2", "sf", "maps", "tidyr", "dplyr", "stringr", "stars", "magick", "ggridges", "ggrastr", "svglite", "ggtext"), 
   # format = "qs",
   #
   # For distributed computing in tar_make(), supply a {crew} controller
@@ -27,16 +27,9 @@ tar_option_set(
 tar_source()
 # source("other_functions.R") # Source other scripts as needed.
 
-# terra objects can't be serialized without `wrap()`ing them.  This is a custom
-# format for dealing with that.  NOTE: this breaks if the targets pipeline is
-# run with more than 1 worker. Discussion on how to deal with this:
+# terra objects can't be serialized to .rds files.  This is a custom format to
+# save them as geotiffs and read them back in as SpatRasters.  Discussion here:
 # https://github.com/ropensci/targets/discussions/1213
-format_terra <- tar_format(
-  read = function(path) terra::unwrap(readRDS(path)),
-  write = function(object, path) saveRDS(object = terra::wrap(object), file = path)
-  )
-
-# This still doesn't work with multiple workers
 format_geotiff <- tar_format(
   read = function(path) terra::rast(path),
   write = function(object, path) terra::writeRaster(x = object, filename = path, filetype = "GTiff", overwrite = TRUE),
@@ -45,8 +38,6 @@ format_geotiff <- tar_format(
 )
 
 tar_plan(
-  #TODO add a target for "data_dir" and modify other file targets to use it so can be more flexible in terms of where the data is placed (e.g. on an external drive).  E.g. fs::path(data_dir, "shapefiles", "SW_Region_Box_.shp")
-
   # Read and harmonize 2010 AGB data products ------------
   tar_file(esa_dir, "data/rasters/ESA_CCI/"),
   tar_target(esa_agb, read_clean_esa(esa_dir), format = format_geotiff),
@@ -86,8 +77,18 @@ tar_plan(
                width = 4
              ),
              format = "file"),
+  tar_target(plot_comparisons, names(agb_stack)[names(agb_stack)!="ESA CCI"]),
+  tar_target(
+    scatter_plots,
+    plot_scatter(
+      agb_stack,
+      comparison = plot_comparisons,
+      height = 2,
+      width = 2
+    ),
+    pattern = map(plot_comparisons)
+  ), 
   
-
   # Render docs -------------------------------------------------------------
   #report
   tar_quarto(report, "docs/report.qmd", extra_files = fs::dir_ls("docs/fig/", glob = "*.png")),
