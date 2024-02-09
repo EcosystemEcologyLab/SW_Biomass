@@ -48,6 +48,9 @@ cat(
 ## File structure
 
 ```{r}
+#| echo: true
+#| message: false
+#| warning: false
 fs::dir_tree(recurse = 1)
 ```
 
