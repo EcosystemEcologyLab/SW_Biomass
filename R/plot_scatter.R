@@ -1,6 +1,6 @@
 #' Scatter plot comparing data products to ESA CCI
 #'
-#' @param agb_stack the agb_stack target, a SpatRaster with one layer per data product
+#' @param agb_df the agb_df target, a tibble
 #' @param comparison the data product to compare to ESA CCI
 #' @param n integer; the number of pixels to sample for the plot. This might
 #'   work with the full dataset, but the result will be a black blob because of
@@ -14,24 +14,23 @@
 #' @return file path for save plot
 #' 
 plot_scatter <-
-  function(agb_stack,
-           comparison = names(agb_stack)[names(agb_stack) != "ESA CCI"],
+  function(agb_df,
+           comparison = colnames(agb_df)[colnames(agb_df) != "ESA CCI"],
            n = 200000,
            save_dir = "docs/fig/",
            ext = "png",
            ...) {
   sel <- match.arg(comparison)
-  agb_df <- 
-    as.data.frame(agb_stack) |> 
-    as_tibble() |> 
+  plot_df <- 
+    agb_df |> 
     drop_na() |> 
     slice_sample(n = n) |>
     dplyr::select("ESA CCI", all_of(sel))
   
-  agb_max <- max(agb_df, na.rm = TRUE)
+  agb_max <- max(plot_df, na.rm = TRUE)
   
   p <- 
-    ggplot(agb_df, aes(x = `ESA CCI`, y = .data[[sel]])) +
+    ggplot(plot_df, aes(x = `ESA CCI`, y = .data[[sel]])) +
     geom_point(alpha = 0.05) +
     coord_fixed(xlim = c(0, agb_max), ylim = c(0, agb_max)) +
     labs(x = "ESA CCI (Mg ha<sup>-1</sup>)",

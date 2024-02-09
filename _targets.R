@@ -66,22 +66,24 @@ tar_plan(
     c(esa_agb, chopping_agb, liu_agb, xu_agb, ltgnn_agb, menlove_agb, gedi_agb),
     format = format_geotiff
   ),
+  #TODO add target for agb_df, probably will save lots of time in plotting scripts and easier for developing new plots.  Just wide df with xy columns.  Save as feather or qs.
+  tar_target(agb_df, as_tibble(as.data.frame(agb_stack))),
   tar_target(agb_map, plot_agb_map(agb_stack, width = 7, height = 6), format = "file"),
   tar_target(sd_map, plot_sd_map(agb_stack), format = "file"),
-  tar_target(violin_plot, plot_violin(agb_stack), format = "file"),
+  tar_target(violin_plot, plot_violin(agb_df), format = "file"),
   tar_target(ridge_plot,
              plot_agb_ridges(
-               agb_stack,
+               agb_df,
                n = 10000,
                height = 2,
                width = 4
              ),
              format = "file"),
-  tar_target(plot_comparisons, names(agb_stack)[names(agb_stack)!="ESA CCI"]),
+  tar_target(plot_comparisons, colnames(agb_df)[colnames(agb_df)!="ESA CCI"]),
   tar_target(
     scatter_plots,
     plot_scatter(
-      agb_stack,
+      agb_df,
       comparison = plot_comparisons,
       height = 2,
       width = 2

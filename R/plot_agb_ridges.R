@@ -2,7 +2,7 @@
 #' 
 #' uses ggridges package
 #'
-#' @param agb_stack The agb_stack target, a SpatRaster object
+#' @param agb_df The agb_stack target, a tibble
 #' @param save_path path to save plot
 #' @param n when a positive integer is supplied, the number of pixels to sample
 #'   from `agb_stack`. Use `n = "all"` to skip the sampling step.  Warning, with
@@ -13,11 +13,8 @@
 #' @param ... other arguments passed to `ggsave()`
 #'
 #' @return save_path
-plot_agb_ridges <- function(agb_stack, save_path = "docs/fig/agb_ridge.png", n = 5000, labels = TRUE, ...) {
-  agb_df <- 
-    as.data.frame(agb_stack) |> 
-    dplyr::as_tibble()
-  
+plot_agb_ridges <- function(agb_df, save_path = "docs/fig/agb_ridge.png", n = 5000, labels = TRUE, ...) {
+
   if(is.numeric(n)) {
     agb_df <- agb_df |> dplyr::slice_sample(n = n)
   } else if (n == "all") {

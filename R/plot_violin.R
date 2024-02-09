@@ -1,11 +1,10 @@
-plot_violin <- function(agb_stack, save_path = "docs/fig/violin.png", ...) {
-  agb_df <- 
-    as.data.frame(agb_stack) |> 
-    dplyr::as_tibble() |> 
-    dplyr::slice_sample(n = 5000) |> #without this, the plot is suuuuper slow.
+plot_violin <- function(agb_df, save_path = "docs/fig/violin.png", n = 10000, ...) {
+  plot_df <- 
+    agb_df |> 
+    dplyr::slice_sample(n = n) |> #without this, the plot is suuuuper slow.
     tidyr::pivot_longer(everything(), values_to = "AGB", names_to = "dataset") 
   
-  p <- agb_df |> 
+  p <- plot_df |> 
     ggplot(aes(x = dataset, y = AGB)) +
     geom_violin(draw_quantiles = c(0.25, 0.5, 0.75), scale = "width") +
     scale_x_discrete(labels = \(x) str_remove(x, "_agb_.+")) +
