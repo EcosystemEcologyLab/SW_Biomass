@@ -59,7 +59,7 @@ Observations:
 
 Alternatively, we can use ridge plots to display this.
 
-![](fig/agb_ridge.png){fig-align="center"}
+![](fig/agb_ridge.png){fig-align="center" width="4in"}
 
 {{< downloadthis fig/agb_ridge.png >}}
 
@@ -68,18 +68,32 @@ This might be more readable if we transform the x-axis (e.g. log(x+1) or sqrt())
 ### Scatter plots
 
 These plots are intended to compare each data product with the "gold standard" ESA product.
+These use a random sample of 200,000 pixels from each product.
+While it is technically possible to make these plots using the entire dataset, the result will be a dark black blob for all of them.
+200,000 points is only \~0.5% (total non-NA pixels = 35,342,827).
+
+::: {layout-ncol="2"}
+![](fig/scatter_chopping_et_al.png){width="2in"}
+
+![](fig/scatter_gedi_l_4_b.png){width="2in"}
+
+![](fig/scatter_liu_et_al.png){width="2in"}
+
+![](fig/scatter_lt_gnn.png){width="2in"}
+
+![](fig/scatter_menlove_healey.png){width="2in"}
+
+![](fig/scatter_xu_et_al.png){width="2in"}
+:::
+
+### Point density plots
 
 A point density plot is great for when a scatter plot contains many over-plotted points.
+These plots use the [`ggpointdensity`](https://github.com/LKremer/ggpointdensity) package which extends `ggplot2`.
 Color represents density of data under each point.
-Because of the abundance of zeros, if the full dataset is plotted, there is always a tight bright spot in the lower left corner and basically all other points are dark purple.
-I've come up with three options for dealing with this that I think could make sense.
+Because of the abundance of zeros, if the full dataset is plotted without any tansformation of the color scale, there is always a single bright spot in the lower left corner, but I think a log scale makes enough sense to use.
 
-![](fig/scatter_all.png)
+![](fig/test_KernSmooth_log.png){width="524"}
 
-![](fig/scatter_non0.png)
-
-![](fig/scatter_anynon0.png)
-
-![](fig/scatter_gr10.png)
-
-![](fig/scatter_log.png)
+This is an example of what it could look like, but there are technical barriers to getting it to work: <https://github.com/cct-datascience/SW_Biomass/issues/18>.
+For now, maybe the scatter plots are good enough?
