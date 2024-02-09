@@ -49,7 +49,9 @@ read_clean_liu = function(file, esa) {
   # Convert from AGBC (MgC/ha) to AGB (Mg/ha) by multiplying by 2.2
   out_2010 <- out_2010 * 2.2
   
-  out_az_2010 <- project_to_esa(out_2010, esa)
+  # See discussion on projection of this dataset here:
+  # https://github.com/cct-datascience/SW_Biomass/issues/13
+  out_az_2010 <- project_to_esa(out_2010, esa, method = "near")
   
   
   # Set names and units

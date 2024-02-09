@@ -9,8 +9,8 @@
 #' @param esa the SpatRaster for the ESA dataset, as a template
 #'
 #' @return SpatRaster
-project_to_esa <- function(rast, esa) {
+project_to_esa <- function(rast, esa, method = "bilinear") {
   project(rast, esa,
-          method = "bilinear", #this is the default, other options might be better
+          method = method, #this is the default, other options might be better
           threads = 4)
 }
