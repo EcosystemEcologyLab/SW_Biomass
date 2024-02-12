@@ -90,6 +90,7 @@ tar_plan(
     ),
     pattern = map(plot_comparisons)
   ), 
+  #TODO: target that zips all the scatter plots for easy download in report.
   
   # Render docs -------------------------------------------------------------
   #report
