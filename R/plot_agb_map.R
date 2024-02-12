@@ -17,7 +17,8 @@ plot_agb_map <- function(agb_stack, save_path = "docs/fig/agb_map.png", ...) {
   #subset of colors from the scio package batlow_w palette
   map_cols <- c("#EFB298", "#C39E4B", "#7D8737", "#437153", "#185661", "#0C325D")
   
-  p <- ggplot() +
+  p <-
+    ggplot() +
     tidyterra::geom_spatraster(data = agb_stack) +
     geom_sf(data = az_border_sf, fill = NA) +
     # scale_fill_viridis_c(option = "D", na.value = "transparent") +

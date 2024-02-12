@@ -91,11 +91,7 @@ tar_plan(
     pattern = map(plot_comparisons),
     format = "file"
   ), 
-  tar_target(zip_scatter_plots,
-             function() {
-               zip("docs/fig/scatter.zip", files = scatter_plots)
-               "docs/fig/scatter.zip"
-             }, format = "file"), 
+  tar_target(zip_scatter_plots, zip_plots(scatter_plots, "docs/fig/scatter.zip"), format = "file"), 
   
   # Render docs -------------------------------------------------------------
   #report

@@ -29,10 +29,13 @@ plot_scatter <-
   
   agb_max <- max(plot_df, na.rm = TRUE)
   
-  p <- 
+  r <- cor(agb_df[["ESA CCI"]], agb_df[[sel]], use = "complete.obs")
+  
+  p <-
     ggplot(plot_df, aes(x = `ESA CCI`, y = .data[[sel]])) +
     geom_point(alpha = 0.05) +
     coord_fixed(xlim = c(0, agb_max), ylim = c(0, agb_max)) +
+    annotate(geom = "text", x = agb_max, y = agb_max, label = glue::glue("r = {round(r, 2)}"), hjust = 1, size = 3) +
     labs(x = "ESA CCI (Mg ha<sup>-1</sup>)",
          y = glue::glue("{sel} (Mg ha<sup>-1</sup>)")) +
     theme_linedraw(base_size = 9) +
