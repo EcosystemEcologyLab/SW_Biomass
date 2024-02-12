@@ -11,7 +11,7 @@ library(tarchetypes)
 # Set target options:
 tar_option_set(
   # packages that your targets need to run
-  packages = c("ncdf4", "terra", "fs", "purrr", "units", "tidyterra", "ggplot2", "sf", "maps", "tidyr", "dplyr", "stringr", "stars", "magick", "ggridges", "ggrastr", "svglite", "ggtext"), 
+  packages = c("ncdf4", "terra", "fs", "purrr", "units", "tidyterra", "ggplot2", "sf", "maps", "tidyr", "dplyr", "stringr", "stars", "magick", "ggridges", "ggrastr", "svglite", "ggtext", "ggthemes"), 
   # format = "qs",
   #
   # For distributed computing in tar_make(), supply a {crew} controller
@@ -69,7 +69,7 @@ tar_plan(
   #TODO add target for agb_df, probably will save lots of time in plotting scripts and easier for developing new plots.  Just wide df with xy columns.  Save as feather or qs.
   tar_target(agb_df, as_tibble(as.data.frame(agb_stack))),
   tar_target(agb_map, plot_agb_map(agb_stack, width = 7, height = 6), format = "file"),
-  tar_target(sd_map, plot_sd_map(agb_stack), format = "file"),
+  tar_target(sd_map, plot_sd_map(agb_stack, height = 2), format = "file"),
   tar_target(violin_plot, plot_violin(agb_df), format = "file"),
   tar_target(ridge_plot,
              plot_agb_ridges(
@@ -88,9 +88,14 @@ tar_plan(
       height = 2,
       width = 2
     ),
-    pattern = map(plot_comparisons)
+    pattern = map(plot_comparisons),
+    format = "file"
   ), 
-  #TODO: target that zips all the scatter plots for easy download in report.
+  tar_target(zip_scatter_plots,
+             function() {
+               zip("docs/fig/scatter.zip", files = scatter_plots)
+               "docs/fig/scatter.zip"
+             }, format = "file"), 
   
   # Render docs -------------------------------------------------------------
   #report

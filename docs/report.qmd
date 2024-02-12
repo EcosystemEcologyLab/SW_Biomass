@@ -43,25 +43,25 @@ Observations:
 
 ![Maps of aboveground biomass for each data product in Arizona.](fig/agb_map.png){#fig-agbmap}
 
-{{< downloadthis fig/agb_map.png >}}
+{{< downloadthis fig/agb_map.png label="Download .png" >}}
 
 <!--# TODO: add download button for .eps file as well so Dave can open in Adobe easily -->
 
-![Map of standard deviation of each raster pixel across all datasets. This is a "placeholder" for a map of agreement/disagreement across the data products. Standard deviation almost certainly isn't the best metric for this, but it at least gives a sense of where there is more or less variability.](fig/sd_map.png){#fig-sdmap}
+![Map of standard deviation of each raster pixel showing areas with the highest variation among data products in yellow and areas with the least variation in dark purple.](fig/sd_map.png){#fig-sdmap fig-align="center" width="2.85in"}
 
-{{< downloadthis fig/sd_map.png >}}
+{{< downloadthis fig/sd_map.png label="Download .png" >}}
 
 ### Data distribution
 
 ![Violin plot showing distribution of a sample (n = 5000) of pixels in Arizona for each data product. Horizontal lines represent interquartile range and median.](fig/violin.png){#fig-violin}
 
-{{< downloadthis fig/violin.png >}}
+{{< downloadthis fig/violin.png label="Download .png" >}}
 
 Alternatively, we can use ridge plots to display this.
 
 ![](fig/agb_ridge.png){fig-align="center" width="4in"}
 
-{{< downloadthis fig/agb_ridge.png >}}
+{{< downloadthis fig/agb_ridge.png label="Download .png" >}}
 
 This might be more readable if we transform the x-axis (e.g. log(x+1) or sqrt()).
 
@@ -85,6 +85,8 @@ While it is technically possible to make these plots using the entire dataset, t
 
 ![](fig/scatter_xu_et_al.png){width="2in"}
 :::
+
+{{< downloadthis fig/scatter.zip label="Download .zip" >}}
 
 ### Point density plots
 

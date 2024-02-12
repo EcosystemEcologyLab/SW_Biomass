@@ -17,13 +17,19 @@ plot_sd_map <- function(agb_stack, save_path = "docs/fig/sd_map.png", ...) {
   agb_sd <- agb_stack |> 
     stdev(na.rm = TRUE)
   
-  p <- ggplot() +
+  p <-
+    ggplot() +
     tidyterra::geom_spatraster(data = agb_sd) +
     geom_sf(data = az_border_sf, fill = NA) +
     # TODO: make the high SD areas "pop" more
-    scale_fill_viridis_c(option = "viridis", na.value = "transparent") +
+    scale_fill_viridis_c(
+      option = "viridis",
+      na.value = "transparent",
+      guide = guide_colorbar(barwidth = 0.6, title.position = "top")
+    ) +
     coord_sf() +
-    labs(fill = "AGB standard deviation (Mg/ha)") +
+    theme_minimal(base_size = 9) +
+    labs(fill = "SD AGB (Mg/ha)") +
     theme(axis.text.x = element_text(angle = 45, hjust = 1))
   
   ggsave(save_path, p, ...)

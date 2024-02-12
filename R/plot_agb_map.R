@@ -25,6 +25,7 @@ plot_agb_map <- function(agb_stack, save_path = "docs/fig/agb_map.png", ...) {
     coord_sf() +
     facet_wrap(~lyr) +
     labs(fill = "AGB (Mg/ha)") +
+    theme_minimal(base_size = 10) +
     theme(axis.text.x = element_text(angle = 45, hjust = 1))
   
   ggsave(save_path, p, ...)

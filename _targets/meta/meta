@@ -1,7 +1,7 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|a259fd3c8dd52104|||||||||||||||
+.Random.seed|object|94aac70e95d246e3|||||||||||||||
 agb_df|stem|d46168d00eaa5b29|3a90758293f5ba7a|9e17043755996b39|-13802470||t19762.9365016951s|62a09c53c4c9fe70|477329039|rds|local|vector|||18.907||
-agb_map|stem|3bb8e21b20519593|55752235116998bb|2d40ba0d3bd6a63e|-1016663675|docs/fig/agb_map.png|t19765.7964136742s|7d77b67c35d3f82c|806112|file|local|vector|||17.304||
+agb_map|stem|ac3445daa1f9602d|55752235116998bb|6adc5fffd60c9210|-1016663675|docs/fig/agb_map.png|t19765.910855706s|634142354362c3a8|892186|file|local|vector|||18.041||
 agb_stack|stem|97c53d166a0ff7c6|8430869dac551b9d|7ba3f868835c58ad|-1407896123||t19762.7041115682s|fd948d1fddda8107|589531458|format_custom&read=ZnVuY3Rpb24gKHBhdGgpIAp0ZXJyYTo6cmFzdChwYXRoKQ&write=ZnVuY3Rpb24gKG9iamVjdCwgcGF0aCkgCnRlcnJhOjp3cml0ZVJhc3Rlcih4ID0gb2JqZWN0LCBmaWxlbmFtZSA9IHBhdGgsIGZpbGV0eXBlID0gIkdUaWZmIiwgCiAgICBvdmVyd3JpdGUgPSBUUlVFKQ&marshal=ZnVuY3Rpb24gKG9iamVjdCkgCnRlcnJhOjp3cmFwKG9iamVjdCk&unmarshal=ZnVuY3Rpb24gKG9iamVjdCkgCnRlcnJhOjp1bndyYXAob2JqZWN0KQ&convert=&copy=&repository=|local|vector|||2.802||
 az_sf|stem|8590d2c6407c86dd|89661ad41191f929|d671b4d66bfb0256|1838219392||t19753.7066312673s|be7be7e642d674bf|1710|rds|local|vector|||0.07||
 chopping_agb|stem|d62825a3d77f2fe3|c7959d014b8ebfa8|eb46564316486fb0|-1197316800||t19762.6922005649s|846f988171042d93|49262008|format_custom&read=ZnVuY3Rpb24gKHBhdGgpIAp0ZXJyYTo6cmFzdChwYXRoKQ&write=ZnVuY3Rpb24gKG9iamVjdCwgcGF0aCkgCnRlcnJhOjp3cml0ZVJhc3Rlcih4ID0gb2JqZWN0LCBmaWxlbmFtZSA9IHBhdGgsIGZpbGV0eXBlID0gIkdUaWZmIiwgCiAgICBvdmVyd3JpdGUgPSBUUlVFKQ&marshal=ZnVuY3Rpb24gKG9iamVjdCkgCnRlcnJhOjp3cmFwKG9iamVjdCk&unmarshal=ZnVuY3Rpb24gKG9iamVjdCkgCnRlcnJhOjp1bndyYXAob2JqZWN0KQ&convert=&copy=&repository=|local|vector|||6.023||
@@ -33,11 +33,11 @@ menlove_agb|stem|8b9abe58207252ea|3164557167b59f37|f619d36846836670|-655799208||
 menlove_dir|stem|589f96b89e6175dd|aa5b0a6b5266a2b2|ef46db3751d8e999|1449448148|data/rasters/Menlove/data/|t19738.726393178s|73a5f5604ca1ab33|288|file|local|vector|||3.928|package tidyr was built under R version 4.3.2. package ggridges was built under R version 4.3.2|
 nnss_box|stem|ede4971f6fe38e33|258fdf11ba8efeef|6c3af2f6849177ad|-1659733985||t19746.986005095s|c060e1b24b17f00e|617|format_custom&read=ZnVuY3Rpb24gKHBhdGgpIAp0ZXJyYTo6dW53cmFwKHJlYWRSRFMocGF0aCkp&write=ZnVuY3Rpb24gKG9iamVjdCwgcGF0aCkgCnNhdmVSRFMob2JqZWN0ID0gdGVycmE6OndyYXAob2JqZWN0KSwgZmlsZSA9IHBhdGgp&marshal=&unmarshal=&convert=&copy=&repository=|local|vector|||0.04||
 nnss_box_file|stem|c06e62788109e318|750aa07e80219b81|ef46db3751d8e999|1698041763|data/shapefiles/NNSS_Box.shp|t19724.8101851852s|155dcb23a3dc3cf4|236|file|local|vector|||0||
-plot_agb_map|function|52a57f4052c3ea98|||||||||||||||
+plot_agb_map|function|73ec0871dd43d55b|||||||||||||||
 plot_agb_ridges|function|0b82a329a1abb372|||||||||||||||
 plot_comparisons|stem|bdc1c9048934c08b|ca64e7ec5c1d3e48|965a3d4e3414d26c|-1818167200||t19762.9386991402s|758d7d51407f572d|117|rds|local|vector||plot_comparisons_f5b58cab*plot_comparisons_9acdf6b2*plot_comparisons_922c094e*plot_comparisons_0550c584*plot_comparisons_b9d46af9*plot_comparisons_7dd98562|0||
 plot_scatter|function|27a48a22f07a8f61|||||||||||||||
-plot_sd_map|function|7e34ee39715ce407|||||||||||||||
+plot_sd_map|function|f03e4b9e8d4b53fd|||||||||||||||
 plot_violin|function|40f567d26f055afc|||||||||||||||
 products|stem|4876f488babc95a8|7f99ed9d5f99bf85|433132d3e4fcf0df|471851640||t19761.9881380474s|e92536e5890953e5|126|rds|local|vector|||0||
 project_to_esa|function|ea81023be2ca9093|||||||||||||||
@@ -51,18 +51,18 @@ read_clean_lt_gnn|function|131a73ed944ab028|||||||||||||||
 read_clean_menlove|function|28b7086b6b3c08b7|||||||||||||||
 read_clean_rap|function|c4eb6549f7fe3aae|||||||||||||||
 read_clean_xu|function|92ac40d6879d025a|||||||||||||||
-readme|stem|52271071efbb2203|c2c4b6e3bcf05d55|ef46db3751d8e999|980901812|README.md*README.qmd|t19765.7960074983s|97905d66a2dabb35|10300|file|local|vector|||41.558||
-report|stem|ac122f8e0fb6b59e|d3551236aa4edb16|ef46db3751d8e999|787668912|docs/report.html*docs/report.qmd*docs/fig/agb_map.png*docs/fig/agb_ridge.png*docs/fig/scatter_chopping_et_al.png*docs/fig/scatter_gedi_l_4_b.png*docs/fig/scatter_liu_et_al.png*docs/fig/scatter_lt_gnn.png*docs/fig/scatter_menlove_healey.png*docs/fig/scatter_xu_et_al.png*docs/fig/sd_map.png*docs/fig/test_KernSmooth_log.png*docs/fig/violin.png|t19765.7955204391s|56f14553070cb985|4892178|file|local|vector|||9.766|package tidyr was built under R version 4.3.2. package ggridges was built under R version 4.3.2|
+readme|stem|d799d056bd8e46e8|c2c4b6e3bcf05d55|ef46db3751d8e999|980901812|README.md*README.qmd|t19765.9104579953s|0035f980c1fbf4e2|10432|file|local|vector|||39.207||
+report|stem|736055c09a29d8e5|d3551236aa4edb16|ef46db3751d8e999|787668912|docs/report.html*docs/report.qmd*docs/fig/agb_map.png*docs/fig/agb_ridge.png*docs/fig/scatter_chopping_et_al.png*docs/fig/scatter_gedi_l_4_b.png*docs/fig/scatter_liu_et_al.png*docs/fig/scatter_lt_gnn.png*docs/fig/scatter_menlove_healey.png*docs/fig/scatter_xu_et_al.png*docs/fig/sd_map.png*docs/fig/test_KernSmooth_log.png*docs/fig/violin.png|t19765.9099960507s|c94e864cc3680560|4802212|file|local|vector|||9.902|package tidyr was built under R version 4.3.2. package ggridges was built under R version 4.3.2. package ggthemes was built under R version 4.3.2|
 ridge_plot|stem|dca835fbb96b842b|9bcb41a6378fe0d5|abe3fa03a2252266|206237431|docs/fig/agb_ridge.png|t19762.938710676s|c7090c81ad393716|51021|file|local|vector|||0.979|1m22mRemoved 292 rows containing nonfinite values stat_density_ridges.|
 ridge_plot_sqrt|stem|ce135607b92dfc4d|4e1d4e0584a6e824|872768acbee80089|1164163194|docs/fig/agb_ridge_sqrt.png|t19760.9487726829s|a23938429655b472|73514|file|local|vector|||20.859|Removed 274 rows containing nonfinite values stat_density_ridges.|
-scatter_plots|pattern|74b97c37474886ee|4254e04517f3229d||1063551923||||751|rds|local|vector||scatter_plots_5da59fed*scatter_plots_b79a09fb*scatter_plots_f4041c88*scatter_plots_c21f5eb4*scatter_plots_0c953c8d*scatter_plots_c354976e|155.462||
-scatter_plots_0c953c8d|branch|55b2f31b17c4346d|1191931beb1105a2|0ac9c6cc1c86a929|1125792227||t19762.939042968s|f02b269bc80ae470|129|rds|local|vector|scatter_plots||5.447||
-scatter_plots_5da59fed|branch|8b8e033539b78243|1191931beb1105a2|0ac9c6cc1c86a929|-488107380||t19762.9387912352s|f02b269bc80ae470|129|rds|local|vector|scatter_plots||6.221||
-scatter_plots_b79a09fb|branch|368c826af694f4d7|1191931beb1105a2|0ac9c6cc1c86a929|580815988||t19762.9388542905s|2247cb837b5b96db|124|rds|local|vector|scatter_plots||5.433||
-scatter_plots_c21f5eb4|branch|70d819d3ad55fd0a|1191931beb1105a2|0ac9c6cc1c86a929|895959108||t19762.9389797525s|b0efa4f1e05eee68|121|rds|local|vector|scatter_plots||5.501||
-scatter_plots_c354976e|branch|0335c1884926635b|1191931beb1105a2|0ac9c6cc1c86a929|-1752783748||t19762.9391043965s|237f91a00ac3de41|125|rds|local|vector|scatter_plots||5.294||
-scatter_plots_f4041c88|branch|8c422d661cf539f4|1191931beb1105a2|0ac9c6cc1c86a929|1016912423||t19762.9389159404s|24d52ebf1535bba2|123|rds|local|vector|scatter_plots||5.309||
-sd_map|stem|ae5d715fb6893f8a|1c26d6bc955d3c07|455878057220866d|-1069510172|docs/fig/sd_map.png|t19762.7044631859s|db8efd18487807f5|650687|file|local|vector|||9.786||
+scatter_plots|pattern|b8c33bb1145e59c6|1191931beb1105a2||1063551923||||494328|file|local|vector||scatter_plots_5da59fed*scatter_plots_b79a09fb*scatter_plots_f4041c88*scatter_plots_c21f5eb4*scatter_plots_0c953c8d*scatter_plots_c354976e|37.497||
+scatter_plots_0c953c8d|branch|cc26c2185f5aedc2|1191931beb1105a2|0ac9c6cc1c86a929|1125792227|docs/fig/scatter_menlove_healey.png|t19765.8265477994s|ffdb1b5bab212db5|68606|file|local|vector|scatter_plots||5.793||
+scatter_plots_5da59fed|branch|8d07d3d5a5840876|1191931beb1105a2|0ac9c6cc1c86a929|-488107380|docs/fig/scatter_chopping_et_al.png|t19765.8262638619s|52c78cee80a7ca95|89553|file|local|vector|scatter_plots||7.111||
+scatter_plots_b79a09fb|branch|2e2a6d307b918e69|1191931beb1105a2|0ac9c6cc1c86a929|580815988|docs/fig/scatter_liu_et_al.png|t19765.826338415s|7e5636628e82d8a0|55711|file|local|vector|scatter_plots||6.428||
+scatter_plots_c21f5eb4|branch|302adfa9f5d9bc3e|1191931beb1105a2|0ac9c6cc1c86a929|895959108|docs/fig/scatter_lt_gnn.png|t19765.8264805665s|e39020f394408cf5|86061|file|local|vector|scatter_plots||6.051||
+scatter_plots_c354976e|branch|ab559e9c54231d9a|1191931beb1105a2|0ac9c6cc1c86a929|-1752783748|docs/fig/scatter_gedi_l_4_b.png|t19765.8266163683s|972189ebf6249305|118953|file|local|vector|scatter_plots||5.911||
+scatter_plots_f4041c88|branch|e4dab1342d95f832|1191931beb1105a2|0ac9c6cc1c86a929|1016912423|docs/fig/scatter_xu_et_al.png|t19765.826410385s|28f469d18e3773af|75444|file|local|vector|scatter_plots||6.203||
+sd_map|stem|390b1f99fcbb22e4|81e0cb435220e688|c4a8bbc8232ed9a1|-1069510172|docs/fig/sd_map.png|t19765.9075989289s|dd831641d23cfccc|209488|file|local|vector|||9.115||
 shape_file|stem|6071e082648497fe|91c58793f45dd0b8|ef46db3751d8e999|1322202494|/Users/ericscott/Library/R/x86_64/4.3/library/terra/ex/lux.shp|t19735.9898611111s|da714ac3fb7f14e7|64692|file|local|vector|||3.379||
 sw_box|stem|f7004e74f66a6acc|48776e97fb43b16c|b03a080767b7b790|-65331445||t19746.9860042703s|e5bbbe2c72f528d1|618|format_custom&read=ZnVuY3Rpb24gKHBhdGgpIAp0ZXJyYTo6dW53cmFwKHJlYWRSRFMocGF0aCkp&write=ZnVuY3Rpb24gKG9iamVjdCwgcGF0aCkgCnNhdmVSRFMob2JqZWN0ID0gdGVycmE6OndyYXAob2JqZWN0KSwgZmlsZSA9IHBhdGgp&marshal=&unmarshal=&convert=&copy=&repository=|local|vector|||0.023||
 sw_box_file|stem|39938a74423ce456|545e23907af0ef82|ef46db3751d8e999|-837155073|data/shapefiles/SW_Region_Box.shp|t19724.8101851852s|155dcb23a3dc3cf4|236|file|local|vector|||3.155||
@@ -78,3 +78,4 @@ ws_box|stem|e7f214a7e50cfc48|11609ef91d03075b|1c91c91ab77317d5|-262571363||t1974
 ws_box_file|stem|f9ce9bb4ea7ce8f0|00ff45d3e7cf5008|ef46db3751d8e999|-1527470500|data/shapefiles/White_Sands_Box.shp|t19724.8101851852s|155dcb23a3dc3cf4|236|file|local|vector|||0||
 xu_agb|stem|f360574a83f4bb86|98613758b7225c5f|30e281f5973cc8e7|-1617632401||t19762.702588064s|dca311652b317121|160549469|format_custom&read=ZnVuY3Rpb24gKHBhdGgpIAp0ZXJyYTo6cmFzdChwYXRoKQ&write=ZnVuY3Rpb24gKG9iamVjdCwgcGF0aCkgCnRlcnJhOjp3cml0ZVJhc3Rlcih4ID0gb2JqZWN0LCBmaWxlbmFtZSA9IHBhdGgsIGZpbGV0eXBlID0gIkdUaWZmIiwgCiAgICBvdmVyd3JpdGUgPSBUUlVFKQ&marshal=ZnVuY3Rpb24gKG9iamVjdCkgCnRlcnJhOjp3cmFwKG9iamVjdCk&unmarshal=ZnVuY3Rpb24gKG9iamVjdCkgCnRlcnJhOjp1bndyYXAob2JqZWN0KQ&convert=&copy=&repository=|local|vector|||2.939||
 xu_file|stem|99f393a41f1c3066|b16a5d4beecff7eb|ef46db3751d8e999|1350703402|data/rasters/Xu/test10a_cd_ab_pred_corr_2000_2019_v2.tif|t18870.8779712958s|6d8928ec0ba586d2|114424129|file|local|vector|||0||
+zip_scatter_plots|stem||d454304b3c26588f|dbff4ce03307a326|1074610006||t19765.8266178408s||0|file|local|vector|||||_build_ target zip_scatter_plots did not return a character. dynamic files targets with format  file must return character vectors of file or directory paths.
