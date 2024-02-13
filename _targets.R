@@ -66,10 +66,17 @@ tar_plan(
     c(esa_agb, chopping_agb, liu_agb, xu_agb, ltgnn_agb, menlove_agb, gedi_agb),
     format = format_geotiff
   ),
-  #TODO add target for agb_df, probably will save lots of time in plotting scripts and easier for developing new plots.  Just wide df with xy columns.  Save as feather or qs.
+  #crop to SRER for inset/outset map
+  #TODO probably don't need this.  Just crop resulting maps instead of cropping before calculations
+  tar_file(srer_dir, "data/shapefiles/srerboundary/"),
+  tar_target(srer_stack, crop_srer(agb_stack, srer_dir), format = format_geotiff),
+  
+  # Plots -------------------------------------------------------------------
+  # Convert to wide df.  Slow operation, so this saves time for plots that use a tibble
   tar_target(agb_df, as_tibble(as.data.frame(agb_stack))),
   tar_target(agb_map, plot_agb_map(agb_stack, width = 7, height = 6), format = "file"),
   tar_target(sd_map, plot_sd_map(agb_stack, height = 2), format = "file"),
+  #TODO add sd_srer_map
   tar_target(violin_plot, plot_violin(agb_df), format = "file"),
   tar_target(ridge_plot,
              plot_agb_ridges(
