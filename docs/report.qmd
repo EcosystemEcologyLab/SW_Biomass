@@ -53,17 +53,23 @@ Observations:
 
 ### Data distribution
 
-![Violin plot showing distribution of a sample (n = 5000) of pixels in Arizona for each data product. Horizontal lines represent interquartile range and median.](fig/violin.png){#fig-violin}
-
-{{< downloadthis fig/violin.png label="Download .png" >}}
-
-Alternatively, we can use ridge plots to display this.
+Density ridge plots are a good compact way to visualize this.
 
 ![](fig/agb_ridge.png){fig-align="center" width="4in"}
 
 {{< downloadthis fig/agb_ridge.png label="Download .png" >}}
 
-This might be more readable if we transform the x-axis (e.g. log(x+1) or sqrt()).
+The long tail makes it somewhat difficult to see differences.
+Here are a couple of alternatives with "broken" axes.
+In both, I've marked the actual max AGB calculated from the full data set with a point.
+
+![AGB 0-30 and 30-max where the density is calculated separately for each panel.](fig/ridge_opt1.png){#fig-ridgeopt1}
+
+![AGB 0-30 and 100-max with density calculated on the full (sample) dataset.](fig/ridge_opt2.png){#fig-ridgeopt2}
+
+In @fig-ridgeopt1 the differences in the tails are emphasized since the relative density is calculated separately for the tails.
+In order to get the y-axes to line up, however, we squish the heads a bit.
+In @fig-ridgeopt2 the tail panel just serves to show differences in the range of the data and intermediate AGB values (30-100) are left out.
 
 ### Scatter plots
 
