@@ -47,9 +47,38 @@ Observations:
 
 <!--# TODO: add download button for .eps file as well so Dave can open in Adobe easily -->
 
+#### Standard Deviation
+
 ![Map of standard deviation of each raster pixel showing areas with the highest variation among data products in yellow and areas with the least variation in dark purple.](fig/sd_map.png){#fig-sdmap fig-align="center" width="2.85in"}
 
 {{< downloadthis fig/sd_map.png label="Download .png" >}}
+
+The map doesn't look like much since there are a lot of low values for SD with relatively fewer extreme values.
+Here are some alternatives that make the areas of high uncertainty "pop" (using a different color palette doesn't really help—viridis is still the best IMO)
+
+1.  log-transform the color scale
+
+    ![](fig/map_log1p.png)
+
+    (Ignore the color bar—if we went with this version, we'd pick better breaks than the default)
+
+2.  "squish" extreme values
+
+    ![](fig/map_squish.png)
+
+    Could set the upper limit even lower to get more pixels into that upper yellow range.
+
+#### SRER inset/outset
+
+Adding an inset map of SRER is just too cramped to look good at such a small size, I think.
+
+![](fig/inset_attempt.png)
+
+But what about a two panel figure with everything "slimmed down" as much as possible?
+
+![](fig/twopanel.png){width="3.78in"}
+
+(I drew the red "zoom" lines by hand—they are totally optional)
 
 ### Data distribution
 
@@ -78,7 +107,7 @@ These use a random sample of 200,000 pixels from each product.
 While it is technically possible to make these plots using the entire dataset, the result will be a dark black blob for all of them.
 200,000 points is only \~0.5% (total non-NA pixels = 35,342,827).
 
-::: {layout-ncol="2"}
+::: {layout-ncol="3"}
 ![](fig/scatter_chopping_et_al.png){width="2in"}
 
 ![](fig/scatter_gedi_l_4_b.png){width="2in"}

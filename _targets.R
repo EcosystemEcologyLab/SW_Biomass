@@ -76,7 +76,7 @@ tar_plan(
   tar_target(agb_df, as_tibble(as.data.frame(agb_stack))),
   tar_target(agb_map, plot_agb_map(agb_stack, width = 7, height = 6), format = "file"),
   tar_target(sd_map, plot_sd_map(agb_stack, height = 2), format = "file"),
-  #TODO add sd_srer_map
+  #TODO add sd_map_srer and sd_map_inset, figure out what size to make it, etc.
   tar_target(violin_plot, plot_violin(agb_df), format = "file"),
   tar_target(ridge_plot,
              plot_agb_ridges(
