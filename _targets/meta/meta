@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|cf4edd8924ce984b|||||||||||||||
+.Random.seed|object|aa4f8e655b9d55d5|||||||||||||||
 agb_df|stem|d46168d00eaa5b29|3a90758293f5ba7a|9e17043755996b39|-13802470||t19762.9365016951s|62a09c53c4c9fe70|477329039|rds|local|vector|||18.907||
 agb_map|stem|70b2205ff3cc9595|26da45069864de65|99a9dbd9f9fdf196|-1016663675||t19768.8627180228s|33028bcec452dd42|1052785|rds|local|vector|||0.535||
 agb_map_pdf|stem|4d7116ccc816cd8b|846abdb5b44addef|d0626fcec3be9a36|1182448542|docs/fig/map_agb.pdf|t19768.9372389515s|e3f531be60038a30|1366419|file|local|vector|||15.264||
@@ -40,7 +40,7 @@ menlove_dir|stem|589f96b89e6175dd|aa5b0a6b5266a2b2|ef46db3751d8e999|1449448148|d
 nnss_box|stem|ede4971f6fe38e33|258fdf11ba8efeef|6c3af2f6849177ad|-1659733985||t19746.986005095s|c060e1b24b17f00e|617|format_custom&read=ZnVuY3Rpb24gKHBhdGgpIAp0ZXJyYTo6dW53cmFwKHJlYWRSRFMocGF0aCkp&write=ZnVuY3Rpb24gKG9iamVjdCwgcGF0aCkgCnNhdmVSRFMob2JqZWN0ID0gdGVycmE6OndyYXAob2JqZWN0KSwgZmlsZSA9IHBhdGgp&marshal=&unmarshal=&convert=&copy=&repository=|local|vector|||0.04||
 nnss_box_file|stem|c06e62788109e318|750aa07e80219b81|ef46db3751d8e999|1698041763|data/shapefiles/NNSS_Box.shp|t19724.8101851852s|155dcb23a3dc3cf4|236|file|local|vector|||0||
 plot_agb_map|function|942adb5c65f1b22c|||||||||||||||
-plot_agb_ridges|function|3f58da7fc397f8b6|||||||||||||||
+plot_agb_ridges|function|86095bd49b1e4292|||||||||||||||
 plot_comparisons|stem|bdc1c9048934c08b|ca64e7ec5c1d3e48|965a3d4e3414d26c|-1818167200||t19762.9386991402s|758d7d51407f572d|117|rds|local|vector||plot_comparisons_f5b58cab*plot_comparisons_9acdf6b2*plot_comparisons_922c094e*plot_comparisons_0550c584*plot_comparisons_b9d46af9*plot_comparisons_7dd98562|0||
 plot_median_map|function|179bd793923081ae|||||||||||||||
 plot_scatter|function|b90157b93958fe75|||||||||||||||
@@ -58,15 +58,15 @@ read_clean_lt_gnn|function|131a73ed944ab028|||||||||||||||
 read_clean_menlove|function|28b7086b6b3c08b7|||||||||||||||
 read_clean_rap|function|c4eb6549f7fe3aae|||||||||||||||
 read_clean_xu|function|92ac40d6879d025a|||||||||||||||
-readme|stem|6f11594be0075741|c2c4b6e3bcf05d55|ef46db3751d8e999|980901812|README.md*README.qmd|t19768.9368305896s|ba1ce36c1f436f42|11462|file|local|vector|||42.397|package tidyr was built under R version 4.3.2. package ggridges was built under R version 4.3.2. package ggthemes was built under R version 4.3.2|
-report|stem|d7b2cce751aa7165|92afbdec77743431|ef46db3751d8e999|787668912|docs/report.html*docs/report.qmd*docs/fig/agb_ridge.png*docs/fig/agb_ridge2.png*docs/fig/map_agb.png*docs/fig/map_median.png*docs/fig/map_sd.png*docs/fig/ridge_opt1.png*docs/fig/ridge_opt2.png*docs/fig/scatter_chopping_et_al.png*docs/fig/scatter_gedi_l_4_b.png*docs/fig/scatter_liu_et_al.png*docs/fig/scatter_lt_gnn.png*docs/fig/scatter_menlove_healey.png*docs/fig/scatter_xu_et_al.png*docs/fig/test_KernSmooth_log.png|t19768.9368654558s|cfdf45a79729fecf|3799172|file|local|vector|||2.981||
-ridge_plot|stem|63a37a4680938459|922c8abf4887d0df|778a8af098eb0937|206237431||t19768.9255419917s|97db0cdc8fd9efdc|481413369|rds|local|vector|||12.313||
-ridge_plot_pdf|stem|f9ddb03bfbe71519|b8a3fd62820222a9|41b09ea0e5ec7f35|-371112976|docs/fig/agb_ridge.pdf|t19768.9268963956s|7362e4842bc53b28|621784|file|local|vector|||1.403||
-ridge_plot_png|stem|07ad3c7b80790cae|0b88c1c527252227|41b09ea0e5ec7f35|-27251809|docs/fig/agb_ridge.png|t19768.9268800255s|942957666488d633|79294|file|local|vector|||1.654||
+readme|stem|bb4aafcd843af07b|c2c4b6e3bcf05d55|ef46db3751d8e999|980901812|README.md*README.qmd|t19768.9579181965s|ba1ce36c1f436f42|11462|file|local|vector|||42.166|package tidyr was built under R version 4.3.2. package ggridges was built under R version 4.3.2. package ggthemes was built under R version 4.3.2|
+report|stem|76576541025a37a7|92afbdec77743431|ef46db3751d8e999|787668912|docs/report.html*docs/report.qmd*docs/fig/agb_ridge.png*docs/fig/agb_ridge2.png*docs/fig/map_agb.png*docs/fig/map_median.png*docs/fig/map_sd.png*docs/fig/ridge_opt1.png*docs/fig/ridge_opt2.png*docs/fig/scatter_chopping_et_al.png*docs/fig/scatter_gedi_l_4_b.png*docs/fig/scatter_liu_et_al.png*docs/fig/scatter_lt_gnn.png*docs/fig/scatter_menlove_healey.png*docs/fig/scatter_xu_et_al.png*docs/fig/test_KernSmooth_log.png|t19768.9579584517s|b016a3e5ca6a073d|3961536|file|local|vector|||3.447||
+ridge_plot|stem|2c758ccd6a08cdbf|922c8abf4887d0df|20c1bcec65895dc7|206237431||t19768.9595126405s|241764656c5e5529|481413246|rds|local|vector|||12.575||
+ridge_plot_pdf|stem|2f72114942fa1fc4|71ad3acdc9d07c76|8d0662d9bb137a15|-371112976|docs/fig/agb_ridge.pdf|t19768.9609839293s|a5599b94cb59aae6|554316|file|local|vector|||1.384||
+ridge_plot_png|stem|510ee17eb84a509d|dbe5fd8672e2888a|8d0662d9bb137a15|-27251809|docs/fig/agb_ridge.png|t19768.9609677866s|f7027f0a83fb3f39|69075|file|local|vector|||1.591||
 ridge_plot_sqrt|stem|ce135607b92dfc4d|4e1d4e0584a6e824|872768acbee80089|1164163194|docs/fig/agb_ridge_sqrt.png|t19760.9487726829s|a23938429655b472|73514|file|local|vector|||20.859|Removed 274 rows containing nonfinite values stat_density_ridges.|
-ridge_plot2|stem|ee6490a34c6dc33c|6d8592b92b7e379d|778a8af098eb0937|1279833883||t19768.9268564486s|e8a1961acac9a537|482502327|rds|local|vector|||13.781||
-ridge_plot2_pdf|stem|46b7b6bf30f2d03c|685de9fe916532ef|82a94aac698f368f|-1699511691|docs/fig/agb_ridge2.pdf|t19768.926926333s|e4f317e9591c61a3|816725|file|local|vector|||1.435||
-ridge_plot2_png|stem|b956670edfe311e0|2bf1901a7834e71d|82a94aac698f368f|1521584847|docs/fig/agb_ridge2.png|t19768.9269096028s|9c2ecc1db396263e|94043|file|local|vector|||1.117||
+ridge_plot2|stem|50fda7befb585180|6d8592b92b7e379d|20c1bcec65895dc7|1279833883||t19768.9609446471s|9090d7920c916d71|482799394|rds|local|vector|||14.18||
+ridge_plot2_pdf|stem|a9b1c3a0c0f4e68c|34742347dae26597|1ccf83557d6dcc0d|-1699511691|docs/fig/agb_ridge2.pdf|t19768.9610146635s|5eebf256a75ba9d6|672858|file|local|vector|||1.532||
+ridge_plot2_png|stem|813bc282503e27e0|d6dbc4fa743a5d58|1ccf83557d6dcc0d|1521584847|docs/fig/agb_ridge2.png|t19768.9609967951s|ec19a74260844a3d|69093|file|local|vector|||1.071||
 scatter_plots|pattern|d94e34d6b52ba2ea|1191931beb1105a2||1063551923||||505728|file|local|vector||scatter_plots_5da59fed*scatter_plots_b79a09fb*scatter_plots_f4041c88*scatter_plots_c21f5eb4*scatter_plots_0c953c8d*scatter_plots_c354976e|40.19||
 scatter_plots_0c953c8d|branch|f3a1861035b88bfd|1191931beb1105a2|fc592cec97ec69c2|1125792227|docs/fig/scatter_menlove_healey.png|t19765.9749356849s|c6d4fbbba0117ffc|70420|file|local|vector|scatter_plots||6.512||
 scatter_plots_5da59fed|branch|8b7a10da630f02e3|1191931beb1105a2|fc592cec97ec69c2|-488107380|docs/fig/scatter_chopping_et_al.png|t19765.9746458735s|5214973bec9a997b|91627|file|local|vector|scatter_plots||7.681||
