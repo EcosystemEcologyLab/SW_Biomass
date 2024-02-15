@@ -11,7 +11,7 @@ library(tarchetypes)
 # Set target options:
 tar_option_set(
   # packages that your targets need to run
-  packages = c("ncdf4", "terra", "fs", "purrr", "units", "tidyterra", "ggplot2", "sf", "maps", "tidyr", "dplyr", "stringr", "stars", "magick", "ggridges", "ggrastr", "svglite", "ggtext", "ggthemes"), 
+  packages = c("ncdf4", "terra", "fs", "purrr", "units", "tidyterra", "ggplot2", "sf", "maps", "tidyr", "dplyr", "stringr", "stars", "magick", "ggridges", "ggrastr", "svglite", "ggtext", "ggthemes", "KernSmooth", "patchwork"), 
   # format = "qs",
   #
   # For distributed computing in tar_make(), supply a {crew} controller
@@ -66,26 +66,48 @@ tar_plan(
     c(esa_agb, chopping_agb, liu_agb, xu_agb, ltgnn_agb, menlove_agb, gedi_agb),
     format = format_geotiff
   ),
-  #crop to SRER for inset/outset map
   #TODO probably don't need this.  Just crop resulting maps instead of cropping before calculations
   tar_file(srer_dir, "data/shapefiles/srerboundary/"),
   tar_target(srer_stack, crop_srer(agb_stack, srer_dir), format = format_geotiff),
   
   # Plots -------------------------------------------------------------------
+  # Maps faceted by data product
+  tar_target(agb_map_png, plot_agb_map(agb_stack, downsample = TRUE), format = "file"),
+  tar_target(agb_map_pdf, plot_agb_map(agb_stack, downsample = TRUE, filename = "map_agb.pdf"), format = "file"),
+
+  # Maps of median across products
+  tar_target(median_map_png, plot_median_map(agb_stack, downsample = FALSE, height = 2),
+             format = "file"),
+  tar_target(median_map_pdf, plot_median_map(agb_stack, downsample = FALSE, filename = "map_median.pdf", height = 2), 
+             format = "file"),
+  
+  # Maps of SD across products
+  tar_target(sd_map_png, plot_sd_map(agb_stack, downsample = FALSE, height = 2),
+             format = "file"),
+  tar_target(sd_map_pdf, plot_sd_map(agb_stack, downsample = FALSE, filename = "map_sd.pdf", height = 2), 
+             format = "file"),
+  
   # Convert to wide df.  Slow operation, so this saves time for plots that use a tibble
   tar_target(agb_df, as_tibble(as.data.frame(agb_stack))),
-  tar_target(agb_map, plot_agb_map(agb_stack, width = 7, height = 6), format = "file"),
-  tar_target(sd_map, plot_sd_map(agb_stack, height = 2), format = "file"),
-  #TODO add sd_map_srer and sd_map_inset, figure out what size to make it, etc.
-  tar_target(violin_plot, plot_violin(agb_df), format = "file"),
-  tar_target(ridge_plot,
-             plot_agb_ridges(
-               agb_df,
-               n = 10000,
-               height = 2,
-               width = 4
-             ),
+  
+  # Ridge density plots
+  tar_target(ridge_plot, plot_agb_ridges(agb_df)),
+  tar_target(ridge_plot2, plot_agb_ridges(agb_df, est_separate = TRUE)),
+  tar_target(ridge_plot_png, 
+             ggsave("docs/fig/agb_ridge.png", ridge_plot, height = 2),
              format = "file"),
+  tar_target(ridge_plot_pdf, 
+             ggsave("docs/fig/agb_ridge.pdf", ridge_plot, height = 2, useDingbats = FALSE),
+             format = "file"),
+  tar_target(ridge_plot2_png, 
+             ggsave("docs/fig/agb_ridge2.png", ridge_plot2, height = 2),
+             format = "file"),
+  tar_target(ridge_plot2_pdf, 
+             ggsave("docs/fig/agb_ridge2.pdf", ridge_plot2, height = 2, useDingbats = FALSE),
+             format = "file"),
+  
+  
+  # Scatter plots against ESA
   tar_target(plot_comparisons, colnames(agb_df)[colnames(agb_df)!="ESA CCI"]),
   tar_target(
     scatter_plots,
