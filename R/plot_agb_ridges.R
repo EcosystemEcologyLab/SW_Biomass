@@ -43,17 +43,24 @@ plot_agb_ridges <- function(agb_df, est_separate = FALSE, break_x = c(20, 100), 
   } else {
     dens1 <- agb_df |> 
       purrr::map(\(x) {
-        bkde(x[is.finite(x)], range.x = c(0, break_x[1]), bandwidth = bw, gridsize = 10000)
+        bkde(
+          x[is.finite(x)],
+          range.x = c(min(x, na.rm = TRUE), break_x[1]),
+          bandwidth = bw,
+          gridsize = 10000
+        )
       }) |> 
       purrr::map(as_tibble) |> 
       list_rbind(names_to = "group")
     
-    max_agb <- agb_df |> 
-      purrr::map_dbl(max, na.rm = TRUE) |> max()
-    
     dens2 <- agb_df |> 
       purrr::map(\(x) {
-        bkde(x[is.finite(x)], range.x = c(break_x[1], max_agb), bandwidth = bw, gridsize = 10000)
+        bkde(
+          x[is.finite(x)],
+          range.x = c(break_x[1], max(x, na.rm = TRUE)),
+          bandwidth = bw,
+          gridsize = 10000
+        )
       }) |> 
       purrr::map(as_tibble) |> 
       list_rbind(names_to = "group")
