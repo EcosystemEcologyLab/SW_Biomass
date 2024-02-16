@@ -27,21 +27,13 @@ read_clean_lt_gnn <- function(dir, esa) {
   
   tiles_combined <- 
     tiles_sprc |> 
-    terra::mosaic() #slow step
-  
-  #TODO source metadata states scale factor = 10.  What does that mean? Do I
-  #need to divide/multiply by 10? The values seem reasonable as they are.
+    terra::merge() #slow step
+  #I did some benchmarking and of vrt(), merge(), and mosaic(), merge() is the fastest.
   
   varnames(tiles_combined) <- "AGB"
   names(tiles_combined) <- c("LT-GNN")
   units(tiles_combined) <- c("Mg/ha")
 
-  # Project and crop to AZ
-  az_sf <- 
-    maps::map("state", "arizona", plot = FALSE, fill = TRUE) |> 
-    st_as_sf() |> 
-    st_transform(st_crs(esa))
-  
-  project_to_esa(tiles_combined, esa) |> 
-    crop(az_sf, mask = TRUE)
+  # Project and crop
+  project_crop_esa(tiles_combined, esa)
 }

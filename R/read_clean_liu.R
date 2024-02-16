@@ -45,25 +45,17 @@ read_clean_liu = function(file, esa) {
   # Project to ext and res of ESA data
   out_2010 <- out.stack[[18]] #layer 18 is 2010
   
-  #TODO: ask Charlie if this should happen before projecting or OK to happen after?
   # Convert from AGBC (MgC/ha) to AGB (Mg/ha) by multiplying by 2.2
   out_2010 <- out_2010 * 2.2
+
+  # Set names and units
+  varnames(out_2010) <- "AGB"
+  names(out_2010) <- "Liu et al."
+  terra::units(out_2010) <-  "Mg/ha"
   
+  # Project and Crop
   # See discussion on projection of this dataset here:
   # https://github.com/cct-datascience/SW_Biomass/issues/13
-  out_az_2010 <- project_to_esa(out_2010, esa, method = "near")
-  
-  
-  # Set names and units
-  varnames(out_az_2010) <- "AGB"
-  names(out_az_2010) <- "Liu et al."
-  terra::units(out_az_2010) <-  "Mg/ha"
-  
-  # Crop to AZ border
-  az_sf <- 
-    maps::map("state", "arizona", plot = FALSE, fill = TRUE) |> 
-    st_as_sf() |> 
-    st_transform(st_crs(esa))
-  
-  crop(out_az_2010, az_sf, mask = TRUE)
+  project_crop_esa(out_2010, esa, method = "near")
+
 }

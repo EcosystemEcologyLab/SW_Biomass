@@ -13,12 +13,6 @@ read_clean_xu <- function(file, esa) {
   names(xu_agb_2010) <- "Xu et al."
   varnames(xu_agb_2010) <- "AGB"
   
-  # Project and crop to AZ
-  az_sf <- 
-    maps::map("state", "arizona", plot = FALSE, fill = TRUE) |> 
-    st_as_sf() |> 
-    st_transform(st_crs(esa))
-  
-  project_to_esa(xu_agb_2010, esa) |> 
-    crop(az_sf, mask = TRUE)
+  # Project and crop
+  project_crop_esa(xu_agb_2010, esa)
 }

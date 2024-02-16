@@ -21,10 +21,10 @@ editor: visual
 So far the data products include:
 
 | Product                               | Downloaded (including CA) | Wrangled |
-|---------------------------------------|---------------------------|----------|
+|----------------------------------|-----------------------|----------------|
 | Xu AGBC                               | ✅                        | ✅       |
 | Liu AGBC                              | ✅                        | ✅       |
-| LT-GNN AGB                            | (only AZ right now)       | ✅       |
+| LT-GNN AGB                            | ✅                        | ✅       |
 | Chopping AGB                          | ✅                        | ✅       |
 | Menlove AGB                           | ✅                        | ✅       |
 | ESA CCI/GlobBiomass AGB v004          | ✅                        | ✅       |

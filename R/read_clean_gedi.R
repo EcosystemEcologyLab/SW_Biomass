@@ -20,11 +20,5 @@ read_clean_gedi <- function(file, esa) {
   names(gedi_agb) <- "GEDI L4B"
   
   # Project and crop
-  az_sf <- 
-    maps::map("state", "arizona", plot = FALSE, fill = TRUE) |> 
-    st_as_sf() |> 
-    st_transform(st_crs(esa))
-  
-  project_to_esa(gedi_agb, esa) |> 
-    crop(az_sf, mask = TRUE)
+  project_crop_esa(gedi_agb, esa)
 }

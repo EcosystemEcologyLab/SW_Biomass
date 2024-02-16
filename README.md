@@ -39,60 +39,60 @@ graph LR
   style Graph fill:#FFFFFF00,stroke:#000000;
   subgraph Legend
     direction LR
+    x0a52b03877696646([""Outdated""]):::outdated --- x7420bd9270f8d27d([""Up to date""]):::uptodate
     x7420bd9270f8d27d([""Up to date""]):::uptodate --- xa8565c104d8f0705([""Dispatched""]):::dispatched
-    xa8565c104d8f0705([""Dispatched""]):::dispatched --- x0a52b03877696646([""Outdated""]):::outdated
-    x0a52b03877696646([""Outdated""]):::outdated --- xbf4603d6c2c2ad6b([""Stem""]):::none
+    xa8565c104d8f0705([""Dispatched""]):::dispatched --- xbf4603d6c2c2ad6b([""Stem""]):::none
     xbf4603d6c2c2ad6b([""Stem""]):::none --- x70a5fa6bea6f298d[""Pattern""]:::none
   end
   subgraph Graph
     direction LR
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> xc17fbd3a1bc1e06f(["sd_map_png"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> xb4a772147757aa82(["median_map_pdf"]):::uptodate
+    x74a8a38fc5a3e271(["agb_stack"]):::outdated --> xc17fbd3a1bc1e06f(["sd_map_png"]):::outdated
+    x74a8a38fc5a3e271(["agb_stack"]):::outdated --> xb4a772147757aa82(["median_map_pdf"]):::outdated
     x80cf9d1bb79c21e3(["chopping_file"]):::uptodate --> x10672e980111f5c2(["chopping_agb"]):::uptodate
     x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> x10672e980111f5c2(["chopping_agb"]):::uptodate
     x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> x7ff1622cd5d030f8(["ltgnn_agb"]):::uptodate
     xc968c07864940097(["ltgnn_dir"]):::uptodate --> x7ff1622cd5d030f8(["ltgnn_agb"]):::uptodate
-    x1194ca8b71ccd0e1(["agb_df"]):::uptodate --> xf4f4464992cd7b36(["ridge_plot2"]):::outdated
-    x10672e980111f5c2(["chopping_agb"]):::uptodate --> x74a8a38fc5a3e271(["agb_stack"]):::uptodate
-    x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> x74a8a38fc5a3e271(["agb_stack"]):::uptodate
-    x5bee436f312cca80(["gedi_agb"]):::uptodate --> x74a8a38fc5a3e271(["agb_stack"]):::uptodate
-    xe4f3f2f15e724def(["liu_agb"]):::uptodate --> x74a8a38fc5a3e271(["agb_stack"]):::uptodate
-    x7ff1622cd5d030f8(["ltgnn_agb"]):::uptodate --> x74a8a38fc5a3e271(["agb_stack"]):::uptodate
-    xb420f92ea294cb0b(["menlove_agb"]):::uptodate --> x74a8a38fc5a3e271(["agb_stack"]):::uptodate
-    x6bb719b45bfee760(["xu_agb"]):::uptodate --> x74a8a38fc5a3e271(["agb_stack"]):::uptodate
-    xa9c8870bcb5985fd["scatter_plots"]:::uptodate --> x0ed052f6c2f4c6d2(["zip_scatter_plots"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x4eb7e7cfb305a440(["srer_stack"]):::uptodate
-    xc7f156126aa49133(["srer_dir"]):::uptodate --> x4eb7e7cfb305a440(["srer_stack"]):::uptodate
-    x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> xb420f92ea294cb0b(["menlove_agb"]):::uptodate
-    x5086af9665941a9e(["menlove_dir"]):::uptodate --> xb420f92ea294cb0b(["menlove_agb"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> xa915fa9c5247d8fb(["sd_map_pdf"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x1194ca8b71ccd0e1(["agb_df"]):::uptodate
+    x1194ca8b71ccd0e1(["agb_df"]):::outdated --> xf4f4464992cd7b36(["ridge_plot2"]):::outdated
+    x10672e980111f5c2(["chopping_agb"]):::uptodate --> x74a8a38fc5a3e271(["agb_stack"]):::outdated
+    x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> x74a8a38fc5a3e271(["agb_stack"]):::outdated
+    x5bee436f312cca80(["gedi_agb"]):::uptodate --> x74a8a38fc5a3e271(["agb_stack"]):::outdated
+    xe4f3f2f15e724def(["liu_agb"]):::uptodate --> x74a8a38fc5a3e271(["agb_stack"]):::outdated
+    x7ff1622cd5d030f8(["ltgnn_agb"]):::uptodate --> x74a8a38fc5a3e271(["agb_stack"]):::outdated
+    xb420f92ea294cb0b(["menlove_agb"]):::outdated --> x74a8a38fc5a3e271(["agb_stack"]):::outdated
+    x6bb719b45bfee760(["xu_agb"]):::uptodate --> x74a8a38fc5a3e271(["agb_stack"]):::outdated
+    xa9c8870bcb5985fd["scatter_plots"]:::outdated --> x0ed052f6c2f4c6d2(["zip_scatter_plots"]):::outdated
+    x74a8a38fc5a3e271(["agb_stack"]):::outdated --> x4eb7e7cfb305a440(["srer_stack"]):::outdated
+    xc7f156126aa49133(["srer_dir"]):::uptodate --> x4eb7e7cfb305a440(["srer_stack"]):::outdated
+    x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> xb420f92ea294cb0b(["menlove_agb"]):::outdated
+    x5086af9665941a9e(["menlove_dir"]):::uptodate --> xb420f92ea294cb0b(["menlove_agb"]):::outdated
+    x74a8a38fc5a3e271(["agb_stack"]):::outdated --> xa915fa9c5247d8fb(["sd_map_pdf"]):::outdated
+    x74a8a38fc5a3e271(["agb_stack"]):::outdated --> x1194ca8b71ccd0e1(["agb_df"]):::outdated
     x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> x6bb719b45bfee760(["xu_agb"]):::uptodate
     x39b0a131ab7dd2d0(["xu_file"]):::uptodate --> x6bb719b45bfee760(["xu_agb"]):::uptodate
-    x1194ca8b71ccd0e1(["agb_df"]):::uptodate --> x13774cf4f2cc9b83(["ridge_plot"]):::outdated
+    x1194ca8b71ccd0e1(["agb_df"]):::outdated --> x13774cf4f2cc9b83(["ridge_plot"]):::outdated
     x13774cf4f2cc9b83(["ridge_plot"]):::outdated --> x0559a68403a4b0d3(["ridge_plot_pdf"]):::outdated
     xf4f4464992cd7b36(["ridge_plot2"]):::outdated --> x040f384dee9e6f46(["ridge_plot2_pdf"]):::outdated
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x55567b6e4e4e9f04(["agb_map_png"]):::uptodate
-    x1194ca8b71ccd0e1(["agb_df"]):::uptodate --> xa9c8870bcb5985fd["scatter_plots"]:::uptodate
-    xa5177effe50f87b0(["plot_comparisons"]):::uptodate --> xa9c8870bcb5985fd["scatter_plots"]:::uptodate
+    x74a8a38fc5a3e271(["agb_stack"]):::outdated --> x55567b6e4e4e9f04(["agb_map_png"]):::outdated
+    x1194ca8b71ccd0e1(["agb_df"]):::outdated --> xa9c8870bcb5985fd["scatter_plots"]:::outdated
+    xa5177effe50f87b0(["plot_comparisons"]):::outdated --> xa9c8870bcb5985fd["scatter_plots"]:::outdated
     x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> x5688b5ef6bcea6f9(["rap_agb"]):::uptodate
     x9889d33e942dc03b(["rap_file"]):::uptodate --> x5688b5ef6bcea6f9(["rap_agb"]):::uptodate
     xb91305eee1f5b0b5(["esa_dir"]):::uptodate --> x9f7f8cade5fecf35(["esa_agb"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x3180218e70201396(["agb_map_pdf"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x0b6b69c22deec4ac(["median_map_png"]):::uptodate
+    x74a8a38fc5a3e271(["agb_stack"]):::outdated --> x3180218e70201396(["agb_map_pdf"]):::outdated
+    x74a8a38fc5a3e271(["agb_stack"]):::outdated --> x0b6b69c22deec4ac(["median_map_png"]):::outdated
     x13774cf4f2cc9b83(["ridge_plot"]):::outdated --> x7a126aaea56cf93a(["ridge_plot_png"]):::outdated
     xf4f4464992cd7b36(["ridge_plot2"]):::outdated --> xd468bbbbb05472a0(["ridge_plot2_png"]):::outdated
     x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> x5bee436f312cca80(["gedi_agb"]):::uptodate
     x8d7fb25f1e16bc4f(["gedi_file"]):::uptodate --> x5bee436f312cca80(["gedi_agb"]):::uptodate
     x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> xe4f3f2f15e724def(["liu_agb"]):::uptodate
     x26d0dae1bf6fcb39(["liu_file"]):::uptodate --> xe4f3f2f15e724def(["liu_agb"]):::uptodate
-    x1194ca8b71ccd0e1(["agb_df"]):::uptodate --> xa5177effe50f87b0(["plot_comparisons"]):::uptodate
+    x1194ca8b71ccd0e1(["agb_df"]):::outdated --> xa5177effe50f87b0(["plot_comparisons"]):::outdated
     x6e52cb0f1668cc22(["readme"]):::dispatched --> x6e52cb0f1668cc22(["readme"]):::dispatched
-    xe0fba61fbc506510(["report"]):::outdated --> xe0fba61fbc506510(["report"]):::outdated
+    xe0fba61fbc506510(["report"]):::uptodate --> xe0fba61fbc506510(["report"]):::uptodate
   end
+  classDef outdated stroke:#000000,color:#000000,fill:#78B7C5;
   classDef uptodate stroke:#000000,color:#ffffff,fill:#354823;
   classDef dispatched stroke:#000000,color:#000000,fill:#DC863B;
-  classDef outdated stroke:#000000,color:#000000,fill:#78B7C5;
   classDef none stroke:#000000,color:#000000,fill:#94a4ac;
   linkStyle 0 stroke-width:0px;
   linkStyle 1 stroke-width:0px;
@@ -119,7 +119,7 @@ fs::dir_tree(recurse = 1)
     │   ├── plot_median_map.R
     │   ├── plot_scatter.R
     │   ├── plot_sd_map.R
-    │   ├── project_to_esa.R
+    │   ├── project_crop_esa.R
     │   ├── read_clean_chopping.R
     │   ├── read_clean_esa.R
     │   ├── read_clean_gedi.R
@@ -148,13 +148,14 @@ fs::dir_tree(recurse = 1)
     │   ├── report.html
     │   ├── report.qmd
     │   └── report_files
-    └── notes
-        ├── improve ridges.R
-        ├── kernel_estimation.R
-        ├── mosaic_tiles.R
-        ├── pointdensity_plots.R
-        ├── srer_map.R
-        └── violin_plots.R
+    ├── notes
+    │   ├── improve ridges.R
+    │   ├── kernel_estimation.R
+    │   ├── mosaic_tiles.R
+    │   ├── pointdensity_plots.R
+    │   ├── srer_map.R
+    │   └── violin_plots.R
+    └── test.tif
 
 - `R/` contains functions used in the `targets` pipeline.
 - `_targets` is generated by `targets::tar_make()` and only the metadata

@@ -8,7 +8,7 @@ read_clean_esa <- function(dir) {
   # read in tiles and combine
   esa_agb_2010 <- 
     dir |>
-    dir_ls(glob = "*.tif") |> 
+    dir_ls(glob = "*.tif*") |> 
     purrr::map(terra::rast) |> 
     terra::sprc() |> 
     terra::mosaic() # mosaic() is much faster than merge() apparently
@@ -18,12 +18,13 @@ read_clean_esa <- function(dir) {
   names(esa_agb_2010) <- "ESA CCI"
   varnames(esa_agb_2010) <- "AGB"
   
-  # Crop to AZ
-  az_sf <- 
-    maps::map("state", "arizona", plot = FALSE, fill = TRUE) |> 
+  # Crop to AZ + CA
+  ca_az_sf <- 
+    maps::map("state", c("arizona", "california"), plot = FALSE, fill = TRUE) |> 
     st_as_sf() |> 
     st_transform(st_crs(esa_agb_2010))
   
+  #TODO should mask be FALSE and masking happen later just before calculations?
   esa_agb_2010 |> 
-    crop(az_sf, mask = TRUE)
+    crop(ca_az_sf, mask = TRUE)
 }

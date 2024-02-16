@@ -12,8 +12,15 @@
 #'   different from the ESA product.
 #'
 #' @return SpatRaster
-project_to_esa <- function(rast, esa, method = "bilinear") {
+project_crop_esa <- function(rast, esa, method = "bilinear") {
+  ca_az_sf <- 
+    maps::map("state", c("arizona", "california"), plot = FALSE, fill = TRUE) |> 
+    st_as_sf() |> 
+    st_transform(st_crs(esa))
+  
   project(rast, esa,
-          method = method, #this is the default, other options might be better
-          threads = 4)
+          method = method,
+          threads = 4) |> 
+    crop(ca_az_sf, mask = TRUE)
+
 }

@@ -66,11 +66,12 @@ tar_plan(
     c(esa_agb, chopping_agb, liu_agb, xu_agb, ltgnn_agb, menlove_agb, gedi_agb),
     format = format_geotiff
   ),
-  #TODO probably don't need this.  Just crop resulting maps instead of cropping before calculations
-  tar_file(srer_dir, "data/shapefiles/srerboundary/"),
-  tar_target(srer_stack, crop_srer(agb_stack, srer_dir), format = format_geotiff),
+
+  #TODO think about best way to use static/dynamic branching to do every target below by geographic subset (AZ, CA, SRER, Pima County)
   
   # Plots -------------------------------------------------------------------
+  # TODO: do all these maps and plots separately by AZ, CA, SRER, and Pima County
+  
   # Maps faceted by data product
   tar_target(agb_map_png, plot_agb_map(agb_stack, downsample = TRUE), format = "file"),
   tar_target(agb_map_pdf, plot_agb_map(agb_stack, downsample = TRUE, filename = "map_agb.pdf"), format = "file"),
@@ -88,6 +89,7 @@ tar_plan(
              format = "file"),
   
   # Convert to wide df.  Slow operation, so this saves time for plots that use a tibble
+  #TODO: do this separately by AZ, CA, SRER, and Pima County.  Doing both AZ + CA is too slow and too big of a data frame I think.
   tar_target(agb_df, as_tibble(as.data.frame(agb_stack))),
   
   # Ridge density plots
