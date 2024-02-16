@@ -35,9 +35,10 @@ RAP is a model product only for rangelands (i.e. annual or perennial grasses and
 
 ## Figures
 
-@fig-agbmap shows all of the data products transformed to the same extent and resolution.
-In an attempt to get a spatial sense of where these datasets agree/disagree the most, @fig-sdmap shows the standard deviation across the pixels.
-@fig-violin shows the distribution of (a sample of) AGB values for each data product.
+@fig-map_agb shows all of the data products transformed to the same extent and resolution.
+@fig-map_median shows the median AGB across all products.
+@fig-map_sd shows spatial distribution of uncertainty.
+@sec-data-distribution shows the differences in AGB distribution among data products.
 
 Observations:
 
@@ -57,19 +58,19 @@ Observations:
 
 <!--# TODO: add download button for .eps file as well so Dave can open in Adobe easily -->
 
-#### Median
+#### Median {#sec-median}
 
 ![Median AGB across data products](fig/map_median.png){#fig-map_median fig-align="center"}
 
 {{< downloadthis fig/map_median.png label="Download .png" >}}
 
-#### Standard Deviation
+#### Standard Deviation {#sec-standard-deviation}
 
 ![Map of standard deviation of each raster pixel showing areas with the highest variation among data products in yellow and areas with the least variation in dark purple. Note: the color gradient is on a log scale.](fig/map_sd.png){#fig-map_sd fig-align="center"}
 
 {{< downloadthis fig/map_sd.png label="Download .png" >}}
 
-### Data distribution
+### Data distribution {#sec-data-distribution}
 
 Density ridge plots are a good compact way to visualize this.
 
