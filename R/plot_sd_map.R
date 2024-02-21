@@ -4,6 +4,7 @@
 #'   ggplot object doesn't work with geom_spatraster
 #'
 #' @param agb_stack agb_stack target
+#' @param subset SpatVector object to crop and mask agb_stack
 #' @param downsample logical; include all pixels in the dataset or let
 #'   geom_spatraster() do it's default downsampling?
 #' @param path passed to ggsave()
@@ -14,28 +15,32 @@
 #'
 #' @examples
 #' plot_sd_map(agb_stack)
-plot_sd_map <- function(agb_stack, downsample = TRUE, path = "docs/fig", filename = "map_sd.png", ...) {
+plot_sd_map <- function(agb_stack, subset, downsample = TRUE, path = "docs/fig", filename = "map_sd.png", ...) {
   agb_sd <- agb_stack |> 
+    crop(subset, mask = TRUE) |> 
     stdev(na.rm = TRUE)
   
+  #I add 1 to the data here because trans = "log1p" and scales::breaks_log()
+  #don't work together. So, this is the first half of a log(x+1) transformation.
   if(isFALSE(downsample)) {
     n <- length(values(agb_sd))
     p_base <- ggplot() +
       tidyterra::geom_spatraster(
-        data = agb_sd,
+        data = agb_sd + 1, 
         maxcell = n 
       )
   } else {
     p_base <- ggplot() +
-      tidyterra::geom_spatraster(data = agb_sd)
+      tidyterra::geom_spatraster(data = agb_sd + 1)
   }
   
   p <-
     p_base +
+    # Here is the log part of the log(x+1) transformation of the color scale
     scale_fill_viridis_c(
       option = "viridis",
-      trans = "log1p", #log(x + 1) transformation
-      breaks = scales::breaks_log(6),
+      trans = "log10",
+      breaks = scales::breaks_log(5),
       na.value = "transparent",
       guide = guide_colorbar(barwidth = 0.6, title.position = "top")
     ) +

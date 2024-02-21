@@ -2,16 +2,28 @@
 #' 
 #' uses ggridges package
 #'
-#' @param agb_df The agb_stack target, a tibble
+#' @param agb_stack agb_stack target
+#' @param subset SpatVector object to crop and mask agb_stack
 #' @param break_x a length 2 numeric vector for what part of the x-axis to omit.
 #'   By default it plots AGB 0-20 on the first panel and 100-max(AGB) in the
 #'   second panel.
 #' @param est_separate logical; do the density kernel estimate separately for
 #'   the two panels?
-#' @param widths length 2 numeric vector for relative widths of the two panels.
-#'   Passed to patchwork::plot_layout()
-#' @return ggplot object
-plot_agb_ridges <- function(agb_df, est_separate = FALSE, break_x = c(20, 100), widths = c(1, 0.5)) {
+#' @param rel_widths length 2 numeric vector for relative widths of the two panels.
+#'   Passed to patchwork::plot_layout(widths = rel_widths)
+#' @param path passed to ggsave()
+#' @param filename passed to ggsave().  Include file extension desired for output (e.g. .png or .pdf)
+#' @param ... additional arguments passed to ggsave(), e.g. `height`
+#' 
+#' @return file path
+plot_agb_ridges <- function(agb_stack, subset, est_separate = FALSE, break_x = c(20, 100), rel_widths = c(1, 0.5), path = "docs/fig", filename = "agb_ridge.png", ...) {
+  
+  #TODO consider making the break programmatically? Like, figure out where the densities all level out and then figure out where the min of the maxes is.
+  agb_df <- 
+    agb_stack |>
+    crop(subset, mask = TRUE) |>
+    as.data.frame() |>
+    as_tibble()
   
   #joint bandwidth estimation
   bw <- 
@@ -36,10 +48,11 @@ plot_agb_ridges <- function(agb_df, est_separate = FALSE, break_x = c(20, 100), 
             axis.title.x = element_markdown(),
             legend.position = "none")
     
-    (p + coord_cartesian(xlim = c(0, break_x[1]))) + 
+    p_out <- 
+      (p + coord_cartesian(xlim = c(0, break_x[1]))) + 
       (p + coord_cartesian(xlim = c(break_x[2], max(dens$x))))  +
-      plot_layout(axes = "collect", widths = widths)
-  
+      plot_layout(axes = "collect", widths = rel_widths)
+    
   } else {
     dens1 <- agb_df |> 
       purrr::map(\(x) {
@@ -87,8 +100,14 @@ plot_agb_ridges <- function(agb_df, est_separate = FALSE, break_x = c(20, 100), 
     
     # Not very flexible.  Needed to get y-axis ticks to match up between panels,
     # but if things change, this will need manual editing.
-    (p1 + p2 & coord_cartesian(ylim = c(1, 7.5))) +
-      plot_layout(axes = "collect", widths = widths)
+    p_out <- 
+      (p1 + p2 & coord_cartesian(ylim = c(1, 7.5))) +
+      plot_layout(axes = "collect", widths = rel_widths)
   }
   
+  if (fs::path_ext(filename) %in% c("pdf", "svg", "eps", "ps")) {
+    ggsave(filename = filename, path = path, plot = p_out, useDingbats = FALSE, ...)
+  } else {
+    ggsave(filename = filename, path = path, plot = p_out, dpi = 200, ...)
+  }
 }

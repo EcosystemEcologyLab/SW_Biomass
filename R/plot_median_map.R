@@ -5,6 +5,7 @@
 #' 
 #'
 #' @param agb_stack agb_stack target
+#' @param subset SpatVector object to crop and mask to
 #' @param downsample logical; include all pixels in the dataset or let
 #'   geom_spatraster() do it's default downsampling?
 #' @param path passed to ggsave()
@@ -15,8 +16,9 @@
 #'
 #' @examples
 #' plot_sd_map(agb_stack)
-plot_median_map <- function(agb_stack, downsample = TRUE, path = "docs/fig", filename = "map_median.png", ...) {
+plot_median_map <- function(agb_stack, subset, downsample = TRUE, path = "docs/fig", filename = "map_median.png", ...) {
   agb_median <- agb_stack |> 
+    crop(subset, mask = TRUE) |> 
     median(na.rm = TRUE)
   
   if(isFALSE(downsample)) {
@@ -46,7 +48,7 @@ plot_median_map <- function(agb_stack, downsample = TRUE, path = "docs/fig", fil
           legend.title = element_markdown())
   
   if (fs::path_ext(filename) %in% c("pdf", "svg", "eps", "ps")) {
-    p <- ggrastr::rasterise(p, layer = "Raster", dpi = 200, dev = "ragg_png")
+    p <- ggrastr::rasterise(p, layer = "Raster", dpi = 200, dev = "ragg_png") #TODO check that this is actually working
     ggsave(filename = filename, path = path, plot = p, useDingbats = FALSE, ...)
   } else {
     ggsave(filename = filename, path = path, plot = p, dpi = 200,  ...)

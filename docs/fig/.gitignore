@@ -1,2 +1,2 @@
-# PDFs are large and don't need to be on github.  Will email when final versions are done.
-*.pdf 
+#.pdfs are too big for GitHub
+*.pdf

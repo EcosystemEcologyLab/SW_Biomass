@@ -4,6 +4,7 @@
 #'   ggplot object doesn't work with geom_spatraster
 #'   
 #' @param agb_stack SpatRaster object with layers for different data products
+#' @param subset SpatVector object to crop and mask to
 #' @param downsample logical; include all pixels in the dataset or let
 #'   geom_spatraster() do it's default downsampling?
 #' @param path passed to ggsave()
@@ -14,15 +15,16 @@
 #'
 #' @examples
 #' plot_agb_map(agb_stack)
-plot_agb_map <- function(agb_stack, downsample = TRUE, path = "docs/fig", filename = "map_agb.png", ...) {
+plot_agb_map <- function(agb_stack, subset, downsample = TRUE, path = "docs/fig", filename = "map_agb.png", ...) {
 
+  agb_subset <- crop(agb_stack, subset, mask = TRUE)
   if (isFALSE(downsample)) {
-    n <- length(values(agb_stack[[1]]))
+    n <- length(values(agb_subset[[1]]))
     p_base <- ggplot() +
-      tidyterra::geom_spatraster(data = agb_stack, maxcell = n)
+      tidyterra::geom_spatraster(data = agb_subset, maxcell = n)
   } else {
     p_base <- ggplot() +
-      tidyterra::geom_spatraster(data = agb_stack)
+      tidyterra::geom_spatraster(data = agb_subset)
   }
   
   #subset of colors from the scio package batlow_w palette

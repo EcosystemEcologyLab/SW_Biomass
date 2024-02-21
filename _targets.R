@@ -6,12 +6,13 @@
 # Load packages required to define the pipeline:
 library(targets)
 library(tarchetypes)
+library(tidyr)
 # library(qs)
 
 # Set target options:
 tar_option_set(
   # packages that your targets need to run
-  packages = c("ncdf4", "terra", "fs", "purrr", "units", "tidyterra", "ggplot2", "sf", "maps", "tidyr", "dplyr", "stringr", "stars", "magick", "ggridges", "ggrastr", "svglite", "ggtext", "ggthemes", "KernSmooth", "patchwork"), 
+  packages = c("ncdf4", "terra", "fs", "purrr", "units", "tidyterra", "ggplot2", "sf", "maps", "tidyr", "dplyr", "stringr", "stars", "magick", "ggridges", "ggrastr", "svglite", "ggtext", "ggthemes", "KernSmooth", "patchwork", "tibble"), 
   # format = "qs",
   #
   # For distributed computing in tar_make(), supply a {crew} controller
@@ -66,68 +67,115 @@ tar_plan(
     c(esa_agb, chopping_agb, liu_agb, xu_agb, ltgnn_agb, menlove_agb, gedi_agb),
     format = format_geotiff
   ),
-
-  #TODO think about best way to use static/dynamic branching to do every target below by geographic subset (AZ, CA, SRER, Pima County)
   
   # Plots -------------------------------------------------------------------
-  # TODO: do all these maps and plots separately by AZ, CA, SRER, and Pima County
+  tar_file(srer_dir, "data/shapefiles/srerboundary/"),
+  tar_file(pima_dir, "data/shapefiles/Pima_County_Boundary/"),
   
-  # Maps faceted by data product
-  tar_target(agb_map_png, plot_agb_map(agb_stack, downsample = TRUE), format = "file"),
-  tar_target(agb_map_pdf, plot_agb_map(agb_stack, downsample = TRUE, filename = "map_agb.pdf"), format = "file"),
+  # Dynamic branching example.  Might be more useful when there are a lot more subsets
+  # tar_target(subsets,
+  #            make_shape_list(crs = st_crs(agb_stack), srer_dir = srer_dir, pima_dir = pima_dir),
+  #            iteration = "list"),
+  # tar_target(test, ext(crop(agb_stack, subsets))[1], pattern = map(subsets)),
+  
+  # Use static branching to make all the maps of all the subsets
+  az = maps::map("state", "arizona", plot = FALSE, fill = TRUE) |> 
+    st_as_sf() |> 
+    st_transform(st_crs(agb_stack)) |> 
+    mutate(subset = "AZ"),
+  ca = maps::map("state", "california", plot = FALSE, fill = TRUE) |> 
+    st_as_sf() |> 
+    st_transform(st_crs(agb_stack)) |> 
+    mutate(subset = "CA"),
+  srer = st_read(srer_dir) |> 
+    st_transform(st_crs(agb_stack)) |> 
+    mutate(subset = "SRER"),
+  pima = st_read(pima_dir) |> 
+    st_transform(st_crs(agb_stack)) |> 
+    mutate(subset = "Pima County"),
+  tar_target(subsets, list("AZ" = az, "CA" = ca, "SRER" = srer, "Pima County" = pima), 
+             iteration = "list"),
+  tar_map(
+    values = tidyr::tibble(
+      subset = rlang::syms(c("az", "ca", "srer", "pima")),
+      label = c("AZ", "CA", "SRER", "PimaCounty")
+    ) |> 
+      tidyr::expand_grid(file_ext = c("png", "pdf")),
+    # Maps faceted by data product
+    tar_target(
+      agb_map, 
+      plot_agb_map(agb_stack, subset, downsample = TRUE,
+                   filename = paste0("map_agb_", label, ".", file_ext)), 
+      format = "file"
+    ),
+    # Maps of median AGB across products
+    tar_target(
+      median_map,
+      plot_median_map(agb_stack, subset, downsample = FALSE, 
+                      filename = paste0("map_median_", label, ".", file_ext),
+                      height = 2),
+      format = "file"
+    ),
+    # Maps of SD across products
+    tar_target(
+      sd_map,
+      plot_sd_map(agb_stack, subset, downsample = FALSE,
+                  filename = paste0("map_sd_", label, ".", file_ext),
+                  height = 2),
+      format = "file"
+    )
+  ),
 
-  # Maps of median across products
-  tar_target(median_map_png, plot_median_map(agb_stack, downsample = FALSE, height = 2),
-             format = "file"),
-  tar_target(median_map_pdf, plot_median_map(agb_stack, downsample = FALSE, filename = "map_median.pdf", height = 2), 
-             format = "file"),
+
+  #TODO check that this works
+  tar_target(
+    summary_stats,
+    calc_med_summary(agb_stack, subsets),
+    pattern = map(subsets)
+  ),
   
-  # Maps of SD across products
-  tar_target(sd_map_png, plot_sd_map(agb_stack, downsample = FALSE, height = 2),
-             format = "file"),
-  tar_target(sd_map_pdf, plot_sd_map(agb_stack, downsample = FALSE, filename = "map_sd.pdf", height = 2), 
-             format = "file"),
+  # # Ridge density plots.  Just for Arizona for now
+  tar_target(
+    ridge_plot_png,
+    plot_agb_ridges(agb_stack, az, filename = "agb_density_az.png", height = 2, width = 4),
+    format = "file"
+  ),
+  tar_target(
+    ridge_plot_pdf,
+    plot_agb_ridges(agb_stack, az, filename = "agb_density_az.pdf", height = 2, width = 4),
+    format = "file"
+  ),
+  tar_target(
+    ridge_plot2_png,
+    plot_agb_ridges(agb_stack, az, est_separate = TRUE, filename = "agb_density2_az.png", height = 2, width = 4),
+    format = "file"
+  ),
+  tar_target(
+    ridge_plot2_pdf,
+    plot_agb_ridges(agb_stack, az, est_separate = TRUE, filename = "agb_density2_az.pdf", height = 2, width = 4),
+    format = "file"
+  ),
   
-  # Convert to wide df.  Slow operation, so this saves time for plots that use a tibble
-  #TODO: do this separately by AZ, CA, SRER, and Pima County.  Doing both AZ + CA is too slow and too big of a data frame I think.
-  tar_target(agb_df, as_tibble(as.data.frame(agb_stack))),
-  
-  # Ridge density plots
-  tar_target(ridge_plot, plot_agb_ridges(agb_df)),
-  tar_target(ridge_plot2, plot_agb_ridges(agb_df, est_separate = TRUE)),
-  tar_target(ridge_plot_png, 
-             ggsave("docs/fig/agb_ridge.png", ridge_plot, height = 2, width = 5),
-             format = "file"),
-  tar_target(ridge_plot_pdf, 
-             ggsave("docs/fig/agb_ridge.pdf", ridge_plot, height = 2, width = 5,  useDingbats = FALSE),
-             format = "file"),
-  tar_target(ridge_plot2_png, 
-             ggsave("docs/fig/agb_ridge2.png", ridge_plot2, height = 2, width = 5),
-             format = "file"),
-  tar_target(ridge_plot2_pdf, 
-             ggsave("docs/fig/agb_ridge2.pdf", ridge_plot2, height = 2, width = 5, useDingbats = FALSE),
-             format = "file"),
-  
-  
-  # Scatter plots against ESA
-  tar_target(plot_comparisons, colnames(agb_df)[colnames(agb_df)!="ESA CCI"]),
+  # Scatter plots against ESA, just for Arizona for now
+  tar_target(agb_df_az, as_tibble(as.data.frame(crop(agb_stack, az, mask = TRUE)))),
+  tar_target(plot_comparisons, colnames(agb_df_az)[colnames(agb_df_az)!="ESA CCI"]),
   tar_target(
     scatter_plots,
     plot_scatter(
-      agb_df,
+      agb_df_az,
       comparison = plot_comparisons,
       height = 2,
       width = 2
     ),
     pattern = map(plot_comparisons),
     format = "file"
-  ), 
-  tar_target(zip_scatter_plots, zip_plots(scatter_plots, "docs/fig/scatter.zip"), format = "file"), 
-  
-  # Render docs -------------------------------------------------------------
-  #report
-  tar_quarto(report, "docs/report.qmd", extra_files = fs::dir_ls("docs/fig/", glob = "*.png")),
-  
-  #README
-  tar_quarto(readme, "README.qmd", cue = tar_cue(mode = "always"))
+  ),
+  tar_target(zip_scatter_plots, zip_plots(scatter_plots, "docs/fig/scatter.zip"), format = "file"),
+
+  # # Render docs -------------------------------------------------------------
+  # #report
+  # tar_quarto(report, "docs/report.qmd", extra_files = fs::dir_ls("docs/fig/", glob = "*.png")),
+  # 
+  # #README
+  # tar_quarto(readme, "README.qmd", cue = tar_cue(mode = "always"))
 )
