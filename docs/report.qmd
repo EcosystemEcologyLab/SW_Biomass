@@ -126,13 +126,23 @@ Density ridge plots are a good compact way to visualize this.
 It ended up being relatively easy to just do my own kernel density estimation, so now the ridgelines are correctly truncated at min and max without having to add a point to show the range of values.
 :::
 
-![Distribution of Arizona AGB values by data product. Axis is "broken" omitting values between 20 and 100 for AGB.](fig/agb_density_az.png){#fig-ridge1 fig-align="center" width="5in"}
+#### Arizona
+
+![Distribution of Arizona AGB values by data product.](fig/agb_density_az.png){#fig-ridge_az fig-align="center" width="5in"}
 
 <!-- {{< downloadthis fig/agb_density_az.png label="Download .png" >}} -->
 
-![Distribution of Arizona AGB values by data product. Axis is "broken" omitting values between 20 and 100 for AGB. Kernel density estimation is performed separately for each panel.](fig/agb_density2_az.png){#fig-ridge2 fig-align="center" width="5in"}
+#### California
 
-<!-- {{< downloadthis fig/agb_density2_az.png label="Download .png" >}} -->
+![Distribution of California AGB values by data product.](fig/agb_density_CA.png){#fig-ridge_ca fig-align="center" width="5in"}
+
+#### SRER
+
+![Distribution of SRER AGB values by data product.](fig/agb_density_SRER.png){#fig-ridge_srer fig-align="center" width="5in"}
+
+#### Pima County
+
+![Distribution of Pima County AGB values by data product.](fig/agb_density_PimaCounty.png){#fig-ridge_srer fig-align="center" width="5in"}
 
 ### Scatter plots
 

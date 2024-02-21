@@ -4,9 +4,8 @@
 #'
 #' @param agb_stack agb_stack target
 #' @param subset SpatVector object to crop and mask agb_stack
-#' @param break_x a length 2 numeric vector for what part of the x-axis to omit.
-#'   By default it plots AGB 0-20 on the first panel and 100-max(AGB) in the
-#'   second panel.
+#' @param break_x numeric; where to end the x-axis in the first panel.  The
+#'   xlims of the second panel are determined from the data.
 #' @param est_separate logical; do the density kernel estimate separately for
 #'   the two panels?
 #' @param rel_widths length 2 numeric vector for relative widths of the two panels.
@@ -16,7 +15,7 @@
 #' @param ... additional arguments passed to ggsave(), e.g. `height`
 #' 
 #' @return file path
-plot_agb_ridges <- function(agb_stack, subset, est_separate = FALSE, break_x = c(20, 100), rel_widths = c(1, 0.5), path = "docs/fig", filename = "agb_ridge.png", ...) {
+plot_agb_ridges <- function(agb_stack, subset, est_separate = FALSE, break_x = 20, rel_widths = c(1, 0.5), path = "docs/fig", filename = "agb_ridge.png", ...) {
   
   #TODO consider making the break programmatically? Like, figure out where the densities all level out and then figure out where the min of the maxes is.
   agb_df <- 
@@ -38,19 +37,27 @@ plot_agb_ridges <- function(agb_stack, subset, est_separate = FALSE, break_x = c
       purrr::map(as_tibble) |> 
       list_rbind(names_to = "group")
     
+    smallest_max <- dens |> 
+      group_by(group) |> 
+      summarize(max = max(x)) |> 
+      pull(max) |> 
+      min()
+    
     p <- 
       ggplot(dens, aes(x, height = y, y = group, color = group, fill = group))  +
       geom_density_ridges(stat = "identity", alpha = 0.5) +
       scale_color_viridis_d(aesthetics = c("color", "fill"), end = 0.95) +
       labs(x = "AGB (Mg ha<sup>-1</sup>)") +
-      theme_ridges(font_size = 10) + 
+      theme_ridges(font_size = 9) + 
       theme(axis.title.y = element_blank(),
             axis.title.x = element_markdown(),
             legend.position = "none")
     
     p_out <- 
-      (p + coord_cartesian(xlim = c(0, break_x[1]))) + 
-      (p + coord_cartesian(xlim = c(break_x[2], max(dens$x))))  +
+      (p + coord_cartesian(xlim = c(0, break_x))) + 
+      (p + 
+         scale_x_continuous(breaks = scales::breaks_pretty(n = 4)) +
+         coord_cartesian(xlim = c(smallest_max-5, max(dens$x))))  +
       plot_layout(axes = "collect", widths = rel_widths)
     
   } else {
@@ -58,7 +65,7 @@ plot_agb_ridges <- function(agb_stack, subset, est_separate = FALSE, break_x = c
       purrr::map(\(x) {
         bkde(
           x[is.finite(x)],
-          range.x = c(min(x, na.rm = TRUE), break_x[1]),
+          range.x = c(min(x, na.rm = TRUE), break_x),
           bandwidth = bw,
           gridsize = 10000
         )
@@ -70,7 +77,7 @@ plot_agb_ridges <- function(agb_stack, subset, est_separate = FALSE, break_x = c
       purrr::map(\(x) {
         bkde(
           x[is.finite(x)],
-          range.x = c(break_x[1], max(x, na.rm = TRUE)),
+          range.x = c(break_x, max(x, na.rm = TRUE)),
           bandwidth = bw,
           gridsize = 10000
         )

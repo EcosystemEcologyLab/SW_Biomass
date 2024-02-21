@@ -123,11 +123,17 @@ tar_plan(
                   filename = paste0("map_sd_", label, ".", file_ext),
                   height = 2),
       format = "file"
+    ),
+    # Ridge plots
+    tar_target(
+      ridge1,
+      plot_agb_ridges(agb_stack, subset,
+                      filename = paste0("agb_density_", label, ".", file_ext),
+                      height = 2, width = 4.2),
+      format = "file"
     )
   ),
 
-
-  #TODO check that this works
   tar_target(
     summary_stats,
     calc_med_summary(agb_stack, subsets),
@@ -135,26 +141,26 @@ tar_plan(
   ),
   
   # # Ridge density plots.  Just for Arizona for now
-  tar_target(
-    ridge_plot_png,
-    plot_agb_ridges(agb_stack, az, filename = "agb_density_az.png", height = 2, width = 4),
-    format = "file"
-  ),
-  tar_target(
-    ridge_plot_pdf,
-    plot_agb_ridges(agb_stack, az, filename = "agb_density_az.pdf", height = 2, width = 4),
-    format = "file"
-  ),
-  tar_target(
-    ridge_plot2_png,
-    plot_agb_ridges(agb_stack, az, est_separate = TRUE, filename = "agb_density2_az.png", height = 2, width = 4),
-    format = "file"
-  ),
-  tar_target(
-    ridge_plot2_pdf,
-    plot_agb_ridges(agb_stack, az, est_separate = TRUE, filename = "agb_density2_az.pdf", height = 2, width = 4),
-    format = "file"
-  ),
+  # tar_target(
+  #   ridge_plot_png,
+  #   plot_agb_ridges(agb_stack, az, filename = "agb_density_az.png", height = 2, width = 4),
+  #   format = "file"
+  # ),
+  # tar_target(
+  #   ridge_plot_pdf,
+  #   plot_agb_ridges(agb_stack, az, filename = "agb_density_az.pdf", height = 2, width = 4),
+  #   format = "file"
+  # ),
+  # tar_target(
+  #   ridge_plot2_png,
+  #   plot_agb_ridges(agb_stack, az, est_separate = TRUE, filename = "agb_density2_az.png", height = 2, width = 4),
+  #   format = "file"
+  # ),
+  # tar_target(
+  #   ridge_plot2_pdf,
+  #   plot_agb_ridges(agb_stack, az, est_separate = TRUE, filename = "agb_density2_az.pdf", height = 2, width = 4),
+  #   format = "file"
+  # ),
   
   # Scatter plots against ESA, just for Arizona for now
   tar_target(agb_df_az, as_tibble(as.data.frame(crop(agb_stack, az, mask = TRUE)))),
@@ -173,9 +179,9 @@ tar_plan(
   tar_target(zip_scatter_plots, zip_plots(scatter_plots, "docs/fig/scatter.zip"), format = "file"),
 
   # # Render docs -------------------------------------------------------------
-  # #report
-  # tar_quarto(report, "docs/report.qmd", extra_files = fs::dir_ls("docs/fig/", glob = "*.png")),
-  # 
-  # #README
-  # tar_quarto(readme, "README.qmd", cue = tar_cue(mode = "always"))
+  #report
+  tar_quarto(report, "docs/report.qmd", extra_files = fs::dir_ls("docs/fig/", glob = "*.png")),
+
+  #README
+  tar_quarto(readme, "README.qmd", cue = tar_cue(mode = "always"))
 )

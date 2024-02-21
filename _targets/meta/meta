@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|7cdca1f9754718ea|||||||||||||||
+.Random.seed|object|0d764405609e1226|||||||||||||||
 agb_df_az|stem|c4c55cd496cc6a77|1f35935a7f4a56fc|0bcb76b522dd885f|576721348||t19773.9928659705s|a529df10bf6ecca3|476920633|rds|local|vector|||88.808||
 agb_map_az_AZ_pdf|stem|b79c6426064e6b23|c3fbabc6927ecc25|c361836927515cf3|1080411055|docs/fig/map_agb_AZ.pdf|t19774.0084343095s|9e8f1c9e51939913|1366659|file|local|vector|||62.604||
 agb_map_az_AZ_png|stem|3c078926ab4884af|10dccfccfd60e472|c361836927515cf3|-665452756|docs/fig/map_agb_AZ.png|t19774.0077092886s|b229780a24782463|569344|file|local|vector|||61.173||
@@ -46,7 +46,7 @@ menlove_dir|stem|589f96b89e6175dd|aa5b0a6b5266a2b2|ef46db3751d8e999|1449448148|d
 pima|stem|4288bdd260ee6606|1cd6469bf27932a5|742d3f70a9ee91e0|121929380||t19773.990435633s|04512cea3c8e70c5|21325|rds|local|vector|||0.102||
 pima_dir|stem|644dcf7823b45421|b79821551d095d53|ef46db3751d8e999|-329177109|data/shapefiles/Pima_County_Boundary/|t19772.9658600323s|81a1853ddabe4117|256|file|local|vector|||4.349|package tidyr was built under R version 4.3.2. package ggridges was built under R version 4.3.2. package ggthemes was built under R version 4.3.2|
 plot_agb_map|function|573a32183f936768|||||||||||||||
-plot_agb_ridges|function|93e3ac2de3c32316|||||||||||||||
+plot_agb_ridges|function|73a32ded96c71547|||||||||||||||
 plot_comparisons|stem|bdc1c9048934c08b|813ef7b3bed14ab5|caf1f46300f537ad|-1818167200||t19773.9128731809s|758d7d51407f572d|117|rds|local|vector||plot_comparisons_f5b58cab*plot_comparisons_9acdf6b2*plot_comparisons_922c094e*plot_comparisons_0550c584*plot_comparisons_b9d46af9*plot_comparisons_7dd98562|0.001||
 plot_median_map|function|f57b56403da0612a|||||||||||||||
 plot_scatter|function|b90157b93958fe75|||||||||||||||
@@ -64,6 +64,8 @@ read_clean_lt_gnn|function|fff9ad396efe32b0|||||||||||||||
 read_clean_menlove|function|3b81694467ae6962|||||||||||||||
 read_clean_rap|function|a25e26de10896dd0|||||||||||||||
 read_clean_xu|function|968de229c5083800|||||||||||||||
+readme|stem|c43a31258d76aa4f|c2c4b6e3bcf05d55|ef46db3751d8e999|980901812|README.md*README.qmd|t19774.8467218754s|b5148437701a8b83|18075|file|local|vector|||48.03|package ggridges was built under R version 4.3.2. package ggthemes was built under R version 4.3.2|
+report|stem|bfa01188427e2d95|d596815af14c289c|4c30c02c1f6fa12c|787668912|docs/report.html*docs/report.qmd*docs/fig/agb_density_az.png*docs/fig/agb_density_CA.png*docs/fig/agb_density_PimaCounty.png*docs/fig/agb_density_SRER.png*docs/fig/agb_density2_az.png*docs/fig/map_agb_AZ.png*docs/fig/map_agb_CA.png*docs/fig/map_agb_PimaCounty.png*docs/fig/map_agb_SRER.png*docs/fig/map_median_AZ.png*docs/fig/map_median_CA.png*docs/fig/map_median_PimaCounty.png*docs/fig/map_median_SRER.png*docs/fig/map_sd_AZ.png*docs/fig/map_sd_CA.png*docs/fig/map_sd_PimaCounty.png*docs/fig/map_sd_SRER.png*docs/fig/scatter_chopping_et_al.png*docs/fig/scatter_gedi_l_4_b.png*docs/fig/scatter_liu_et_al.png*docs/fig/scatter_lt_gnn.png*docs/fig/scatter_menlove_healey.png*docs/fig/scatter_xu_et_al.png|t19774.8468043764s|feb249c3b1f8537c|3111842|file|local|vector|||6.614||
 ridge_plot_az_AZ_pdf|stem|3612471e3f47b559|46aed0ff01a689f7|a65b08617aad85ef|1834824711|docs/fig/agb_density_AZ.pdf|t19773.7864658161s|ee6498328bd4154d|713528|file|local|vector|||61.647||
 ridge_plot_az_AZ_png|stem|475ac358809456c7|77374d252f053065|a65b08617aad85ef|525676887|docs/fig/agb_density_AZ.png|t19773.7894761827s|af338fc5e0a09ca6|49845|file|local|vector|||84.201||
 ridge_plot_pdf|stem|24690c6e3201bb10|3e26774902f82a1f|d2c3cae53476363e|-371112976|docs/fig/agb_density_az.pdf|t19774.0070007671s|a083a1b8cebe2dc4|545469|file|local|vector|||85.746||
@@ -77,6 +79,14 @@ ridge_plot2_pima_PimaCounty_pdf|stem|deee4a0c0ec03636|96039cdf9455555a|e8d65e407
 ridge_plot2_pima_PimaCounty_png|stem|540c3699b26e5522|62d976704df1f7b7|e8d65e4077586094|805481448|docs/fig/agb_density2_PimaCounty.png|t19773.7857515249s|acedd84d64368139|51308|file|local|vector|||6.801||
 ridge_plot2_png|stem|3e7d09ca135e0b7a|dcc005215e07c25f|d2c3cae53476363e|1521584847|docs/fig/agb_density2_az.png|t19774.0060078652s|c4411bcba460f6d0|41331|file|local|vector|||85.834||
 ridge_plot2_srer_SRER_png|stem||1a718c2c85f642a4|43547edbf53009db|-1286373960||t19773.7946055763s||0|file|local|vector|||0.442||1m22m36mℹ39m In index 3.36mℹ39m With name Liu et al..1mCaused by error in rep22m33m39m invalid times argument
+ridge1_az_AZ_pdf|stem|9f4f210e43f4a162|73cba004510ac7d6|f4fd938049d2b9fd|1028008415|docs/fig/agb_density_AZ.pdf|t19774.8349927335s|5d3e0c206912996e|527751|file|local|vector|||92.487||
+ridge1_az_AZ_png|stem|1412a0a07a6a4c0a|823615b256b3dedd|f4fd938049d2b9fd|977704519|docs/fig/agb_density_AZ.png|t19774.8339201392s|42232d3a5868d189|40869|file|local|vector|||65.963||
+ridge1_ca_CA_pdf|stem|cf3ca0944cc07426|4947915b81cb06f6|c74b19c916841b4b|544441301|docs/fig/agb_density_CA.pdf|t19774.8403269157s|70621f3f7484d60f|451267|file|local|vector|||222.19||
+ridge1_ca_CA_png|stem|98dce8d7108456aa|33727d78b18f3e22|c74b19c916841b4b|-1672829204|docs/fig/agb_density_CA.png|t19774.8377547944s|70a18a8f8f1d9bd7|42987|file|local|vector|||235.538||
+ridge1_pima_PimaCounty_pdf|stem|ec346ba225098ab4|bd2e0cebda8ef25e|22d8408311581cfd|195449795|docs/fig/agb_density_PimaCounty.pdf|t19774.8404439642s|02578eba34930176|660393|file|local|vector|||9.954||
+ridge1_pima_PimaCounty_png|stem|ea3428a53621b29e|f8aa8a5a0159a009|22d8408311581cfd|-1503181024|docs/fig/agb_density_PimaCounty.png|t19774.8405296301s|77dfafc5f0efbc18|40846|file|local|vector|||7.331||
+ridge1_srer_SRER_pdf|stem|5e89aac929b80077|6c605a528a506795|2d2b107be0eecc26|-1637179744|docs/fig/agb_density_SRER.pdf|t19774.8350277558s|f5855b01b3dd9d11|649849|file|local|vector|||1.521||
+ridge1_srer_SRER_png|stem|9ffafbd3cb2a7dd1|a2dd1f5316d427bf|2d2b107be0eecc26|1266590803|docs/fig/agb_density_SRER.png|t19774.8350093208s|5825e0ae00eb294b|44618|file|local|vector|||1.391||
 scatter_plots|pattern|5681df06b52669f9|828ba1e4579e36b5||1063551923||||456432|file|local|vector||scatter_plots_5da59fed*scatter_plots_b79a09fb*scatter_plots_f4041c88*scatter_plots_c21f5eb4*scatter_plots_0c953c8d*scatter_plots_c354976e|42.716||
 scatter_plots_0c953c8d|branch|7d287d4b777e46b8|828ba1e4579e36b5|923b4bae9094f2cc|1125792227|docs/fig/scatter_menlove_healey.png|t19773.9132906944s|4cb6e805422102ce|70606|file|local|vector|scatter_plots||5.65||
 scatter_plots_5da59fed|branch|3ab984b69bf6d7ee|828ba1e4579e36b5|923b4bae9094f2cc|-488107380|docs/fig/scatter_chopping_et_al.png|t19773.913004876s|d68c47f62ac40e6c|44973|file|local|vector|scatter_plots||11.339||
