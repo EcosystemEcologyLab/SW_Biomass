@@ -6,22 +6,12 @@ format:
 editor: visual
 ---
 
-## Roadmap
-
--   ~~Get workflow working with AZ~~
-
--   Download additional data for some data products to cover CA
-
--   Get additional shapfiles (CA and Pima County)
-
--   Extend workflow to plot maps and density ridge plot for AZ, CA, SRER, and Pima county
-
 ## Data
 
 So far the data products include:
 
 | Product                               | Downloaded (including CA) | Wrangled |
-|----------------------------------|-----------------------|----------------|
+|-------------------------------|----------------------|-------------------|
 | Xu AGBC                               | ✅                        | ✅       |
 | Liu AGBC                              | ✅                        | ✅       |
 | LT-GNN AGB                            | ✅                        | ✅       |
@@ -35,9 +25,9 @@ RAP is a model product only for rangelands (i.e. annual or perennial grasses and
 
 ## Figures
 
-@fig-map_agb shows all of the data products transformed to the same extent and resolution.
-@fig-map_median shows the median AGB across all products.
-@fig-map_sd shows spatial distribution of uncertainty.
+@sec-agb shows all of the data products transformed to the same extent and resolution.
+@sec-median shows the median AGB across all products.
+@sec-sd shows spatial distribution of uncertainty.
 @sec-data-distribution shows the differences in AGB distribution among data products.
 
 Observations:
@@ -50,25 +40,83 @@ Observations:
 
 -   The ESA product has some very high AGB pixels surrounded by very low (maybe zero?) AGB pixels—this may be an artifact of some kind?
 
-### Maps
+### AGB {#sec-agb}
 
-![Maps of aboveground biomass for each data product in Arizona.](fig/map_agb.png){#fig-map_agb fig-align="center"}
+#### Arizona
 
-{{< downloadthis fig/map_agb.png label="Download .png" >}}
+![Maps of AGB for each data product in Arizona.](fig/map_agb_AZ.png){#fig-map_agb_az fig-align="center"}
 
-<!--# TODO: add download button for .eps file as well so Dave can open in Adobe easily -->
+<!-- {{< downloadthis fig/map_agb_AZ.png label="Download .png" >}} -->
 
-#### Median {#sec-median}
+#### California
 
-![Median AGB across data products](fig/map_median.png){#fig-map_median fig-align="center"}
+![Maps of AGB for each data product in California.](fig/map_agb_CA.png){#fig-map_agb_ca fig-align="center"}
 
-{{< downloadthis fig/map_median.png label="Download .png" >}}
+<!-- {{< downloadthis fig/map_agb_CA.png label="Download .png" >}} -->
 
-#### Standard Deviation {#sec-standard-deviation}
+#### SRER
 
-![Map of standard deviation of each raster pixel showing areas with the highest variation among data products in yellow and areas with the least variation in dark purple. Note: the color gradient is on a log scale.](fig/map_sd.png){#fig-map_sd fig-align="center"}
+![Maps of AGB for each data product in SRER](fig/map_agb_SRER.png){#fig-map_agb_srer fig-align="center"}
 
-{{< downloadthis fig/map_sd.png label="Download .png" >}}
+<!-- {{< downloadthis fig/map_agb_SRER.png label="Download .png" >}} -->
+
+#### Pima County
+
+![Maps of AGB for each data product in Pima County](fig/map_agb_PimaCounty.png){#fig-map_agb_pima fig-align="center"}
+
+<!-- {{< downloadthis fig/map_agb_PimaCounty.png label="Download .png" >}} -->
+
+### Median {#sec-median}
+
+#### Arizona
+
+![Median AGB across data products](fig/map_median_AZ.png){#fig-map_median_az fig-align="center"}
+
+<!-- {{< downloadthis fig/map_median_AZ.png label="Download .png" >}} -->
+
+#### California
+
+![Median AGB across data products](fig/map_median_CA.png){#fig-map_median_ca fig-align="center"}
+
+<!-- {{< downloadthis fig/map_median_CA.png label="Download .png" >}} -->
+
+#### SRER
+
+![Median AGB across data products](fig/map_median_SRER.png){#fig-map_median_srer fig-align="center"}
+
+<!-- {{< downloadthis fig/map_median_SRER.png label="Download .png" >}} -->
+
+#### Pima County
+
+![Median AGB across data products](fig/map_median_PimaCounty.png){#fig-map_median_pima fig-align="center"}
+
+<!-- {{< downloadthis fig/map_median_PimaCounty.png label="Download .png" >}} -->
+
+### Standard Deviation {#sec-sd}
+
+#### Arizona
+
+![Map of standard deviation of each raster pixel showing areas with the highest variation among data products in yellow and areas with the least variation in dark purple. Note: the color gradient is on a log scale.](fig/map_sd_AZ.png){#fig-map_sd_az fig-align="center"}
+
+<!-- {{< downloadthis fig/map_sd_AZ.png label="Download .png" >}} -->
+
+#### California
+
+![Map of standard deviation of each raster pixel showing areas with the highest variation among data products in yellow and areas with the least variation in dark purple. Note: the color gradient is on a log scale.](fig/map_sd_CA.png){#fig-map_sd_ca fig-align="center"}
+
+<!-- {{< downloadthis fig/map_sd_CA.png label="Download .png" >}} -->
+
+#### SRER
+
+![Map of standard deviation of each raster pixel showing areas with the highest variation among data products in yellow and areas with the least variation in dark purple. Note: the color gradient is on a log scale.](fig/map_sd_SRER.png){#fig-map_sd_srer fig-align="center"}
+
+<!-- {{< downloadthis fig/map_sd_SRER.png label="Download .png" >}} -->
+
+#### Pima County
+
+![Map of standard deviation of each raster pixel showing areas with the highest variation among data products in yellow and areas with the least variation in dark purple. Note: the color gradient is on a log scale.](fig/map_sd_PimaCounty.png){#fig-map_sd_pima fig-align="center"}
+
+<!-- {{< downloadthis fig/map_sd_PimaCounty.png label="Download .png" >}} -->
 
 ### Data distribution {#sec-data-distribution}
 
@@ -78,13 +126,13 @@ Density ridge plots are a good compact way to visualize this.
 It ended up being relatively easy to just do my own kernel density estimation, so now the ridgelines are correctly truncated at min and max without having to add a point to show the range of values.
 :::
 
-![Distribution of AGB values by data product. Axis is "broken" omitting values between 20 and 100 for AGB.](fig/agb_ridge.png){#fig-ridge1 fig-align="center" width="4.99in"}
+![Distribution of Arizona AGB values by data product. Axis is "broken" omitting values between 20 and 100 for AGB.](fig/agb_density_az.png){#fig-ridge1 fig-align="center" width="5in"}
 
-{{< downloadthis fig/agb_ridge.png label="Download .png" >}}
+<!-- {{< downloadthis fig/agb_density_az.png label="Download .png" >}} -->
 
-![Distribution of AGB values by data product. Axis is "broken" omitting values between 20 and 100 for AGB. Kernel density estimation is performed separately for each panel.](fig/agb_ridge2.png){#fig-ridge2 fig-align="center" width="5in"}
+![Distribution of Arizona AGB values by data product. Axis is "broken" omitting values between 20 and 100 for AGB. Kernel density estimation is performed separately for each panel.](fig/agb_density2_az.png){#fig-ridge2 fig-align="center" width="5in"}
 
-{{< downloadthis fig/agb_ridge2.png label="Download .png" >}}
+<!-- {{< downloadthis fig/agb_density2_az.png label="Download .png" >}} -->
 
 ### Scatter plots
 
@@ -107,16 +155,34 @@ While it is technically possible to make these plots using the entire dataset, t
 ![](fig/scatter_xu_et_al.png){width="2in"}
 :::
 
-{{< downloadthis fig/scatter.zip label="Download .zip" >}}
+<!-- {{< downloadthis fig/scatter.zip label="Download .zip" >}} -->
 
-### Point density plots
+<!-- ### Point density plots -->
 
-A point density plot is great for when a scatter plot contains many over-plotted points.
-These plots use the [`ggpointdensity`](https://github.com/LKremer/ggpointdensity) package which extends `ggplot2`.
-Color represents density of data under each point.
-Because of the abundance of zeros, if the full dataset is plotted without any tansformation of the color scale, there is always a single bright spot in the lower left corner, but I think a log scale makes enough sense to use.
+<!-- A point density plot is great for when a scatter plot contains many over-plotted points. -->
 
-![](fig/test_KernSmooth_log.png){width="524"}
+<!-- These plots use the [`ggpointdensity`](https://github.com/LKremer/ggpointdensity) package which extends `ggplot2`. -->
 
-This is an example of what it could look like, but there are technical barriers to getting it to work: <https://github.com/cct-datascience/SW_Biomass/issues/18>.
-For now, maybe the scatter plots are good enough?
+<!-- Color represents density of data under each point. -->
+
+<!-- Because of the abundance of zeros, if the full dataset is plotted without any tansformation of the color scale, there is always a single bright spot in the lower left corner, but I think a log scale makes enough sense to use. -->
+
+<!-- ![](fig/test_KernSmooth_log.png){width="524"} -->
+
+<!-- This is an example of what it could look like, but there are technical barriers to getting it to work: <https://github.com/cct-datascience/SW_Biomass/issues/18>. -->
+
+<!-- For now, maybe the scatter plots are good enough? -->
+
+## Summary Statistics
+
+```{r}
+#| label: tbl-summary
+#| tbl-cap: "Summary statistics calculated on median AGB across data products for each geographical subset."
+#| echo: false
+library(gt)
+targets::tar_read(summary_stats, store = here::here("_targets")) |> 
+  gt::gt() |> 
+  fmt_number() |> 
+  opt_stylize() |> 
+  tab_style(cell_text(transform = "capitalize"), cells_column_labels())
+```
