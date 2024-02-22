@@ -126,44 +126,50 @@ tar_plan(
   ),
   
   # Density ridge plots
-  tar_target(
-    ridge_az_png,
-    plot_agb_ridges(agb_stack, az,
-                    filename = "agb_density_az.png",
-                    height = 2, width = 4.2),
-    format = "file"
-  ),
-  tar_target(
-    ridge_ca_png,
-    plot_agb_ridges(agb_stack, ca,
-                    break_x = 50,
-                    filename = "agb_density_ca.png",
-                    height = 2, width = 4.2),
-    format = "file"
-  ),
-  tar_target(
-    ridge_pima_png,
-    plot_agb_ridges(agb_stack, pima,
-                    break_x = c(30, 50),
-                    filename = "agb_density_pima.png",
-                    height = 2, width = 4.2),
-    format = "file"
-  ),
-  tar_target(
-    ridge_srer_png,
-    plot_agb_ridges(agb_stack, srer,
-                    break_plot = FALSE,
-                    filename = "agb_density_srer.png",
-                    height = 2, width = 4.2),
-    format = "file"
+  #TODO this would be faster if the plots were made once and saved twice.  Don't have the same limitations as geom_spatraster where you can't save the resulting ggplot objects as targets.
+  tar_map(
+    values = list(ext = c("png", "pdf")),
+    
+    tar_target(
+      ridge_az,
+      plot_agb_ridges(agb_stack, az,
+                      filename = paste("agb_density_az", ext, sep = "."),
+                      height = 2, width = 4.2),
+      format = "file"
+    ),
+    tar_target(
+      ridge_ca,
+      plot_agb_ridges(agb_stack, ca,
+                      break_x = 50,
+                      filename = paste("agb_density_ca", ext, sep = "."),
+                      height = 2, width = 4.2),
+      format = "file"
+    ),
+    tar_target(
+      ridge_pima,
+      plot_agb_ridges(agb_stack, pima,
+                      break_x = c(30, 50),
+                      filename = paste("agb_density_pima", ext, sep = "."),
+                      height = 2, width = 4.2),
+      format = "file"
+    ),
+    tar_target(
+      ridge_srer,
+      plot_agb_ridges(agb_stack, srer,
+                      break_plot = FALSE,
+                      filename = paste("agb_density_srer", ext, sep = "."),
+                      height = 2, width = 4.2),
+      format = "file"
+    )
   ),
   
   # Summary statistics
-  tar_target(subsets, list("AZ" = az, "CA" = ca, "SRER" = srer, "Pima County" = pima),
+  tar_target(subsets,
+             list("AZ" = az, "CA" = ca, "SRER" = srer, "Pima County" = pima),
              iteration = "list"),
   tar_target(
     summary_stats,
-    calc_med_summary(agb_stack, subsets),
+    calc_summary(agb_stack, subsets),
     pattern = map(subsets)
   ),
   

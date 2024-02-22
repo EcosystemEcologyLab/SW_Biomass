@@ -6,8 +6,8 @@
 #'
 #' @return tibble
 #' 
-calc_med_summary <- function(agb_stack, subset) {
-  agb_cropped <- crop(agb_stack, subset, mask = TRUE)
+calc_summary <- function(agb_stack, subset) {
+  agb_cropped <- crop(agb_stack, subset, mask = TRUE, overwrite = TRUE)
   agb_med <- median(agb_cropped, na.rm = TRUE)
   
   agb_list <- 

@@ -22,7 +22,7 @@ plot_agb_ridges <- function(agb_stack, subset, break_plot = TRUE, break_x = 20, 
   
   agb_df <- 
     agb_stack |>
-    terra::crop(subset, mask = TRUE) |>
+    terra::crop(subset, mask = TRUE, overwrite = TRUE) |>
     as.data.frame() |>
     as_tibble()
   
