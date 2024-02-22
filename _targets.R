@@ -93,8 +93,7 @@ tar_plan(
   pima = st_read(pima_dir) |> 
     st_transform(st_crs(agb_stack)) |> 
     mutate(subset = "Pima County"),
-  tar_target(subsets, list("AZ" = az, "CA" = ca, "SRER" = srer, "Pima County" = pima), 
-             iteration = "list"),
+  
   tar_map(
     values = tidyr::tibble(
       subset = rlang::syms(c("az", "ca", "srer", "pima")),
@@ -123,44 +122,50 @@ tar_plan(
                   filename = paste0("map_sd_", label, ".", file_ext),
                   height = 2),
       format = "file"
-    ),
-    # Ridge plots
-    tar_target(
-      ridge1,
-      plot_agb_ridges(agb_stack, subset,
-                      filename = paste0("agb_density_", label, ".", file_ext),
-                      height = 2, width = 4.2),
-      format = "file"
     )
   ),
-
+  
+  # Density ridge plots
+  tar_target(
+    ridge_az_png,
+    plot_agb_ridges(agb_stack, az,
+                    filename = "agb_density_az.png",
+                    height = 2, width = 4.2),
+    format = "file"
+  ),
+  tar_target(
+    ridge_ca_png,
+    plot_agb_ridges(agb_stack, ca,
+                    break_x = 50,
+                    filename = "agb_density_ca.png",
+                    height = 2, width = 4.2),
+    format = "file"
+  ),
+  tar_target(
+    ridge_pima_png,
+    plot_agb_ridges(agb_stack, pima,
+                    break_x = c(30, 50),
+                    filename = "agb_density_pima.png",
+                    height = 2, width = 4.2),
+    format = "file"
+  ),
+  tar_target(
+    ridge_srer_png,
+    plot_agb_ridges(agb_stack, srer,
+                    break_plot = FALSE,
+                    filename = "agb_density_srer.png",
+                    height = 2, width = 4.2),
+    format = "file"
+  ),
+  
+  # Summary statistics
+  tar_target(subsets, list("AZ" = az, "CA" = ca, "SRER" = srer, "Pima County" = pima),
+             iteration = "list"),
   tar_target(
     summary_stats,
     calc_med_summary(agb_stack, subsets),
     pattern = map(subsets)
   ),
-  
-  # # Ridge density plots.  Just for Arizona for now
-  # tar_target(
-  #   ridge_plot_png,
-  #   plot_agb_ridges(agb_stack, az, filename = "agb_density_az.png", height = 2, width = 4),
-  #   format = "file"
-  # ),
-  # tar_target(
-  #   ridge_plot_pdf,
-  #   plot_agb_ridges(agb_stack, az, filename = "agb_density_az.pdf", height = 2, width = 4),
-  #   format = "file"
-  # ),
-  # tar_target(
-  #   ridge_plot2_png,
-  #   plot_agb_ridges(agb_stack, az, est_separate = TRUE, filename = "agb_density2_az.png", height = 2, width = 4),
-  #   format = "file"
-  # ),
-  # tar_target(
-  #   ridge_plot2_pdf,
-  #   plot_agb_ridges(agb_stack, az, est_separate = TRUE, filename = "agb_density2_az.pdf", height = 2, width = 4),
-  #   format = "file"
-  # ),
   
   # Scatter plots against ESA, just for Arizona for now
   tar_target(agb_df_az, as_tibble(as.data.frame(crop(agb_stack, az, mask = TRUE)))),
