@@ -134,15 +134,15 @@ It ended up being relatively easy to just do my own kernel density estimation, s
 
 #### California
 
-![Distribution of California AGB values by data product.](fig/agb_density_CA.png){#fig-ridge_ca fig-align="center" width="5in"}
+![Distribution of California AGB values by data product.](fig/agb_density_ca.png){#fig-ridge_ca fig-align="center" width="5in"}
 
 #### SRER
 
-![Distribution of SRER AGB values by data product.](fig/agb_density_SRER.png){#fig-ridge_srer fig-align="center" width="5in"}
+![Distribution of SRER AGB values by data product.](fig/agb_density_srer.png){#fig-ridge_srer fig-align="center" width="5in"}
 
 #### Pima County
 
-![Distribution of Pima County AGB values by data product.](fig/agb_density_PimaCounty.png){#fig-ridge_srer fig-align="center" width="5in"}
+![Distribution of Pima County AGB values by data product.](fig/agb_density_pima.png){fig-align="center"}
 
 ### Scatter plots
 

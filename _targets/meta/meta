@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|0d764405609e1226|||||||||||||||
+.Random.seed|object|8740707599a850a0|||||||||||||||
 agb_df_az|stem|c4c55cd496cc6a77|1f35935a7f4a56fc|0bcb76b522dd885f|576721348||t19773.9928659705s|a529df10bf6ecca3|476920633|rds|local|vector|||88.808||
 agb_map_az_AZ_pdf|stem|b79c6426064e6b23|c3fbabc6927ecc25|c361836927515cf3|1080411055|docs/fig/map_agb_AZ.pdf|t19774.0084343095s|9e8f1c9e51939913|1366659|file|local|vector|||62.604||
 agb_map_az_AZ_png|stem|3c078926ab4884af|10dccfccfd60e472|c361836927515cf3|-665452756|docs/fig/map_agb_AZ.png|t19774.0077092886s|b229780a24782463|569344|file|local|vector|||61.173||
@@ -12,7 +12,8 @@ agb_map_srer_SRER_png|stem|36d7f3558b2cecc2|c3b7023776901188|ff7ca0e30fa3219e|-1
 agb_stack|stem|331ea7174cea2543|8430869dac551b9d|bdbad54c01004a3d|-1407896123||t19772.9115231893s|a11d28f28f97f333|1539012800|format_custom&read=ZnVuY3Rpb24gKHBhdGgpIAp0ZXJyYTo6cmFzdChwYXRoKQ&write=ZnVuY3Rpb24gKG9iamVjdCwgcGF0aCkgCnRlcnJhOjp3cml0ZVJhc3Rlcih4ID0gb2JqZWN0LCBmaWxlbmFtZSA9IHBhdGgsIGZpbGV0eXBlID0gIkdUaWZmIiwgCiAgICBvdmVyd3JpdGUgPSBUUlVFKQ&marshal=ZnVuY3Rpb24gKG9iamVjdCkgCnRlcnJhOjp3cmFwKG9iamVjdCk&unmarshal=ZnVuY3Rpb24gKG9iamVjdCkgCnRlcnJhOjp1bndyYXAob2JqZWN0KQ&convert=&copy=&repository=|local|vector|||41.442||
 az|stem|18cf149e4671f8aa|596b43b4ed29fb2b|1052a8e24776e8d0|-84822392||t19773.9904322839s|3fefb73280e4dfd6|1801|rds|local|vector|||0.094||
 ca|stem|de55520ef9b7191a|4a49bbcc08458960|1052a8e24776e8d0|-1161420732||t19773.9904374881s|4d0b5497794a88b9|4024|rds|local|vector|||0.029||
-calc_med_summary|function|2874eaba2bef2c06|||||||||||||||
+calc_med_summary|function|ced4134008e9e3ce|||||||||||||||
+calc_summary|function|c895ff0537a915db|||||||||||||||
 chopping_agb|stem|76e9b9d3861c5eae|c7959d014b8ebfa8|228714e39696fddc|-1197316800||t19769.8235869061s|2673419b2a379cb6|175112596|format_custom&read=ZnVuY3Rpb24gKHBhdGgpIAp0ZXJyYTo6cmFzdChwYXRoKQ&write=ZnVuY3Rpb24gKG9iamVjdCwgcGF0aCkgCnRlcnJhOjp3cml0ZVJhc3Rlcih4ID0gb2JqZWN0LCBmaWxlbmFtZSA9IHBhdGgsIGZpbGV0eXBlID0gIkdUaWZmIiwgCiAgICBvdmVyd3JpdGUgPSBUUlVFKQ&marshal=ZnVuY3Rpb24gKG9iamVjdCkgCnRlcnJhOjp3cmFwKG9iamVjdCk&unmarshal=ZnVuY3Rpb24gKG9iamVjdCkgCnRlcnJhOjp1bndyYXAob2JqZWN0KQ&convert=&copy=&repository=|local|vector|||43.822||
 chopping_file|stem|d07623ddf63a775a|75d13c60065b004f|ef46db3751d8e999|1531742038|data/rasters/Chopping/MISR_agb_estimates_20002021.tif|t19660.790404686s|84df45e0053dc258|375410359|file|local|vector|||0||
 crop_srer|function|090a0cb8a2fbfdb3|||||||||||||||
@@ -46,7 +47,7 @@ menlove_dir|stem|589f96b89e6175dd|aa5b0a6b5266a2b2|ef46db3751d8e999|1449448148|d
 pima|stem|4288bdd260ee6606|1cd6469bf27932a5|742d3f70a9ee91e0|121929380||t19773.990435633s|04512cea3c8e70c5|21325|rds|local|vector|||0.102||
 pima_dir|stem|644dcf7823b45421|b79821551d095d53|ef46db3751d8e999|-329177109|data/shapefiles/Pima_County_Boundary/|t19772.9658600323s|81a1853ddabe4117|256|file|local|vector|||4.349|package tidyr was built under R version 4.3.2. package ggridges was built under R version 4.3.2. package ggthemes was built under R version 4.3.2|
 plot_agb_map|function|573a32183f936768|||||||||||||||
-plot_agb_ridges|function|73a32ded96c71547|||||||||||||||
+plot_agb_ridges|function|6828238a26478a45|||||||||||||||
 plot_comparisons|stem|bdc1c9048934c08b|813ef7b3bed14ab5|caf1f46300f537ad|-1818167200||t19773.9128731809s|758d7d51407f572d|117|rds|local|vector||plot_comparisons_f5b58cab*plot_comparisons_9acdf6b2*plot_comparisons_922c094e*plot_comparisons_0550c584*plot_comparisons_b9d46af9*plot_comparisons_7dd98562|0.001||
 plot_median_map|function|f57b56403da0612a|||||||||||||||
 plot_scatter|function|b90157b93958fe75|||||||||||||||
@@ -64,29 +65,16 @@ read_clean_lt_gnn|function|fff9ad396efe32b0|||||||||||||||
 read_clean_menlove|function|3b81694467ae6962|||||||||||||||
 read_clean_rap|function|a25e26de10896dd0|||||||||||||||
 read_clean_xu|function|968de229c5083800|||||||||||||||
-readme|stem|c43a31258d76aa4f|c2c4b6e3bcf05d55|ef46db3751d8e999|980901812|README.md*README.qmd|t19774.8467218754s|b5148437701a8b83|18075|file|local|vector|||48.03|package ggridges was built under R version 4.3.2. package ggthemes was built under R version 4.3.2|
-report|stem|bfa01188427e2d95|d596815af14c289c|4c30c02c1f6fa12c|787668912|docs/report.html*docs/report.qmd*docs/fig/agb_density_az.png*docs/fig/agb_density_CA.png*docs/fig/agb_density_PimaCounty.png*docs/fig/agb_density_SRER.png*docs/fig/agb_density2_az.png*docs/fig/map_agb_AZ.png*docs/fig/map_agb_CA.png*docs/fig/map_agb_PimaCounty.png*docs/fig/map_agb_SRER.png*docs/fig/map_median_AZ.png*docs/fig/map_median_CA.png*docs/fig/map_median_PimaCounty.png*docs/fig/map_median_SRER.png*docs/fig/map_sd_AZ.png*docs/fig/map_sd_CA.png*docs/fig/map_sd_PimaCounty.png*docs/fig/map_sd_SRER.png*docs/fig/scatter_chopping_et_al.png*docs/fig/scatter_gedi_l_4_b.png*docs/fig/scatter_liu_et_al.png*docs/fig/scatter_lt_gnn.png*docs/fig/scatter_menlove_healey.png*docs/fig/scatter_xu_et_al.png|t19774.8468043764s|feb249c3b1f8537c|3111842|file|local|vector|||6.614||
-ridge_plot_az_AZ_pdf|stem|3612471e3f47b559|46aed0ff01a689f7|a65b08617aad85ef|1834824711|docs/fig/agb_density_AZ.pdf|t19773.7864658161s|ee6498328bd4154d|713528|file|local|vector|||61.647||
-ridge_plot_az_AZ_png|stem|475ac358809456c7|77374d252f053065|a65b08617aad85ef|525676887|docs/fig/agb_density_AZ.png|t19773.7894761827s|af338fc5e0a09ca6|49845|file|local|vector|||84.201||
-ridge_plot_pdf|stem|24690c6e3201bb10|3e26774902f82a1f|d2c3cae53476363e|-371112976|docs/fig/agb_density_az.pdf|t19774.0070007671s|a083a1b8cebe2dc4|545469|file|local|vector|||85.746||
-ridge_plot_pima_PimaCounty_pdf|stem|ad07534d4c218656|a064499aae274842|e8d65e4077586094|1845047610|docs/fig/agb_density_PimaCounty.pdf|t19773.7850936581s|cf44651119f280ee|949567|file|local|vector|||8.424||
-ridge_plot_pima_PimaCounty_png|stem|9d5d87d41fe6d855|97aef4b20e327192|e8d65e4077586094|-623541424|docs/fig/agb_density_PimaCounty.png|t19773.7854719629s|46888e06c1b10d28|47767|file|local|vector|||7.192||
-ridge_plot_png|stem|e7205f2caeea7e28|c20a899c47b636dc|d2c3cae53476363e|-27251809|docs/fig/agb_density_az.png|t19774.0092512038s|551a2bca477dbdb6|40930|file|local|vector|||70.538||
-ridge_plot2_az_AZ_pdf|stem|8c745fa5d88665e9|f3237712280ba5b4|a65b08617aad85ef|-2111392318|docs/fig/agb_density2_AZ.pdf|t19773.7885011811s|d96bb4b46e9af712|744110|file|local|vector|||83.161||
-ridge_plot2_az_AZ_png|stem|b9d78d840f8a7ac7|b5c57e116672a62f|a65b08617aad85ef|1057626498|docs/fig/agb_density2_AZ.png|t19773.7875372669s|843c241181f27937|52496|file|local|vector|||92.543||
-ridge_plot2_pdf|stem|44a20965751f5095|a60b66e44cf3b2ab|d2c3cae53476363e|-1699511691|docs/fig/agb_density2_az.pdf|t19774.0050139565s|952fce506c59676e|611632|file|local|vector|||88.942||
-ridge_plot2_pima_PimaCounty_pdf|stem|deee4a0c0ec03636|96039cdf9455555a|e8d65e4077586094|-1393760820|docs/fig/agb_density2_PimaCounty.pdf|t19773.7851746195s|2d1cbb87a3b26e19|786702|file|local|vector|||6.809||
-ridge_plot2_pima_PimaCounty_png|stem|540c3699b26e5522|62d976704df1f7b7|e8d65e4077586094|805481448|docs/fig/agb_density2_PimaCounty.png|t19773.7857515249s|acedd84d64368139|51308|file|local|vector|||6.801||
-ridge_plot2_png|stem|3e7d09ca135e0b7a|dcc005215e07c25f|d2c3cae53476363e|1521584847|docs/fig/agb_density2_az.png|t19774.0060078652s|c4411bcba460f6d0|41331|file|local|vector|||85.834||
-ridge_plot2_srer_SRER_png|stem||1a718c2c85f642a4|43547edbf53009db|-1286373960||t19773.7946055763s||0|file|local|vector|||0.442||1m22m36mℹ39m In index 3.36mℹ39m With name Liu et al..1mCaused by error in rep22m33m39m invalid times argument
-ridge1_az_AZ_pdf|stem|9f4f210e43f4a162|73cba004510ac7d6|f4fd938049d2b9fd|1028008415|docs/fig/agb_density_AZ.pdf|t19774.8349927335s|5d3e0c206912996e|527751|file|local|vector|||92.487||
-ridge1_az_AZ_png|stem|1412a0a07a6a4c0a|823615b256b3dedd|f4fd938049d2b9fd|977704519|docs/fig/agb_density_AZ.png|t19774.8339201392s|42232d3a5868d189|40869|file|local|vector|||65.963||
-ridge1_ca_CA_pdf|stem|cf3ca0944cc07426|4947915b81cb06f6|c74b19c916841b4b|544441301|docs/fig/agb_density_CA.pdf|t19774.8403269157s|70621f3f7484d60f|451267|file|local|vector|||222.19||
-ridge1_ca_CA_png|stem|98dce8d7108456aa|33727d78b18f3e22|c74b19c916841b4b|-1672829204|docs/fig/agb_density_CA.png|t19774.8377547944s|70a18a8f8f1d9bd7|42987|file|local|vector|||235.538||
-ridge1_pima_PimaCounty_pdf|stem|ec346ba225098ab4|bd2e0cebda8ef25e|22d8408311581cfd|195449795|docs/fig/agb_density_PimaCounty.pdf|t19774.8404439642s|02578eba34930176|660393|file|local|vector|||9.954||
-ridge1_pima_PimaCounty_png|stem|ea3428a53621b29e|f8aa8a5a0159a009|22d8408311581cfd|-1503181024|docs/fig/agb_density_PimaCounty.png|t19774.8405296301s|77dfafc5f0efbc18|40846|file|local|vector|||7.331||
-ridge1_srer_SRER_pdf|stem|5e89aac929b80077|6c605a528a506795|2d2b107be0eecc26|-1637179744|docs/fig/agb_density_SRER.pdf|t19774.8350277558s|f5855b01b3dd9d11|649849|file|local|vector|||1.521||
-ridge1_srer_SRER_png|stem|9ffafbd3cb2a7dd1|a2dd1f5316d427bf|2d2b107be0eecc26|1266590803|docs/fig/agb_density_SRER.png|t19774.8350093208s|5825e0ae00eb294b|44618|file|local|vector|||1.391||
+readme|stem|1affa6aab06776fa|c2c4b6e3bcf05d55|ef46db3751d8e999|980901812|README.md*README.qmd|t19775.9824623392s|270025c9a3a11a43|18024|file|local|vector|||52.478|package terra was built under R version 4.3.2. package magick was built under R version 4.3.2. package ggridges was built under R version 4.3.2. package ggthemes was built under R version 4.3.2|
+report|stem|c908b5bbc0ef8108|ca87d777c449cf74|d45eb9bbedc67b01|787668912|docs/report.html*docs/report.qmd*docs/fig/agb_density_az.png*docs/fig/agb_density_ca.png*docs/fig/agb_density_pima.png*docs/fig/agb_density_srer.png*docs/fig/agb_density2_az.png*docs/fig/map_agb_AZ.png*docs/fig/map_agb_CA.png*docs/fig/map_agb_PimaCounty.png*docs/fig/map_agb_SRER.png*docs/fig/map_median_AZ.png*docs/fig/map_median_CA.png*docs/fig/map_median_PimaCounty.png*docs/fig/map_median_SRER.png*docs/fig/map_sd_AZ.png*docs/fig/map_sd_CA.png*docs/fig/map_sd_PimaCounty.png*docs/fig/map_sd_SRER.png*docs/fig/scatter_chopping_et_al.png*docs/fig/scatter_gedi_l_4_b.png*docs/fig/scatter_liu_et_al.png*docs/fig/scatter_lt_gnn.png*docs/fig/scatter_menlove_healey.png*docs/fig/scatter_xu_et_al.png|t19775.9868281439s|453c7c455e69bb19|3106281|file|local|vector|||7.133||
+ridge_az_pdf|stem|00b74ca230c5211a|12260239ca9b6dbf|3db6854bb6b5703a|-369156954|docs/fig/agb_density_az.pdf|t19775.9470126114s|5d3e0c206912996e|527751|file|local|vector|||88.767||
+ridge_az_png|stem|1412a0a07a6a4c0a|00e130810b7dd23f|3db6854bb6b5703a|-305061300|docs/fig/agb_density_az.png|t19775.9480783552s|42232d3a5868d189|40869|file|local|vector|||91.874||
+ridge_ca_pdf|stem|97ce6c546bc663a9|6132fe3b423a156e|21e9b73f16060cc1|-1758332972|docs/fig/agb_density_ca.pdf|t19775.9785648494s|2848c61e618c933f|639776|file|local|vector|||273.402||
+ridge_ca_png|stem|c65f3f9362d7db73|67bf574aef5c3d15|21e9b73f16060cc1|-1732195212|docs/fig/agb_density_ca.png|t19775.9753965214s|613305c3dc162399|42628|file|local|vector|||263.6||
+ridge_pima_pdf|stem|a83aa692c89f6bca|afc06bee6363b303|1af425cdcbd40217|2025796525|docs/fig/agb_density_pima.pdf|t19775.9786846959s|ebc157d111ccbca2|685128|file|local|vector|||9.859||
+ridge_pima_png|stem|c4ba4884cbb910d2|709158af90837329|1af425cdcbd40217|340288547|docs/fig/agb_density_pima.png|t19775.9787707692s|55473ee0fd042ebb|38139|file|local|vector|||7.347||
+ridge_srer_pdf|stem|ecdbd29b4283ea0d|e284c7da0b8ce8f1|4ba18768c8172932|915766230|docs/fig/agb_density_srer.pdf|t19775.9481013977s|498bcdd6d7e3f5ae|392152|file|local|vector|||1.018||
+ridge_srer_png|stem|5565bd727bd51b6b|16b3524d7662030c|4ba18768c8172932|-1418585080|docs/fig/agb_density_srer.png|t19775.9480892136s|16c8c0351fb903fa|31248|file|local|vector|||0.812||
 scatter_plots|pattern|5681df06b52669f9|828ba1e4579e36b5||1063551923||||456432|file|local|vector||scatter_plots_5da59fed*scatter_plots_b79a09fb*scatter_plots_f4041c88*scatter_plots_c21f5eb4*scatter_plots_0c953c8d*scatter_plots_c354976e|42.716||
 scatter_plots_0c953c8d|branch|7d287d4b777e46b8|828ba1e4579e36b5|923b4bae9094f2cc|1125792227|docs/fig/scatter_menlove_healey.png|t19773.9132906944s|4cb6e805422102ce|70606|file|local|vector|scatter_plots||5.65||
 scatter_plots_5da59fed|branch|3ab984b69bf6d7ee|828ba1e4579e36b5|923b4bae9094f2cc|-488107380|docs/fig/scatter_chopping_et_al.png|t19773.913004876s|d68c47f62ac40e6c|44973|file|local|vector|scatter_plots||11.339||
@@ -105,12 +93,12 @@ sd_map_srer_SRER_png|stem|9f9a49463ce8b4d5|688175fe608f90bf|353aaa6b26dea60e|-18
 srer|stem|544925ceee759c43|1e15c3cabd760227|2a4b7cf045e7cd84|-1867229611||t19773.9904367292s|a5a86413f31d72cc|1905|rds|local|vector|||0.051||
 srer_dir|stem|9516cd144736a3e4|47a5b1a92f41b138|ef46db3751d8e999|-1881368027|data/shapefiles/srerboundary/|t19766.6859731347s|73a5f5604ca1ab33|288|file|local|vector|||4.49|package tidyr was built under R version 4.3.2. package ggridges was built under R version 4.3.2. package ggthemes was built under R version 4.3.2|
 subsets|stem|6ca77c02141fc046|606790a4bd222166|785ce287a4ce86b2|-1516476477||t19774.0207545014s|213df4ec55e6047c|27158|rds|local|list||subsets_26489aa0*subsets_d5702ad5*subsets_92ad0616*subsets_cc64a662|0||
-summary_stats|pattern|a62c0a00abe0d22e|fe237a4e1fb7291c||154554184||||771|rds|local|vector||summary_stats_27a69863*summary_stats_42300ac8*summary_stats_8b76091e*summary_stats_938d22e2|1827.965||
-summary_stats_27a69863|branch|59f81f34bbaee0e5|fe237a4e1fb7291c|1b5d8d727c1e5fdf|-783756499||t19774.1835014922s|11684eb95dbf8c0d|189|rds|local|vector|summary_stats||1164.142||
-summary_stats_42300ac8|branch|38d9ee17eb5a8cdf|fe237a4e1fb7291c|1b5d8d727c1e5fdf|-1009072086||t19774.1910267072s|11684eb95dbf8c0d|189|rds|local|vector|summary_stats||649.661||
+summary_stats|pattern|97edb485e481afb6|0339d4c6a40201b5||154554184||||1696|rds|local|vector||summary_stats_27a69863*summary_stats_42300ac8*summary_stats_8b76091e*summary_stats_938d22e2|369.165||
+summary_stats_27a69863|branch|6fb02792d837ad1e|0339d4c6a40201b5|1ac65db5487e3a55|-783756499||t19775.9832261319s|0c79ab4d5be76e6d|422|rds|local|vector|summary_stats||65.292||
+summary_stats_42300ac8|branch|9f91b4a41aa60f4b|0339d4c6a40201b5|1ac65db5487e3a55|-1009072086||t19775.986668313s|0dd407bf2b677bc2|418|rds|local|vector|summary_stats||297.283||
 summary_stats_682d7a45|branch|8e38024f2fbd6443|fe237a4e1fb7291c|ef92ed639f0e9e4a|1232131121||t19773.9692604793s|2c02ccb1d6d3878b|191|rds|local|vector|summary_stats||0.309||
-summary_stats_8b76091e|branch|f6b46b2c501e477a|fe237a4e1fb7291c|1b5d8d727c1e5fdf|-605130515||t19774.1910423945s|3a40abf18adc8861|196|rds|local|vector|summary_stats||1.146||
-summary_stats_938d22e2|branch|c89f0f68869f14d4|fe237a4e1fb7291c|1b5d8d727c1e5fdf|110493847||t19774.1911956178s|c784844629387e6b|197|rds|local|vector|summary_stats||13.016||
+summary_stats_8b76091e|branch|e8ac73973584727b|0339d4c6a40201b5|1ac65db5487e3a55|-605130515||t19775.9866738125s|0c79ab4d5be76e6d|422|rds|local|vector|summary_stats||0.438||
+summary_stats_938d22e2|branch|8219f4c7ae111b01|0339d4c6a40201b5|1ac65db5487e3a55|110493847||t19775.9867455521s|734eed8d6fa94b1a|434|rds|local|vector|summary_stats||6.152||
 summary_stats_b6f3a92d|branch|2edd9fb398c15223|fe237a4e1fb7291c|ef92ed639f0e9e4a|1441798682||t19773.9674830091s|23174e8584d69801|187|rds|local|vector|summary_stats||55.165||
 summary_stats_b93e7bff|branch|0bf250e2166c4c32|fe237a4e1fb7291c|ef92ed639f0e9e4a|-1817021228||t19773.9692986539s|253a8b79276e1ed4|185|rds|local|vector|summary_stats||3.261||
 summary_stats_c998d4a2|branch|25d16c3ce9495db4|fe237a4e1fb7291c|ef92ed639f0e9e4a|285427541||t19773.9692564244s|23174e8584d69801|187|rds|local|vector|summary_stats||153.073||
