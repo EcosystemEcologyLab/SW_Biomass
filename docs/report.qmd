@@ -11,7 +11,7 @@ editor: visual
 So far the data products include:
 
 | Product                               | Downloaded (including CA) | Wrangled |
-|-------------------------------|----------------------|-------------------|
+|---------------------------------------|---------------------------|----------|
 | Xu AGBC                               | ✅                        | ✅       |
 | Liu AGBC                              | ✅                        | ✅       |
 | LT-GNN AGB                            | ✅                        | ✅       |
@@ -128,17 +128,17 @@ It ended up being relatively easy to just do my own kernel density estimation, s
 
 #### Arizona
 
-![Distribution of Arizona AGB values by data product.](fig/agb_density_az.png){#fig-ridge_az fig-align="center" width="5in"}
+![Distribution of Arizona AGB values by data product.](fig/agb_density_az.png){#fig-ridge_az fig-align="center"}
 
 <!-- {{< downloadthis fig/agb_density_az.png label="Download .png" >}} -->
 
 #### California
 
-![Distribution of California AGB values by data product.](fig/agb_density_ca.png){#fig-ridge_ca fig-align="center" width="5in"}
+![Distribution of California AGB values by data product.](fig/agb_density_ca.png){#fig-ridge_ca fig-align="center"}
 
 #### SRER
 
-![Distribution of SRER AGB values by data product.](fig/agb_density_srer.png){#fig-ridge_srer fig-align="center" width="5in"}
+![Distribution of SRER AGB values by data product.](fig/agb_density_srer.png){#fig-ridge_srer fig-align="center"}
 
 #### Pima County
 
