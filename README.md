@@ -31,10 +31,6 @@ package](https://docs.ropensci.org/targets/) for workflow management.
 Run `targets::tar_make()` from the console to run the workflow and
 reproduce all results. The graph below shows the workflow:
 
-Warning messages: 1: package ‘targets’ was built under R version 4.3.2
-2: package ‘tarchetypes’ was built under R version 4.3.2 3: package
-‘tidyr’ was built under R version 4.3.2
-
 ``` mermaid
 graph LR
   style Legend fill:#FFFFFF00,stroke:#000000;
@@ -76,8 +72,8 @@ graph LR
     xe5fe7e4eb140dcfa(["pima"]):::uptodate --> x889e103f0ca22367(["ridge_pima_pdf"]):::uptodate
     x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> x5688b5ef6bcea6f9(["rap_agb"]):::uptodate
     x9889d33e942dc03b(["rap_file"]):::uptodate --> x5688b5ef6bcea6f9(["rap_agb"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x0faa310f699b45a5["summary_stats"]:::outdated
-    x5cbd07d8ce48e961(["subsets"]):::uptodate --> x0faa310f699b45a5["summary_stats"]:::outdated
+    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x0faa310f699b45a5["summary_stats"]:::uptodate
+    x5cbd07d8ce48e961(["subsets"]):::uptodate --> x0faa310f699b45a5["summary_stats"]:::uptodate
     x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x5488b960ef0cdfa9(["median_map_srer_SRER_png"]):::uptodate
     xe3a3f405d949368a(["srer"]):::uptodate --> x5488b960ef0cdfa9(["median_map_srer_SRER_png"]):::uptodate
     x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x60c69b5a4aa33a2c(["ridge_ca_png"]):::uptodate
@@ -102,7 +98,7 @@ graph LR
     xe3a3f405d949368a(["srer"]):::uptodate --> x35dcdfe6cacbee43(["agb_map_srer_SRER_pdf"]):::uptodate
     x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x79e9ba0c706f57ec(["median_map_pima_PimaCounty_pdf"]):::uptodate
     xe5fe7e4eb140dcfa(["pima"]):::uptodate --> x79e9ba0c706f57ec(["median_map_pima_PimaCounty_pdf"]):::uptodate
-    x0faa310f699b45a5["summary_stats"]:::outdated --> xe0fba61fbc506510(["report"]):::outdated
+    x0faa310f699b45a5["summary_stats"]:::uptodate --> xe0fba61fbc506510(["report"]):::outdated
     x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> xb420f92ea294cb0b(["menlove_agb"]):::uptodate
     x5086af9665941a9e(["menlove_dir"]):::uptodate --> xb420f92ea294cb0b(["menlove_agb"]):::uptodate
     x7abafd87efa13647(["agb_df_az"]):::uptodate --> xa9c8870bcb5985fd["scatter_plots"]:::uptodate
@@ -211,9 +207,7 @@ fs::dir_tree(recurse = 1)
     ├── docs
     │   ├── _extensions
     │   ├── fig
-    │   ├── report.html
-    │   ├── report.qmd
-    │   └── report_files
+    │   └── report.qmd
     └── notes
         ├── improve ridges.R
         ├── kernel_estimation.R
