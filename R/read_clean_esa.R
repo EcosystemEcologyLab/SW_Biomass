@@ -1,14 +1,13 @@
 #' Title
 #'
-#' @param dir "data/rasters/ESA_CCI/"
+#' @param files vector of file paths to .tifs starting at "data/rasters/ESA_CCI/"
 #'
 #' @return SpatRaster object
 #' 
-read_clean_esa <- function(dir) {
+read_clean_esa <- function(files) {
   # read in tiles and combine
   esa_agb_2010 <- 
-    dir |>
-    dir_ls(glob = "*.tif*") |> 
+    files |> 
     purrr::map(terra::rast) |> 
     terra::sprc() |> 
     terra::mosaic() # mosaic() is much faster than merge() apparently
