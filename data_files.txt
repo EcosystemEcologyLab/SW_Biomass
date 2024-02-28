@@ -60,7 +60,6 @@ data/rasters/ESA_CCI/N40W130_ESACCI-BIOMASS-L4-AGB-MERGED-100m-2010-fv4.0.tiff
 data/rasters/ESA_CCI/N50W120_ESACCI-BIOMASS-L4-AGB-MERGED-100m-2010-fv4.0.tiff
 data/rasters/ESA_CCI/N50W130_ESACCI-BIOMASS-L4-AGB-MERGED-100m-2010-fv4.0.tiff
 data/rasters/Liu/Aboveground_Carbon_1993_2012.nc
-data/rasters/RAP/vegetation-biomass-v3-2010.tif
 data/rasters/Chopping/MISR_agb_estimates_20002021.tif
 data/rasters/GEDI_L4B_v2.1/data/GEDI04_B_MW019MW223_02_002_02_R01000M_MU.tif
 data/rasters/Menlove/data/

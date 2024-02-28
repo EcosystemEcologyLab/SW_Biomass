@@ -8,6 +8,7 @@ library(targets)
 library(tarchetypes)
 library(tidyr)
 library(fs)
+library(quarto)
 # library(qs)
 
 # Set target options:
@@ -39,8 +40,8 @@ tar_plan(
   tar_target(liu_agb, read_clean_liu(liu_file, esa_agb), format = format_geotiff),
   tar_file(xu_file, "data/rasters/Xu/test10a_cd_ab_pred_corr_2000_2019_v2.tif"),
   tar_target(xu_agb, read_clean_xu(xu_file, esa_agb), format = format_geotiff),
-  tar_file(rap_file, "data/rasters/RAP/vegetation-biomass-v3-2010.tif"),
-  tar_target(rap_agb, read_clean_rap(rap_file, esa_agb), format = format_geotiff),
+  # tar_file(rap_file, "data/rasters/RAP/vegetation-biomass-v3-2010.tif"),
+  # tar_target(rap_agb, read_clean_rap(rap_file, esa_agb), format = format_geotiff),
   tar_file(ltgnn_files, fs::dir_ls("data/rasters/LT_GNN", glob = "*.zip")),
   tar_target(ltgnn_agb, read_clean_lt_gnn(ltgnn_files, esa_agb), format = format_geotiff),
   tar_file(menlove_dir, "data/rasters/Menlove/data/"), 
