@@ -39,6 +39,7 @@ tar_option_set(
 tar_source()
 # source("other_functions.R") # Source other scripts as needed.
 
+# TODO: this might not be the best way to handle the "starting" files.
 # conditionally set starting path for data.  If you want to run this and store
 # the files somewhere else, create an .Renviron with your own value for
 # TAR_PROJECT and add an if statment for it
