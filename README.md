@@ -190,6 +190,7 @@ fs::dir_tree(recurse = 1)
     ├── R
     │   ├── calc_summary.R
     │   ├── crop_srer.R
+    │   ├── format_geotiff.R
     │   ├── get_esa_crs.R
     │   ├── make_az_sf.R
     │   ├── make_shape_list.R
@@ -213,6 +214,7 @@ fs::dir_tree(recurse = 1)
     ├── README.qmd
     ├── README.rmarkdown
     ├── SW_Biomass.Rproj
+    ├── _quarto.yml
     ├── _targets
     │   ├── meta
     │   ├── objects
@@ -221,6 +223,7 @@ fs::dir_tree(recurse = 1)
     ├── data
     │   ├── rasters
     │   └── shapefiles
+    ├── data_files.txt
     ├── docs
     │   ├── _extensions
     │   ├── fig
