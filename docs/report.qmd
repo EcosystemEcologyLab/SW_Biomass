@@ -4,14 +4,25 @@ format:
   html:
     toc: true
 editor: visual
+execute: 
+  echo: false
 ---
+
+```{r}
+#| label: setup
+#| include: false
+
+library(targets)
+library(here)
+library(knitr)
+```
 
 ## Data
 
 So far the data products include:
 
 | Product                               | Downloaded (including CA) | Wrangled |
-|---------------------------------------|---------------------------|----------|
+|----------------------------------|-----------------------|----------------|
 | Xu AGBC                               | ✅                        | ✅       |
 | Liu AGBC                              | ✅                        | ✅       |
 | LT-GNN AGB                            | ✅                        | ✅       |
@@ -44,79 +55,134 @@ Observations:
 
 #### Arizona
 
-![Maps of AGB for each data product in Arizona.](fig/map_agb_AZ.png){#fig-map_agb_az fig-align="center"}
-
-<!-- {{< downloadthis fig/map_agb_AZ.png label="Download .png" >}} -->
+```{r}
+#| label: fig-map_agb_az
+#| fig-cap: Maps of AGB for each data product in Arizona.
+#| fig-align: center
+include_graphics(here(tar_read(agb_map_az_png)))
+```
 
 #### California
 
-![Maps of AGB for each data product in California.](fig/map_agb_CA.png){#fig-map_agb_ca fig-align="center"}
-
-<!-- {{< downloadthis fig/map_agb_CA.png label="Download .png" >}} -->
+```{r}
+#| label: fig-map_agb_ca
+#| fig-cap: Maps of AGB for each data product in California.
+#| fig-align: center
+include_graphics(here(tar_read(agb_map_ca_png)))
+```
 
 #### SRER
 
-![Maps of AGB for each data product in SRER](fig/map_agb_SRER.png){#fig-map_agb_srer fig-align="center"}
+```{r}
+#| label: fig-map_agb_srer
+#| fig-cap: Maps of AGB for each data product in SRER
+#| fig-align: center
 
-<!-- {{< downloadthis fig/map_agb_SRER.png label="Download .png" >}} -->
+include_graphics(here(tar_read(agb_map_srer_png)))
+```
 
 #### Pima County
 
-![Maps of AGB for each data product in Pima County](fig/map_agb_PimaCounty.png){#fig-map_agb_pima fig-align="center"}
+```{r}
+#| label: fig-map_agb_pima
+#| fig-cap: Maps of AGB for each data product in Pima County
+#| fig-align: center
 
-<!-- {{< downloadthis fig/map_agb_PimaCounty.png label="Download .png" >}} -->
+include_graphics(here(tar_read(agb_map_pima_png)))
+```
+
 
 ### Median {#sec-median}
 
 #### Arizona
 
-![Median AGB across data products](fig/map_median_AZ.png){#fig-map_median_az fig-align="center"}
+```{r}
+#| label: fig-map_median_az
+#| fig-cap: Median AGB across data products
+#| fig-align: center
 
-<!-- {{< downloadthis fig/map_median_AZ.png label="Download .png" >}} -->
+include_graphics(here(tar_read(median_map_az_png)))
+```
 
 #### California
 
-![Median AGB across data products](fig/map_median_CA.png){#fig-map_median_ca fig-align="center"}
+```{r}
+#| label: fig-map_median_ca
+#| fig-cap: Median AGB across data products
+#| fig-align: center
 
-<!-- {{< downloadthis fig/map_median_CA.png label="Download .png" >}} -->
+include_graphics(here(tar_read(median_map_ca_png)))
+```
 
 #### SRER
 
-![Median AGB across data products](fig/map_median_SRER.png){#fig-map_median_srer fig-align="center"}
+```{r}
+#| label: fig-map_median_srer
+#| fig-cap: Median AGB across data products
+#| fig-align: center
 
-<!-- {{< downloadthis fig/map_median_SRER.png label="Download .png" >}} -->
+include_graphics(here(tar_read(median_map_srer_png)))
+```
 
 #### Pima County
 
-![Median AGB across data products](fig/map_median_PimaCounty.png){#fig-map_median_pima fig-align="center"}
+```{r}
+#| label: fig-map_median_pima
+#| fig-cap: Median AGB across data products
+#| fig-align: center
 
-<!-- {{< downloadthis fig/map_median_PimaCounty.png label="Download .png" >}} -->
+include_graphics(here(tar_read(median_map_pima_png)))
+```
 
 ### Standard Deviation {#sec-sd}
 
 #### Arizona
 
-![Map of standard deviation of each raster pixel showing areas with the highest variation among data products in yellow and areas with the least variation in dark purple. Note: the color gradient is on a log scale.](fig/map_sd_AZ.png){#fig-map_sd_az fig-align="center"}
+```{r}
+#| label: fig-map_sd_az
+#| fig-cap: |
+#|  Map of standard deviation of each raster pixel showing areas with the highest variation among data products in yellow and areas with the least variation in dark purple. Note: the color gradient is on a log scale.
+#| fig-align: center
 
-<!-- {{< downloadthis fig/map_sd_AZ.png label="Download .png" >}} -->
+include_graphics(here(tar_read(sd_map_az_png)))
+```
+
 
 #### California
 
-![Map of standard deviation of each raster pixel showing areas with the highest variation among data products in yellow and areas with the least variation in dark purple. Note: the color gradient is on a log scale.](fig/map_sd_CA.png){#fig-map_sd_ca fig-align="center"}
+```{r}
+#| label: fig-map_sd_ca
+#| fig-cap: |
+#|  Map of standard deviation of each raster pixel showing areas with the highest variation among data products in yellow and areas with the least variation in dark purple. Note: the color gradient is on a log scale.
+#| fig-align: center
 
-<!-- {{< downloadthis fig/map_sd_CA.png label="Download .png" >}} -->
+include_graphics(here(tar_read(sd_map_ca_png)))
+```
+
 
 #### SRER
 
-![Map of standard deviation of each raster pixel showing areas with the highest variation among data products in yellow and areas with the least variation in dark purple. Note: the color gradient is on a log scale.](fig/map_sd_SRER.png){#fig-map_sd_srer fig-align="center"}
 
-<!-- {{< downloadthis fig/map_sd_SRER.png label="Download .png" >}} -->
+```{r}
+#| label: fig-map_sd_srer
+#| fig-cap: |
+#|  Map of standard deviation of each raster pixel showing areas with the highest variation among data products in yellow and areas with the least variation in dark purple. Note: the color gradient is on a log scale.
+#| fig-align: center
+
+include_graphics(here(tar_read(sd_map_srer_png)))
+```
+
 
 #### Pima County
 
-![Map of standard deviation of each raster pixel showing areas with the highest variation among data products in yellow and areas with the least variation in dark purple. Note: the color gradient is on a log scale.](fig/map_sd_PimaCounty.png){#fig-map_sd_pima fig-align="center"}
+```{r}
+#| label: fig-map_sd_pima
+#| fig-cap: |
+#|  Map of standard deviation of each raster pixel showing areas with the highest variation among data products in yellow and areas with the least variation in dark purple. Note: the color gradient is on a log scale.
+#| fig-align: center
 
-<!-- {{< downloadthis fig/map_sd_PimaCounty.png label="Download .png" >}} -->
+include_graphics(here(tar_read(sd_map_pima_png)))
+```
 
 ### Data distribution {#sec-data-distribution}
 
@@ -128,44 +194,58 @@ It ended up being relatively easy to just do my own kernel density estimation, s
 
 #### Arizona
 
-![Distribution of Arizona AGB values by data product.](fig/agb_density_az.png){#fig-ridge_az fig-align="center"}
+```{r}
+#| label: fig-ridge_az
+#| fig-cap: Distribution of Arizona AGB values by data product.
+#| fig-align: center
 
-<!-- {{< downloadthis fig/agb_density_az.png label="Download .png" >}} -->
+include_graphics(here(tar_read(ridge_az_png)))
+```
 
 #### California
 
-![Distribution of California AGB values by data product.](fig/agb_density_ca.png){#fig-ridge_ca fig-align="center"}
+```{r}
+#| label: fig-ridge_ca
+#| fig-cap: Distribution of Arizona AGB values by data product.
+#| fig-align: center
+
+include_graphics(here(tar_read(ridge_ca_png)))
+```
+
 
 #### SRER
 
-![Distribution of SRER AGB values by data product.](fig/agb_density_srer.png){#fig-ridge_srer fig-align="center"}
+```{r}
+#| label: fig-ridge_srer
+#| fig-cap: Distribution of Arizona AGB values by data product.
+#| fig-align: center
+
+include_graphics(here(tar_read(ridge_srer_png)))
+```
+
 
 #### Pima County
 
-![Distribution of Pima County AGB values by data product.](fig/agb_density_pima.png){fig-align="center"}
+```{r}
+#| label: fig-ridge_pima
+#| fig-cap: Distribution of Arizona AGB values by data product.
+#| fig-align: center
+
+include_graphics(here(tar_read(ridge_pima_png)))
+```
+
 
 ### Scatter plots
 
-These plots are intended to compare each data product with the "gold standard" ESA product.
-These use a random sample of 200,000 pixels from each product.
-While it is technically possible to make these plots using the entire dataset, the result will be a dark black blob for all of them.
-200,000 points is only \~0.5% (total non-NA pixels = 35,342,827).
+```{r}
+#| label: fig-scatter
+#| fig-cap: |
+#|   Scatter plots showing relationship between each data product on the y-axis and the ESA product on the x-axis.  Plots show a random sample of 200,000 pixels from Arizona (out of a total 35,342,827 pixels).
+#| layout-ncol: 3
 
-::: {layout-ncol="3"}
-![](fig/scatter_chopping_et_al.png){width="2in"}
+include_graphics(here(tar_read(scatter_plots)))
+```
 
-![](fig/scatter_gedi_l_4_b.png){width="2in"}
-
-![](fig/scatter_liu_et_al.png){width="2in"}
-
-![](fig/scatter_lt_gnn.png){width="2in"}
-
-![](fig/scatter_menlove_healey.png){width="2in"}
-
-![](fig/scatter_xu_et_al.png){width="2in"}
-:::
-
-<!-- {{< downloadthis fig/scatter.zip label="Download .zip" >}} -->
 
 <!-- ### Point density plots -->
 
