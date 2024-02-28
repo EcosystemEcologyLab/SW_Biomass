@@ -20,7 +20,7 @@ plot_sd_map <- function(agb_stack, subset, downsample = TRUE, path = "docs/fig",
   filename <- paste0("map_sd_", deparse(substitute(subset)), ".", ext)
   
   agb_sd <- agb_stack |> 
-    crop(subset, mask = TRUE) |> 
+    crop(subset, mask = TRUE, overwrite = TRUE) |> 
     stdev(na.rm = TRUE)
   
   #I add 1 to the data here because trans = "log1p" and scales::breaks_log()

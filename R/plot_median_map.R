@@ -20,7 +20,7 @@ plot_median_map <- function(agb_stack, subset, downsample = TRUE, path = "docs/f
   ext <- match.arg(ext)
   filename <- paste0("map_median_", deparse(substitute(subset)), ".", ext)
   agb_median <- agb_stack |> 
-    crop(subset, mask = TRUE) |> 
+    crop(subset, mask = TRUE, overwrite = TRUE) |> 
     median(na.rm = TRUE)
   
   if(isFALSE(downsample)) {

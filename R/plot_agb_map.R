@@ -20,7 +20,7 @@ plot_agb_map <- function(agb_stack, subset, downsample = TRUE, path = "docs/fig"
   ext <- match.arg(ext)
   filename <- paste0("map_agb_", deparse(substitute(subset)), ".", ext)
   
-  agb_subset <- crop(agb_stack, subset, mask = TRUE)
+  agb_subset <- crop(agb_stack, subset, mask = TRUE, overwrite = TRUE)
   if (isFALSE(downsample)) {
     n <- length(values(agb_subset[[1]]))
     p_base <- ggplot() +
