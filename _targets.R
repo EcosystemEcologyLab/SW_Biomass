@@ -96,32 +96,26 @@ tar_plan(
     mutate(subset = "Pima County"),
   
   tar_map(
-    values = tidyr::tibble(
+    values = tidyr::expand_grid(
       subset = rlang::syms(c("az", "ca", "srer", "pima")),
-      label = c("AZ", "CA", "SRER", "PimaCounty")
-    ) |> 
-      tidyr::expand_grid(file_ext = c("png", "pdf")),
+      file_ext = c("png", "pdf")
+    ),
     # Maps faceted by data product
     tar_target(
       agb_map, 
-      plot_agb_map(agb_stack, subset, downsample = TRUE,
-                   filename = paste0("map_agb_", label, ".", file_ext)), 
+      plot_agb_map(agb_stack, subset, downsample = TRUE, ext = file_ext), 
       format = "file"
     ),
     # Maps of median AGB across products
     tar_target(
       median_map,
-      plot_median_map(agb_stack, subset, downsample = FALSE, 
-                      filename = paste0("map_median_", label, ".", file_ext),
-                      height = 2),
+      plot_median_map(agb_stack, subset, downsample = FALSE, ext = file_ext, height = 2),
       format = "file"
     ),
-    # Maps of SD across products
+    # # Maps of SD across products
     tar_target(
       sd_map,
-      plot_sd_map(agb_stack, subset, downsample = FALSE,
-                  filename = paste0("map_sd_", label, ".", file_ext),
-                  height = 2),
+      plot_sd_map(agb_stack, subset, downsample = FALSE, ext = file_ext, height = 2),
       format = "file"
     )
   ),
@@ -192,7 +186,7 @@ tar_plan(
 
   # # Render docs -------------------------------------------------------------
   #report
-  tar_quarto(report, "docs/report.qmd", extra_files = fs::dir_ls("docs/fig/", glob = "*.png")),
+  # tar_quarto(report, "docs/report.qmd", extra_files = fs::dir_ls("docs/fig/", glob = "*.png")),
 
   #README
   tar_quarto(readme, "README.qmd", cue = tar_cue(mode = "always"))

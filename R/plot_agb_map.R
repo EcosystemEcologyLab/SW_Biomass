@@ -8,15 +8,18 @@
 #' @param downsample logical; include all pixels in the dataset or let
 #'   geom_spatraster() do it's default downsampling?
 #' @param path passed to ggsave()
-#' @param filename passed to ggsave().  Include file extension desired for output (e.g. .png or .pdf)
+#' @param ext file extension used to construct file name
 #' @param ... additional arguments passed to ggsave(), e.g. `height`
 #' 
 #' @return nothing, called for side effects
 #'
 #' @examples
 #' plot_agb_map(agb_stack)
-plot_agb_map <- function(agb_stack, subset, downsample = TRUE, path = "docs/fig", filename = "map_agb.png", ...) {
+plot_agb_map <- function(agb_stack, subset, downsample = TRUE, path = "docs/fig", ext = c("png", "pdf"), ...) {
 
+  ext <- match.arg(ext)
+  filename <- paste0("map_agb_", deparse(substitute(subset)), ".", ext)
+  
   agb_subset <- crop(agb_stack, subset, mask = TRUE)
   if (isFALSE(downsample)) {
     n <- length(values(agb_subset[[1]]))
