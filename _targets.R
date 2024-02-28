@@ -43,7 +43,7 @@ tar_source()
 # the files somewhere else, create an .Renviron with your own value for
 # TAR_PROJECT and add an if statment for it
 if (Sys.getenv("TAR_PROJECT") == "jetstream2") {
-  data_dir <- "/media/volume/agb_rasters/"
+  data_dir <- "/media/volume/agb_rasters/data"
 } else {
   data_dir <- "data/"
 }
