@@ -1,19 +1,18 @@
 #' Title
 #'
-#' @param dir data/rasters/LT_GNN/
+#' @param files vector of paths to .zip files in data/rasters/LT_GNN/
 #' @param esa SpatRaster for ESA dataset to be used as template for extent and projection
 #'
 #' @return a SpatRaster object
 #' 
-read_clean_lt_gnn <- function(dir, esa) {
-
-  zips <- fs::dir_ls(dir, glob = "*.zip")
+read_clean_lt_gnn <- function(files, esa) {
+  
   tifs <- 
-    zips |> 
+    files |> 
     fs::path_file() |>
     fs::path_ext_set(".tif")
   
-  rast_paths <- fs::path("/vsizip", zips, tifs)
+  rast_paths <- fs::path("/vsizip", files, tifs)
   #read in a sample to get extent and projection
   samp <- rast(rast_paths[1])
   #transform ext of esa to ext of sample

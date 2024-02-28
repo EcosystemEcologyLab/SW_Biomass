@@ -7,6 +7,7 @@
 library(targets)
 library(tarchetypes)
 library(tidyr)
+library(fs)
 # library(qs)
 
 # Set target options:
@@ -40,8 +41,8 @@ format_geotiff <- tar_format(
 
 tar_plan(
   # Read and harmonize 2010 AGB data products ------------
-  tar_file(esa_dir, "data/rasters/ESA_CCI/"),
-  tar_target(esa_agb, read_clean_esa(esa_dir), format = format_geotiff),
+  tar_file(esa_files, dir_ls("data/rasters/ESA_CCI/", glob = "*.tif*")),
+  tar_target(esa_agb, read_clean_esa(esa_files), format = format_geotiff),
   tar_file(chopping_file, "data/rasters/Chopping/MISR_agb_estimates_20002021.tif"),
   tar_target(chopping_agb, read_clean_chopping(chopping_file, esa_agb), format = format_geotiff),
   tar_file(liu_file, "data/rasters/Liu/Aboveground_Carbon_1993_2012.nc"),
@@ -50,9 +51,9 @@ tar_plan(
   tar_target(xu_agb, read_clean_xu(xu_file, esa_agb), format = format_geotiff),
   tar_file(rap_file, "data/rasters/RAP/vegetation-biomass-v3-2010.tif"),
   tar_target(rap_agb, read_clean_rap(rap_file, esa_agb), format = format_geotiff),
-  tar_file(ltgnn_dir, "data/rasters/LT_GNN/"),
-  tar_target(ltgnn_agb, read_clean_lt_gnn(ltgnn_dir, esa_agb), format = format_geotiff),
-  tar_file(menlove_dir, "data/rasters/Menlove/data/"),
+  tar_file(ltgnn_files, fs::dir_ls("data/rasters/LT_GNN", glob = "*.zip")),
+  tar_target(ltgnn_agb, read_clean_lt_gnn(ltgnn_files, esa_agb), format = format_geotiff),
+  tar_file(menlove_dir, "data/rasters/Menlove/data/"), 
   tar_target(menlove_agb, read_clean_menlove(menlove_dir, esa_agb), format = format_geotiff),
   tar_file(gedi_file, "data/rasters/GEDI_L4B_v2.1/data/GEDI04_B_MW019MW223_02_002_02_R01000M_MU.tif"),
   tar_target(gedi_agb, read_clean_gedi(gedi_file, esa_agb), format = format_geotiff),
@@ -95,32 +96,26 @@ tar_plan(
     mutate(subset = "Pima County"),
   
   tar_map(
-    values = tidyr::tibble(
+    values = tidyr::expand_grid(
       subset = rlang::syms(c("az", "ca", "srer", "pima")),
-      label = c("AZ", "CA", "SRER", "PimaCounty")
-    ) |> 
-      tidyr::expand_grid(file_ext = c("png", "pdf")),
+      file_ext = c("png", "pdf")
+    ),
     # Maps faceted by data product
     tar_target(
       agb_map, 
-      plot_agb_map(agb_stack, subset, downsample = TRUE,
-                   filename = paste0("map_agb_", label, ".", file_ext)), 
+      plot_agb_map(agb_stack, subset, downsample = TRUE, ext = file_ext), 
       format = "file"
     ),
     # Maps of median AGB across products
     tar_target(
       median_map,
-      plot_median_map(agb_stack, subset, downsample = FALSE, 
-                      filename = paste0("map_median_", label, ".", file_ext),
-                      height = 2),
+      plot_median_map(agb_stack, subset, downsample = FALSE, ext = file_ext, height = 2),
       format = "file"
     ),
-    # Maps of SD across products
+    # # Maps of SD across products
     tar_target(
       sd_map,
-      plot_sd_map(agb_stack, subset, downsample = FALSE,
-                  filename = paste0("map_sd_", label, ".", file_ext),
-                  height = 2),
+      plot_sd_map(agb_stack, subset, downsample = FALSE, ext = file_ext, height = 2),
       format = "file"
     )
   ),
@@ -191,7 +186,7 @@ tar_plan(
 
   # # Render docs -------------------------------------------------------------
   #report
-  tar_quarto(report, "docs/report.qmd", extra_files = fs::dir_ls("docs/fig/", glob = "*.png")),
+  tar_quarto(report, "docs/report.qmd"),
 
   #README
   tar_quarto(readme, "README.qmd", cue = tar_cue(mode = "always"))

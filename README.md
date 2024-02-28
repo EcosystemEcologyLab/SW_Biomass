@@ -31,10 +31,6 @@ package](https://docs.ropensci.org/targets/) for workflow management.
 Run `targets::tar_make()` from the console to run the workflow and
 reproduce all results. The graph below shows the workflow:
 
-Warning messages: 1: package ‘targets’ was built under R version 4.3.2
-2: package ‘tarchetypes’ was built under R version 4.3.2 3: package
-‘tidyr’ was built under R version 4.3.2
-
 ``` mermaid
 graph LR
   style Legend fill:#FFFFFF00,stroke:#000000;
@@ -49,86 +45,105 @@ graph LR
   subgraph Graph
     direction LR
     x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x7fb455d668686b01(["az"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x3b1c211818931399(["median_map_srer_SRER_pdf"]):::uptodate
-    xe3a3f405d949368a(["srer"]):::uptodate --> x3b1c211818931399(["median_map_srer_SRER_pdf"]):::uptodate
     x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> x7ff1622cd5d030f8(["ltgnn_agb"]):::uptodate
-    xc968c07864940097(["ltgnn_dir"]):::uptodate --> x7ff1622cd5d030f8(["ltgnn_agb"]):::uptodate
+    xa3cc1c4ee35f32f3(["ltgnn_files"]):::uptodate --> x7ff1622cd5d030f8(["ltgnn_agb"]):::uptodate
     x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x5b76edab95fa1a87(["ridge_az_pdf"]):::uptodate
     x7fb455d668686b01(["az"]):::uptodate --> x5b76edab95fa1a87(["ridge_az_pdf"]):::uptodate
+    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x4ddb5a4dffb2b7e4(["sd_map_pima_png"]):::uptodate
+    xe5fe7e4eb140dcfa(["pima"]):::uptodate --> x4ddb5a4dffb2b7e4(["sd_map_pima_png"]):::uptodate
+    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x699ca8a0068688fa(["median_map_az_png"]):::uptodate
+    x7fb455d668686b01(["az"]):::uptodate --> x699ca8a0068688fa(["median_map_az_png"]):::uptodate
+    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x5f2c2a5de9c73409(["median_map_srer_png"]):::uptodate
+    xe3a3f405d949368a(["srer"]):::uptodate --> x5f2c2a5de9c73409(["median_map_srer_png"]):::uptodate
+    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> xb7aedba3b60a69b7(["agb_map_pima_png"]):::uptodate
+    xe5fe7e4eb140dcfa(["pima"]):::uptodate --> xb7aedba3b60a69b7(["agb_map_pima_png"]):::uptodate
     x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x0e4394c89ab817da(["ca"]):::uptodate
     x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> xe5fe7e4eb140dcfa(["pima"]):::uptodate
     x87c08b8965ac44dd(["pima_dir"]):::uptodate --> xe5fe7e4eb140dcfa(["pima"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> xcdfed8c5f56ef55d(["sd_map_pima_PimaCounty_png"]):::uptodate
-    xe5fe7e4eb140dcfa(["pima"]):::uptodate --> xcdfed8c5f56ef55d(["sd_map_pima_PimaCounty_png"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x41a8565148b4f096(["median_map_az_AZ_png"]):::uptodate
-    x7fb455d668686b01(["az"]):::uptodate --> x41a8565148b4f096(["median_map_az_AZ_png"]):::uptodate
+    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> xb6b26dab56b30531(["sd_map_ca_png"]):::uptodate
+    x0e4394c89ab817da(["ca"]):::uptodate --> xb6b26dab56b30531(["sd_map_ca_png"]):::uptodate
+    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> xe6d513174df05539(["sd_map_ca_pdf"]):::uptodate
+    x0e4394c89ab817da(["ca"]):::uptodate --> xe6d513174df05539(["sd_map_ca_pdf"]):::uptodate
     x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> xe4f3f2f15e724def(["liu_agb"]):::uptodate
     x26d0dae1bf6fcb39(["liu_file"]):::uptodate --> xe4f3f2f15e724def(["liu_agb"]):::uptodate
-    xb91305eee1f5b0b5(["esa_dir"]):::uptodate --> x9f7f8cade5fecf35(["esa_agb"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x1416f223f8b9a095(["sd_map_pima_PimaCounty_pdf"]):::uptodate
-    xe5fe7e4eb140dcfa(["pima"]):::uptodate --> x1416f223f8b9a095(["sd_map_pima_PimaCounty_pdf"]):::uptodate
+    x3f42aa24c75ef1fe(["esa_files"]):::uptodate --> x9f7f8cade5fecf35(["esa_agb"]):::uptodate
     x7abafd87efa13647(["agb_df_az"]):::uptodate --> xa5177effe50f87b0(["plot_comparisons"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x2cbb06fb1d8dfb74(["median_map_ca_CA_png"]):::uptodate
-    x0e4394c89ab817da(["ca"]):::uptodate --> x2cbb06fb1d8dfb74(["median_map_ca_CA_png"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x73c36959826f3086(["median_map_ca_CA_pdf"]):::uptodate
-    x0e4394c89ab817da(["ca"]):::uptodate --> x73c36959826f3086(["median_map_ca_CA_pdf"]):::uptodate
     x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x889e103f0ca22367(["ridge_pima_pdf"]):::uptodate
     xe5fe7e4eb140dcfa(["pima"]):::uptodate --> x889e103f0ca22367(["ridge_pima_pdf"]):::uptodate
     x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> x5688b5ef6bcea6f9(["rap_agb"]):::uptodate
     x9889d33e942dc03b(["rap_file"]):::uptodate --> x5688b5ef6bcea6f9(["rap_agb"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x0faa310f699b45a5["summary_stats"]:::outdated
-    x5cbd07d8ce48e961(["subsets"]):::uptodate --> x0faa310f699b45a5["summary_stats"]:::outdated
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x5488b960ef0cdfa9(["median_map_srer_SRER_png"]):::uptodate
-    xe3a3f405d949368a(["srer"]):::uptodate --> x5488b960ef0cdfa9(["median_map_srer_SRER_png"]):::uptodate
+    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x754426ac252a6210(["median_map_pima_png"]):::uptodate
+    xe5fe7e4eb140dcfa(["pima"]):::uptodate --> x754426ac252a6210(["median_map_pima_png"]):::uptodate
+    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> xe26c29a782da5ac5(["agb_map_az_png"]):::uptodate
+    x7fb455d668686b01(["az"]):::uptodate --> xe26c29a782da5ac5(["agb_map_az_png"]):::uptodate
+    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x8cd5f216cf01eefb(["agb_map_az_pdf"]):::uptodate
+    x7fb455d668686b01(["az"]):::uptodate --> x8cd5f216cf01eefb(["agb_map_az_pdf"]):::uptodate
+    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> xea472a606bc6a80f(["sd_map_pima_pdf"]):::uptodate
+    xe5fe7e4eb140dcfa(["pima"]):::uptodate --> xea472a606bc6a80f(["sd_map_pima_pdf"]):::uptodate
+    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x536a150d35fef242(["median_map_pima_pdf"]):::uptodate
+    xe5fe7e4eb140dcfa(["pima"]):::uptodate --> x536a150d35fef242(["median_map_pima_pdf"]):::uptodate
+    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x0faa310f699b45a5["summary_stats"]:::uptodate
+    x5cbd07d8ce48e961(["subsets"]):::uptodate --> x0faa310f699b45a5["summary_stats"]:::uptodate
     x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x60c69b5a4aa33a2c(["ridge_ca_png"]):::uptodate
     x0e4394c89ab817da(["ca"]):::uptodate --> x60c69b5a4aa33a2c(["ridge_ca_png"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x7f0544e7f00416c9(["sd_map_az_AZ_pdf"]):::uptodate
-    x7fb455d668686b01(["az"]):::uptodate --> x7f0544e7f00416c9(["sd_map_az_AZ_pdf"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> xcaaa00b34d60beaf(["agb_map_az_AZ_pdf"]):::uptodate
-    x7fb455d668686b01(["az"]):::uptodate --> xcaaa00b34d60beaf(["agb_map_az_AZ_pdf"]):::uptodate
     x80cf9d1bb79c21e3(["chopping_file"]):::uptodate --> x10672e980111f5c2(["chopping_agb"]):::uptodate
     x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> x10672e980111f5c2(["chopping_agb"]):::uptodate
     x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> x5bee436f312cca80(["gedi_agb"]):::uptodate
     x8d7fb25f1e16bc4f(["gedi_file"]):::uptodate --> x5bee436f312cca80(["gedi_agb"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> xccaa194bef539bce(["sd_map_srer_SRER_pdf"]):::uptodate
-    xe3a3f405d949368a(["srer"]):::uptodate --> xccaa194bef539bce(["sd_map_srer_SRER_pdf"]):::uptodate
     x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> xb8f1367168074e6c(["ridge_az_png"]):::uptodate
     x7fb455d668686b01(["az"]):::uptodate --> xb8f1367168074e6c(["ridge_az_png"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> xfad216b51a6a5430(["agb_map_pima_PimaCounty_pdf"]):::uptodate
-    xe5fe7e4eb140dcfa(["pima"]):::uptodate --> xfad216b51a6a5430(["agb_map_pima_PimaCounty_pdf"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x9902cde52e024266(["agb_map_srer_SRER_png"]):::uptodate
-    xe3a3f405d949368a(["srer"]):::uptodate --> x9902cde52e024266(["agb_map_srer_SRER_png"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x35dcdfe6cacbee43(["agb_map_srer_SRER_pdf"]):::uptodate
-    xe3a3f405d949368a(["srer"]):::uptodate --> x35dcdfe6cacbee43(["agb_map_srer_SRER_pdf"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x79e9ba0c706f57ec(["median_map_pima_PimaCounty_pdf"]):::uptodate
-    xe5fe7e4eb140dcfa(["pima"]):::uptodate --> x79e9ba0c706f57ec(["median_map_pima_PimaCounty_pdf"]):::uptodate
-    x0faa310f699b45a5["summary_stats"]:::outdated --> xe0fba61fbc506510(["report"]):::outdated
+    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> xecafc3491da13dc8(["agb_map_pima_pdf"]):::uptodate
+    xe5fe7e4eb140dcfa(["pima"]):::uptodate --> xecafc3491da13dc8(["agb_map_pima_pdf"]):::uptodate
+    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x7243b1db001776ca(["median_map_srer_pdf"]):::uptodate
+    xe3a3f405d949368a(["srer"]):::uptodate --> x7243b1db001776ca(["median_map_srer_pdf"]):::uptodate
+    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x0a6b9a67bcd0c70a(["agb_map_ca_png"]):::uptodate
+    x0e4394c89ab817da(["ca"]):::uptodate --> x0a6b9a67bcd0c70a(["agb_map_ca_png"]):::uptodate
+    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x94946b2cdd11e112(["agb_map_ca_pdf"]):::uptodate
+    x0e4394c89ab817da(["ca"]):::uptodate --> x94946b2cdd11e112(["agb_map_ca_pdf"]):::uptodate
+    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x3e460264400a47f9(["median_map_ca_pdf"]):::uptodate
+    x0e4394c89ab817da(["ca"]):::uptodate --> x3e460264400a47f9(["median_map_ca_pdf"]):::uptodate
+    xe26c29a782da5ac5(["agb_map_az_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::outdated
+    x0a6b9a67bcd0c70a(["agb_map_ca_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::outdated
+    xb7aedba3b60a69b7(["agb_map_pima_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::outdated
+    xc8d1f4f8b0320bf6(["agb_map_srer_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::outdated
+    x699ca8a0068688fa(["median_map_az_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::outdated
+    x5c325302d7cd68a7(["median_map_ca_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::outdated
+    x754426ac252a6210(["median_map_pima_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::outdated
+    x5f2c2a5de9c73409(["median_map_srer_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::outdated
+    xb8f1367168074e6c(["ridge_az_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::outdated
+    x60c69b5a4aa33a2c(["ridge_ca_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::outdated
+    x853e79625694a360(["ridge_pima_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::outdated
+    x377c593b0eb4d7e4(["ridge_srer_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::outdated
+    xa9c8870bcb5985fd["scatter_plots"]:::uptodate --> xe0fba61fbc506510(["report"]):::outdated
+    xf671b7369bfa8ec1(["sd_map_az_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::outdated
+    xb6b26dab56b30531(["sd_map_ca_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::outdated
+    x4ddb5a4dffb2b7e4(["sd_map_pima_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::outdated
+    x7f5b21a1115ff63a(["sd_map_srer_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::outdated
+    x0faa310f699b45a5["summary_stats"]:::uptodate --> xe0fba61fbc506510(["report"]):::outdated
     x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> xb420f92ea294cb0b(["menlove_agb"]):::uptodate
     x5086af9665941a9e(["menlove_dir"]):::uptodate --> xb420f92ea294cb0b(["menlove_agb"]):::uptodate
     x7abafd87efa13647(["agb_df_az"]):::uptodate --> xa9c8870bcb5985fd["scatter_plots"]:::uptodate
     xa5177effe50f87b0(["plot_comparisons"]):::uptodate --> xa9c8870bcb5985fd["scatter_plots"]:::uptodate
     x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x7abafd87efa13647(["agb_df_az"]):::uptodate
     x7fb455d668686b01(["az"]):::uptodate --> x7abafd87efa13647(["agb_df_az"]):::uptodate
+    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> xefaff5eee7cf7a6e(["sd_map_srer_pdf"]):::uptodate
+    xe3a3f405d949368a(["srer"]):::uptodate --> xefaff5eee7cf7a6e(["sd_map_srer_pdf"]):::uptodate
     x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x377c593b0eb4d7e4(["ridge_srer_png"]):::uptodate
     xe3a3f405d949368a(["srer"]):::uptodate --> x377c593b0eb4d7e4(["ridge_srer_png"]):::uptodate
     x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x31a8f9ae377f5b5a(["ridge_srer_pdf"]):::uptodate
     xe3a3f405d949368a(["srer"]):::uptodate --> x31a8f9ae377f5b5a(["ridge_srer_pdf"]):::uptodate
     x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> xe3a3f405d949368a(["srer"]):::uptodate
     xc7f156126aa49133(["srer_dir"]):::uptodate --> xe3a3f405d949368a(["srer"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x8a75984fde519ee9(["median_map_az_AZ_pdf"]):::uptodate
-    x7fb455d668686b01(["az"]):::uptodate --> x8a75984fde519ee9(["median_map_az_AZ_pdf"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> xce3e4c36a0bb379d(["sd_map_srer_SRER_png"]):::uptodate
-    xe3a3f405d949368a(["srer"]):::uptodate --> xce3e4c36a0bb379d(["sd_map_srer_SRER_png"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> xabd1fbf9b5277ac6(["sd_map_az_AZ_png"]):::uptodate
-    x7fb455d668686b01(["az"]):::uptodate --> xabd1fbf9b5277ac6(["sd_map_az_AZ_png"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> xbb048d8d400e8965(["agb_map_az_AZ_png"]):::uptodate
-    x7fb455d668686b01(["az"]):::uptodate --> xbb048d8d400e8965(["agb_map_az_AZ_png"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x0ecdde11d08ced50(["agb_map_pima_PimaCounty_png"]):::uptodate
-    xe5fe7e4eb140dcfa(["pima"]):::uptodate --> x0ecdde11d08ced50(["agb_map_pima_PimaCounty_png"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x74d945a3c8287e0c(["sd_map_ca_CA_pdf"]):::uptodate
-    x0e4394c89ab817da(["ca"]):::uptodate --> x74d945a3c8287e0c(["sd_map_ca_CA_pdf"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x5a05f0d4887baa80(["agb_map_ca_CA_pdf"]):::uptodate
-    x0e4394c89ab817da(["ca"]):::uptodate --> x5a05f0d4887baa80(["agb_map_ca_CA_pdf"]):::uptodate
+    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> xc8d1f4f8b0320bf6(["agb_map_srer_png"]):::uptodate
+    xe3a3f405d949368a(["srer"]):::uptodate --> xc8d1f4f8b0320bf6(["agb_map_srer_png"]):::uptodate
+    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x7f5b21a1115ff63a(["sd_map_srer_png"]):::uptodate
+    xe3a3f405d949368a(["srer"]):::uptodate --> x7f5b21a1115ff63a(["sd_map_srer_png"]):::uptodate
+    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x71b7dbda01472286(["agb_map_srer_pdf"]):::uptodate
+    xe3a3f405d949368a(["srer"]):::uptodate --> x71b7dbda01472286(["agb_map_srer_pdf"]):::uptodate
+    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> xa001815ff57339d2(["median_map_az_pdf"]):::uptodate
+    x7fb455d668686b01(["az"]):::uptodate --> xa001815ff57339d2(["median_map_az_pdf"]):::uptodate
+    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x5c325302d7cd68a7(["median_map_ca_png"]):::uptodate
+    x0e4394c89ab817da(["ca"]):::uptodate --> x5c325302d7cd68a7(["median_map_ca_png"]):::uptodate
     x7fb455d668686b01(["az"]):::uptodate --> x5cbd07d8ce48e961(["subsets"]):::uptodate
     x0e4394c89ab817da(["ca"]):::uptodate --> x5cbd07d8ce48e961(["subsets"]):::uptodate
     xe5fe7e4eb140dcfa(["pima"]):::uptodate --> x5cbd07d8ce48e961(["subsets"]):::uptodate
@@ -136,8 +151,8 @@ graph LR
     x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x853e79625694a360(["ridge_pima_png"]):::uptodate
     xe5fe7e4eb140dcfa(["pima"]):::uptodate --> x853e79625694a360(["ridge_pima_png"]):::uptodate
     xa9c8870bcb5985fd["scatter_plots"]:::uptodate --> x0ed052f6c2f4c6d2(["zip_scatter_plots"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> xba49192fd3f5570a(["median_map_pima_PimaCounty_png"]):::uptodate
-    xe5fe7e4eb140dcfa(["pima"]):::uptodate --> xba49192fd3f5570a(["median_map_pima_PimaCounty_png"]):::uptodate
+    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> xf671b7369bfa8ec1(["sd_map_az_png"]):::uptodate
+    x7fb455d668686b01(["az"]):::uptodate --> xf671b7369bfa8ec1(["sd_map_az_png"]):::uptodate
     x10672e980111f5c2(["chopping_agb"]):::uptodate --> x74a8a38fc5a3e271(["agb_stack"]):::uptodate
     x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> x74a8a38fc5a3e271(["agb_stack"]):::uptodate
     x5bee436f312cca80(["gedi_agb"]):::uptodate --> x74a8a38fc5a3e271(["agb_stack"]):::uptodate
@@ -149,10 +164,8 @@ graph LR
     x0e4394c89ab817da(["ca"]):::uptodate --> x5753ce9124a29a06(["ridge_ca_pdf"]):::uptodate
     x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> x6bb719b45bfee760(["xu_agb"]):::uptodate
     x39b0a131ab7dd2d0(["xu_file"]):::uptodate --> x6bb719b45bfee760(["xu_agb"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x23da7f1df93639a1(["sd_map_ca_CA_png"]):::uptodate
-    x0e4394c89ab817da(["ca"]):::uptodate --> x23da7f1df93639a1(["sd_map_ca_CA_png"]):::uptodate
-    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x0ab64fc891f24c82(["agb_map_ca_CA_png"]):::uptodate
-    x0e4394c89ab817da(["ca"]):::uptodate --> x0ab64fc891f24c82(["agb_map_ca_CA_png"]):::uptodate
+    x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x8eb9930459a46535(["sd_map_az_pdf"]):::uptodate
+    x7fb455d668686b01(["az"]):::uptodate --> x8eb9930459a46535(["sd_map_az_pdf"]):::uptodate
     x6e52cb0f1668cc22(["readme"]):::dispatched --> x6e52cb0f1668cc22(["readme"]):::dispatched
   end
   classDef uptodate stroke:#000000,color:#ffffff,fill:#354823;
@@ -163,7 +176,7 @@ graph LR
   linkStyle 1 stroke-width:0px;
   linkStyle 2 stroke-width:0px;
   linkStyle 3 stroke-width:0px;
-  linkStyle 109 stroke-width:0px;
+  linkStyle 126 stroke-width:0px;
 ```
 
 ## File structure
@@ -214,13 +227,14 @@ fs::dir_tree(recurse = 1)
     │   ├── report.html
     │   ├── report.qmd
     │   └── report_files
-    └── notes
-        ├── improve ridges.R
-        ├── kernel_estimation.R
-        ├── mosaic_tiles.R
-        ├── pointdensity_plots.R
-        ├── srer_map.R
-        └── violin_plots.R
+    ├── notes
+    │   ├── improve ridges.R
+    │   ├── kernel_estimation.R
+    │   ├── mosaic_tiles.R
+    │   ├── pointdensity_plots.R
+    │   ├── srer_map.R
+    │   └── violin_plots.R
+    └── sync_data_jetstream2.R
 
 - `R/` contains functions used in the `targets` pipeline.
 - `_targets` is generated by `targets::tar_make()` and only the metadata
