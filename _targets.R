@@ -29,16 +29,6 @@ tar_option_set(
 tar_source()
 # source("other_functions.R") # Source other scripts as needed.
 
-# terra objects can't be serialized to .rds files.  This is a custom format to
-# save them as geotiffs and read them back in as SpatRasters.  Discussion here:
-# https://github.com/ropensci/targets/discussions/1213
-format_geotiff <- tar_format(
-  read = function(path) terra::rast(path),
-  write = function(object, path) terra::writeRaster(x = object, filename = path, filetype = "GTiff", overwrite = TRUE),
-  marshal = function(object) terra::wrap(object),
-  unmarshal = function(object) terra::unwrap(object)
-)
-
 tar_plan(
   # Read and harmonize 2010 AGB data products ------------
   tar_file(esa_files, dir_ls("data/rasters/ESA_CCI/", glob = "*.tif*")),
