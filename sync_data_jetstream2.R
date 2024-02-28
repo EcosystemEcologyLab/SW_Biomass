@@ -8,15 +8,15 @@ file_targets <-
   targets::tar_manifest(c(ends_with("_dir"), ends_with("_file"), ends_with("_files")))
 
 paths_local <- 
-  map(file_targets$name, \(x) {
-    do.call(tar_read, args = list(name = x))
+  purrr::map(file_targets$name, \(x) {
+    do.call(targets::tar_read, args = list(name = x))
   }) |> list_c()
 
 #test with just shapfiles that aren't already on jestream2
 # paths_local <- paths_local[str_detect(paths_local, "shapefiles")]
 
 #write file paths to tempfile
-file_list <- fs::file_temp()
+file_list <- "data_files.txt"
 writeLines(paths_local, file_list)
 
 #rsync rasters to jetstream mounted volume
@@ -29,5 +29,8 @@ args <- c("-az", #-a archive mode, -z compress files
           "--stats", #print stats at the end of the transfer
           paste0("--files-from=", file_list),"./", #transfer these specific files
           dst) 
+# Just print the shell command:
+# cat("rsync", args) 
 
+# Or run the shell command through R
 processx::run("rsync", args = args, echo_cmd = TRUE, stdout = "", spinner = TRUE)
