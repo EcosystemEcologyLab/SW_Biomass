@@ -22,6 +22,12 @@ writeLines(paths_local, file_list)
 #rsync rasters to jetstream mounted volume
 dir_remote <- "/media/volume/agb_rasters"
 dst <- paste("exouser@149.165.175.200", dir_remote, sep = ":")
-args <- c("-a", "-q", "-i", paste0("--files-from=", file_list), "./", dst)
+args <- c("-az", #-a archive mode, -z compress files
+          "--partial", # keep partial transfers in case of interruptions
+          "--info=progress2", #output progress for the whole transfer
+          "--info=name0", #don't show the filename though
+          "--stats", #print stats at the end of the transfer
+          paste0("--files-from=", file_list),"./", #transfer these specific files
+          dst) 
 
-processx::run("rsync", args = args, echo_cmd = TRUE)
+processx::run("rsync", args = args, echo_cmd = TRUE, stdout = "", spinner = TRUE)
