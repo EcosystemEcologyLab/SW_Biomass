@@ -22,7 +22,7 @@ tar_option_set(
   # which run as local R processes. Each worker launches when there is work
   # to do and exits if 60 seconds pass with no tasks to run.
   #
-  # controller = crew::crew_controller_local(workers = 2, seconds_idle = 60),
+  controller = crew::crew_controller_local(workers = 2, seconds_idle = 60),
   
   # Use s3 bucket for targets store
   repository = "aws", #comment out or change to "local" to store targets locally on disk
