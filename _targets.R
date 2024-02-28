@@ -9,44 +9,52 @@ library(tarchetypes)
 library(tidyr)
 library(fs)
 library(quarto)
-# library(qs)
 
 # Set target options:
 tar_option_set(
   # packages that your targets need to run
   packages = c("ncdf4", "terra", "fs", "purrr", "units", "tidyterra", "ggplot2", "sf", "maps", "tidyr", "dplyr", "stringr", "stars", "magick", "ggridges", "ggrastr", "svglite", "ggtext", "ggthemes", "KernSmooth", "patchwork", "tibble"), 
-  # format = "qs",
   #
   # For distributed computing in tar_make(), supply a {crew} controller
   # as discussed at https://books.ropensci.org/targets/crew.html.
   # Choose a controller that suits your needs. For example, the following
-  # sets a controller with 2 workers which will run as local R processes:
+  # sets a controller that scales up to a maximum of two workers
+  # which run as local R processes. Each worker launches when there is work
+  # to do and exits if 60 seconds pass with no tasks to run.
   #
-  # controller = crew::crew_controller_local(workers = 3)
-  #TODO: check if multiple workers is even faster.  It might not be because of the overhead of moving the geotiffs to and from parallel workers
+  # controller = crew::crew_controller_local(workers = 2, seconds_idle = 60),
 )
 
 # Run the R scripts in the R/ folder with your custom functions:
 tar_source()
 # source("other_functions.R") # Source other scripts as needed.
 
+# conditionally set starting path for data
+if (Sys.getenv("TAR_PROJECT") == "jetstream2") {
+  data_dir <- "/media/volume/agb_rasters/"
+} else {
+  data_dir <- "data/"
+}
+
+
 tar_plan(
   # Read and harmonize 2010 AGB data products ------------
-  tar_file(esa_files, dir_ls("data/rasters/ESA_CCI/", glob = "*.tif*")),
+  tar_file(esa_files, dir_ls(path(data_dir, "rasters/ESA_CCI/"), glob = "*.tif*")),
   tar_target(esa_agb, read_clean_esa(esa_files), format = format_geotiff),
-  tar_file(chopping_file, "data/rasters/Chopping/MISR_agb_estimates_20002021.tif"),
+  tar_file(chopping_file, path(data_dir, "rasters/Chopping/MISR_agb_estimates_20002021.tif")),
   tar_target(chopping_agb, read_clean_chopping(chopping_file, esa_agb), format = format_geotiff),
-  tar_file(liu_file, "data/rasters/Liu/Aboveground_Carbon_1993_2012.nc"),
+  tar_file(liu_file, path(data_dir, "rasters/Liu/Aboveground_Carbon_1993_2012.nc")),
   tar_target(liu_agb, read_clean_liu(liu_file, esa_agb), format = format_geotiff),
-  tar_file(xu_file, "data/rasters/Xu/test10a_cd_ab_pred_corr_2000_2019_v2.tif"),
+  tar_file(xu_file, path(data_dir, "rasters/Xu/test10a_cd_ab_pred_corr_2000_2019_v2.tif")),
   tar_target(xu_agb, read_clean_xu(xu_file, esa_agb), format = format_geotiff),
   # tar_file(rap_file, "data/rasters/RAP/vegetation-biomass-v3-2010.tif"),
   # tar_target(rap_agb, read_clean_rap(rap_file, esa_agb), format = format_geotiff),
-  tar_file(ltgnn_files, fs::dir_ls("data/rasters/LT_GNN", glob = "*.zip")),
+  tar_file(ltgnn_files, fs::dir_ls(path(data_dir, "rasters/LT_GNN"), glob = "*.zip")),
   tar_target(ltgnn_agb, read_clean_lt_gnn(ltgnn_files, esa_agb), format = format_geotiff),
-  tar_file(menlove_dir, "data/rasters/Menlove/data/"), 
+  tar_file(menlove_dir, path(data_dir, "rasters/Menlove/data/")), 
   tar_target(menlove_agb, read_clean_menlove(menlove_dir, esa_agb), format = format_geotiff),
-  tar_file(gedi_file, "data/rasters/GEDI_L4B_v2.1/data/GEDI04_B_MW019MW223_02_002_02_R01000M_MU.tif"),
+  tar_file(gedi_file,
+           path(data_dir, "rasters/GEDI_L4B_v2.1/data/GEDI04_B_MW019MW223_02_002_02_R01000M_MU.tif")),
   tar_target(gedi_agb, read_clean_gedi(gedi_file, esa_agb), format = format_geotiff),
 
   # Stack em! ---------------------------------------------------------------
@@ -61,8 +69,8 @@ tar_plan(
   ),
   
   # Plots -------------------------------------------------------------------
-  tar_file(srer_dir, "data/shapefiles/srerboundary/"),
-  tar_file(pima_dir, "data/shapefiles/Pima_County_Boundary/"),
+  tar_file(srer_dir, path(data_dir, "shapefiles/srerboundary/")),
+  tar_file(pima_dir, path(data_dir, "shapefiles/Pima_County_Boundary/")),
   
   # Dynamic branching example.  Might be more useful when there are a lot more subsets
   # tar_target(subsets,

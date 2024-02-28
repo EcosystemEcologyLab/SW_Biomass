@@ -2,6 +2,6 @@
 data/rasters/
 *.tif
 *.nc
-
+.Renviron
 
 /.quarto/
