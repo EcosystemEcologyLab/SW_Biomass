@@ -23,38 +23,59 @@ tar_option_set(
   # to do and exits if 60 seconds pass with no tasks to run.
   #
   # controller = crew::crew_controller_local(workers = 2, seconds_idle = 60),
+  
+  # Use s3 bucket for targets store
+  repository = "aws", #comment out or change to "local" to store targets locally on disk
+  resources = tar_resources(
+    aws = tar_resources_aws(
+      bucket = "test123456", #TODO: Maybe create a new bucket with Julian's help eventually
+      prefix = "carbon_stores",
+      endpoint = "https://js2.jetstream-cloud.org:8001"
+    )
+  )
 )
 
 # Run the R scripts in the R/ folder with your custom functions:
 tar_source()
 # source("other_functions.R") # Source other scripts as needed.
 
-# conditionally set starting path for data
+# conditionally set starting path for data.  If you want to run this and store
+# the files somewhere else, create an .Renviron with your own value for
+# TAR_PROJECT and add an if statment for it
 if (Sys.getenv("TAR_PROJECT") == "jetstream2") {
   data_dir <- "/media/volume/agb_rasters/"
 } else {
   data_dir <- "data/"
 }
 
-
 tar_plan(
   # Read and harmonize 2010 AGB data products ------------
-  tar_file(esa_files, dir_ls(path(data_dir, "rasters/ESA_CCI/"), glob = "*.tif*")),
+  # By default, tar_file() with repository="aws" uploads the files to the s3
+  # bucket.  Since they're already on an attached volume on Jetstream2, I use
+  # repository = "local" to prevent this. Logic above changes the path to the
+  # correct place depending on where this is run.
+  tar_file(esa_files, dir_ls(path(data_dir, "rasters/ESA_CCI/"), glob = "*.tif*"), 
+           repository = "local"),
   tar_target(esa_agb, read_clean_esa(esa_files), format = format_geotiff),
-  tar_file(chopping_file, path(data_dir, "rasters/Chopping/MISR_agb_estimates_20002021.tif")),
+  tar_file(chopping_file, path(data_dir, "rasters/Chopping/MISR_agb_estimates_20002021.tif"),
+           repository = "local"),
   tar_target(chopping_agb, read_clean_chopping(chopping_file, esa_agb), format = format_geotiff),
-  tar_file(liu_file, path(data_dir, "rasters/Liu/Aboveground_Carbon_1993_2012.nc")),
+  tar_file(liu_file, path(data_dir, "rasters/Liu/Aboveground_Carbon_1993_2012.nc"),
+           repository = "local"),
   tar_target(liu_agb, read_clean_liu(liu_file, esa_agb), format = format_geotiff),
-  tar_file(xu_file, path(data_dir, "rasters/Xu/test10a_cd_ab_pred_corr_2000_2019_v2.tif")),
+  tar_file(xu_file, path(data_dir, "rasters/Xu/test10a_cd_ab_pred_corr_2000_2019_v2.tif"),
+           repository = "local"),
   tar_target(xu_agb, read_clean_xu(xu_file, esa_agb), format = format_geotiff),
   # tar_file(rap_file, "data/rasters/RAP/vegetation-biomass-v3-2010.tif"),
   # tar_target(rap_agb, read_clean_rap(rap_file, esa_agb), format = format_geotiff),
-  tar_file(ltgnn_files, fs::dir_ls(path(data_dir, "rasters/LT_GNN"), glob = "*.zip")),
+  tar_file(ltgnn_files, fs::dir_ls(path(data_dir, "rasters/LT_GNN"), glob = "*.zip"),
+           repository = "local"),
   tar_target(ltgnn_agb, read_clean_lt_gnn(ltgnn_files, esa_agb), format = format_geotiff),
-  tar_file(menlove_dir, path(data_dir, "rasters/Menlove/data/")), 
+  tar_file(menlove_dir, path(data_dir, "rasters/Menlove/data/"), repository = "local"), 
   tar_target(menlove_agb, read_clean_menlove(menlove_dir, esa_agb), format = format_geotiff),
   tar_file(gedi_file,
-           path(data_dir, "rasters/GEDI_L4B_v2.1/data/GEDI04_B_MW019MW223_02_002_02_R01000M_MU.tif")),
+           path(data_dir, "rasters/GEDI_L4B_v2.1/data/GEDI04_B_MW019MW223_02_002_02_R01000M_MU.tif"),
+           repository = "local"),
   tar_target(gedi_agb, read_clean_gedi(gedi_file, esa_agb), format = format_geotiff),
 
   # Stack em! ---------------------------------------------------------------
@@ -69,8 +90,8 @@ tar_plan(
   ),
   
   # Plots -------------------------------------------------------------------
-  tar_file(srer_dir, path(data_dir, "shapefiles/srerboundary/")),
-  tar_file(pima_dir, path(data_dir, "shapefiles/Pima_County_Boundary/")),
+  tar_file(srer_dir, path(data_dir, "shapefiles/srerboundary/"), repository = "local"),
+  tar_file(pima_dir, path(data_dir, "shapefiles/Pima_County_Boundary/"), repository = "local"),
   
   # Dynamic branching example.  Might be more useful when there are a lot more subsets
   # tar_target(subsets,
