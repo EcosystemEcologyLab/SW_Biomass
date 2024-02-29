@@ -31,7 +31,7 @@ package](https://docs.ropensci.org/targets/) for workflow management.
 Run `targets::tar_make()` from the console to run the workflow and
 reproduce all results. The graph below shows the workflow:
 
-Listing objects in AWS S3 bucket test123456 prefix carbon_stores/objects
+- The project is out-of-sync – use `renv::status()` for details.
 
 ``` mermaid
 graph LR
@@ -210,6 +210,7 @@ fs::dir_tree(recurse = 1)
     │   ├── read_clean_xu.R
     │   ├── trim_image.R
     │   └── zip_plots.R
+    ├── README.md
     ├── README.qmd
     ├── README.rmarkdown
     ├── SW_Biomass.Rproj
