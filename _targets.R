@@ -39,43 +39,27 @@ tar_option_set(
 tar_source()
 # source("other_functions.R") # Source other scripts as needed.
 
-# TODO: this might not be the best way to handle the "starting" files.
-# conditionally set starting path for data.  If you want to run this and store
-# the files somewhere else, create an .Renviron with your own value for
-# TAR_PROJECT and add an if statment for it
-if (Sys.getenv("TAR_PROJECT") == "jetstream2") {
-  data_dir <- "/media/volume/agb_rasters/data"
-} else {
-  data_dir <- "data/"
-}
-
 tar_plan(
   # Read and harmonize 2010 AGB data products ------------
   # By default, tar_file() with repository="aws" uploads the files to the s3
   # bucket.  Since they're already on an attached volume on Jetstream2, I use
   # repository = "local" to prevent this. Logic above changes the path to the
   # correct place depending on where this is run.
-  tar_file(esa_files, dir_ls(path(data_dir, "rasters/ESA_CCI/"), glob = "*.tif*"), 
-           repository = "local"),
+  tar_file(esa_files, dir_ls("data/rasters/ESA_CCI/", glob = "*.tif*"), repository = "local"),
   tar_target(esa_agb, read_clean_esa(esa_files), format = format_geotiff),
-  tar_file(chopping_file, path(data_dir, "rasters/Chopping/MISR_agb_estimates_20002021.tif"),
-           repository = "local"),
+  tar_file(chopping_file, "data/rasters/Chopping/MISR_agb_estimates_20002021.tif", repository = "local"),
   tar_target(chopping_agb, read_clean_chopping(chopping_file, esa_agb), format = format_geotiff),
-  tar_file(liu_file, path(data_dir, "rasters/Liu/Aboveground_Carbon_1993_2012.nc"),
-           repository = "local"),
+  tar_file(liu_file, "data/rasters/Liu/Aboveground_Carbon_1993_2012.nc", repository = "local"),
   tar_target(liu_agb, read_clean_liu(liu_file, esa_agb), format = format_geotiff),
-  tar_file(xu_file, path(data_dir, "rasters/Xu/test10a_cd_ab_pred_corr_2000_2019_v2.tif"),
-           repository = "local"),
+  tar_file(xu_file, "data/rasters/Xu/test10a_cd_ab_pred_corr_2000_2019_v2.tif", repository = "local"),
   tar_target(xu_agb, read_clean_xu(xu_file, esa_agb), format = format_geotiff),
   # tar_file(rap_file, "data/rasters/RAP/vegetation-biomass-v3-2010.tif"),
   # tar_target(rap_agb, read_clean_rap(rap_file, esa_agb), format = format_geotiff),
-  tar_file(ltgnn_files, fs::dir_ls(path(data_dir, "rasters/LT_GNN"), glob = "*.zip"),
-           repository = "local"),
+  tar_file(ltgnn_files, fs::dir_ls("data/rasters/LT_GNN", glob = "*.zip"), repository = "local"),
   tar_target(ltgnn_agb, read_clean_lt_gnn(ltgnn_files, esa_agb), format = format_geotiff),
-  tar_file(menlove_dir, path(data_dir, "rasters/Menlove/data/"), repository = "local"), 
+  tar_file(menlove_dir, "data/rasters/Menlove/data/", repository = "local"), 
   tar_target(menlove_agb, read_clean_menlove(menlove_dir, esa_agb), format = format_geotiff),
-  tar_file(gedi_file,
-           path(data_dir, "rasters/GEDI_L4B_v2.1/data/GEDI04_B_MW019MW223_02_002_02_R01000M_MU.tif"),
+  tar_file(gedi_file, "data/rasters/GEDI_L4B_v2.1/data/GEDI04_B_MW019MW223_02_002_02_R01000M_MU.tif",
            repository = "local"),
   tar_target(gedi_agb, read_clean_gedi(gedi_file, esa_agb), format = format_geotiff),
 
