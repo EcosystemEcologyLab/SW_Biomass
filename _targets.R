@@ -75,8 +75,8 @@ tar_plan(
   ),
   
   # Plots -------------------------------------------------------------------
-  tar_file(srer_dir, path(data_dir, "shapefiles/srerboundary/"), repository = "local"),
-  tar_file(pima_dir, path(data_dir, "shapefiles/Pima_County_Boundary/"), repository = "local"),
+  tar_file(srer_dir, "data/shapefiles/srerboundary/", repository = "local"),
+  tar_file(pima_dir, "data/shapefiles/Pima_County_Boundary/", repository = "local"),
   
   # Dynamic branching example.  Might be more useful when there are a lot more subsets
   # tar_target(subsets,
