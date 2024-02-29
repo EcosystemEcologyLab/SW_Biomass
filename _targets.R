@@ -30,7 +30,8 @@ tar_option_set(
     aws = tar_resources_aws(
       bucket = "test123456", #TODO: Maybe create a new bucket with Julian's help eventually
       prefix = "carbon_stores",
-      endpoint = "https://js2.jetstream-cloud.org:8001"
+      endpoint = "https://js2.jetstream-cloud.org:8001",
+      max_tries = 10
     )
   )
 )
