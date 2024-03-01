@@ -1,7 +1,10 @@
 .Rproj.user
-data/rasters/
 *.tif
 *.nc
 .Renviron
 
 /.quarto/
+
+#whooops, I deleted all the data/ in a bad merge.  Solution: .gitignore all of /data and restore it from a backup on my laptop
+#data/rasters/
+data/
