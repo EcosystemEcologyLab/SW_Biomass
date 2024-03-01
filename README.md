@@ -32,7 +32,81 @@ Run `targets::tar_make()` from the console to run the workflow and
 reproduce all results. The graph below shows the workflow:
 
 - The project is out-of-sync – use `renv::status()` for details. Listing
-  objects in AWS S3 bucket test123456 prefix carbon_stores/objects
+  objects in AWS S3 bucket test123456 prefix carbon_stores/objects DEBUG
+  \[2024-03-01 00:08:36.728\]: \* Trying 149.165.158.2:8001… DEBUG
+  \[2024-03-01 00:08:36.729\]: \* Connected to js2.jetstream-cloud.org
+  (149.165.158.2) port 8001 (#0) DEBUG \[2024-03-01 00:08:36.731\]: \*
+  ALPN, offering h2 DEBUG \[2024-03-01 00:08:36.731\]: \* ALPN, offering
+  http/1.1 DEBUG \[2024-03-01 00:08:36.757\]: \* CAfile:
+  /etc/ssl/certs/ca-certificates.crt DEBUG \[2024-03-01 00:08:36.757\]:
+  \* CApath: /etc/ssl/certs DEBUG \[2024-03-01 00:08:36.758\]: \*
+  TLSv1.0 (OUT), TLS header, Certificate Status (22): DEBUG \[2024-03-01
+  00:08:36.758\]: \* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+  DEBUG \[2024-03-01 00:08:36.758\]: \* TLSv1.2 (IN), TLS header,
+  Certificate Status (22): DEBUG \[2024-03-01 00:08:36.758\]: \* TLSv1.3
+  (IN), TLS handshake, Server hello (2): DEBUG \[2024-03-01
+  00:08:36.759\]: \* TLSv1.2 (IN), TLS header, Finished (20): DEBUG
+  \[2024-03-01 00:08:36.759\]: \* TLSv1.2 (IN), TLS header, Supplemental
+  data (23): DEBUG \[2024-03-01 00:08:36.759\]: \* TLSv1.3 (IN), TLS
+  handshake, Encrypted Extensions (8): DEBUG \[2024-03-01
+  00:08:36.759\]: \* TLSv1.2 (IN), TLS header, Supplemental data (23):
+  DEBUG \[2024-03-01 00:08:36.760\]: \* TLSv1.3 (IN), TLS handshake,
+  Certificate (11): DEBUG \[2024-03-01 00:08:36.761\]: \* TLSv1.2 (IN),
+  TLS header, Supplemental data (23): DEBUG \[2024-03-01 00:08:36.761\]:
+  \* TLSv1.3 (IN), TLS handshake, CERT verify (15): DEBUG \[2024-03-01
+  00:08:36.761\]: \* TLSv1.2 (IN), TLS header, Supplemental data (23):
+  DEBUG \[2024-03-01 00:08:36.761\]: \* TLSv1.3 (IN), TLS handshake,
+  Finished (20): DEBUG \[2024-03-01 00:08:36.761\]: \* TLSv1.2 (OUT),
+  TLS header, Finished (20): DEBUG \[2024-03-01 00:08:36.761\]: \*
+  TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1): DEBUG
+  \[2024-03-01 00:08:36.761\]: \* TLSv1.2 (OUT), TLS header,
+  Supplemental data (23): DEBUG \[2024-03-01 00:08:36.761\]: \* TLSv1.3
+  (OUT), TLS handshake, Finished (20): DEBUG \[2024-03-01
+  00:08:36.761\]: \* SSL connection using TLSv1.3 /
+  TLS_AES_128_GCM_SHA256 DEBUG \[2024-03-01 00:08:36.761\]: \* ALPN,
+  server did not agree to a protocol DEBUG \[2024-03-01 00:08:36.762\]:
+  \* Server certificate: DEBUG \[2024-03-01 00:08:36.762\]: \* subject:
+  C=US; ST=Indiana; O=Indiana University-Bloomington;
+  CN=js2.jetstream-cloud.org DEBUG \[2024-03-01 00:08:36.762\]: \* start
+  date: Aug 16 00:00:00 2023 GMT DEBUG \[2024-03-01 00:08:36.762\]: \*
+  expire date: Aug 15 23:59:59 2024 GMT DEBUG \[2024-03-01
+  00:08:36.762\]: \* subjectAltName: host “js2.jetstream-cloud.org”
+  matched cert’s “js2.jetstream-cloud.org” DEBUG \[2024-03-01
+  00:08:36.762\]: \* issuer: C=US; O=Internet2; CN=InCommon RSA Server
+  CA 2 DEBUG \[2024-03-01 00:08:36.762\]: \* SSL certificate verify ok.
+  DEBUG \[2024-03-01 00:08:36.762\]: \* TLSv1.2 (OUT), TLS header,
+  Supplemental data (23): INFO \[2024-03-01 00:08:36.762\]: -\> GET
+  /test123456?list-type=2&max-keys=1000&prefix=carbon_stores%2Fobjects
+  HTTP/1.1 -\> Host: js2.jetstream-cloud.org:8001 -\> Accept-Encoding:
+  deflate, gzip, br, zstd -\> Accept: application/json, text/xml,
+  application/xml, */* -\> User-Agent: paws/0.7.0 (R4.3.2; linux-gnu;
+  x86_64) -\> Content-Length: 0 -\> X-Amz-Date: 20240301T000836Z -\>
+  X-Amz-Content-Sha256:
+  e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 -\>
+  Authorization: AWS4-HMAC-SHA256
+  Credential=1ad1b6c90b4b44afb65e37b80ea1eb96/20240301/RegionOne/s3/aws4_request,
+  SignedHeaders=content-length;host;x-amz-content-sha256;x-amz-date,
+  Signature=a6249a1f045c37dfcf92ea4a5b71172725296b6acf539760fe517e4740c235ee
+  -\> DEBUG \[2024-03-01 00:08:36.762\]: \* TLSv1.2 (IN), TLS header,
+  Supplemental data (23): DEBUG \[2024-03-01 00:08:36.762\]: \* TLSv1.3
+  (IN), TLS handshake, Newsession Ticket (4): DEBUG \[2024-03-01
+  00:08:36.763\]: \* TLSv1.2 (IN), TLS header, Supplemental data (23):
+  DEBUG \[2024-03-01 00:08:36.763\]: \* TLSv1.3 (IN), TLS handshake,
+  Newsession Ticket (4): DEBUG \[2024-03-01 00:08:36.763\]: \* old SSL
+  session ID is stale, removing DEBUG \[2024-03-01 00:08:36.925\]: \*
+  TLSv1.2 (IN), TLS header, Supplemental data (23): DEBUG \[2024-03-01
+  00:08:36.925\]: \* Mark bundle as not supporting multiuse INFO
+  \[2024-03-01 00:08:36.925\]: \<- HTTP/1.1 200 OK INFO \[2024-03-01
+  00:08:36.926\]: \<- transfer-encoding: chunked INFO \[2024-03-01
+  00:08:36.926\]: \<- x-amz-request-id:
+  tx000007cbdda0c3577354f-0065e11c84-22ad3364f-default INFO \[2024-03-01
+  00:08:36.926\]: \<- content-type: application/xml INFO \[2024-03-01
+  00:08:36.926\]: \<- date: Fri, 01 Mar 2024 00:08:36 GMT INFO
+  \[2024-03-01 00:08:36.926\]: \<- DEBUG \[2024-03-01 00:08:36.926\]: \*
+  TLSv1.2 (IN), TLS header, Supplemental data (23): DEBUG \[2024-03-01
+  00:08:36.926\]: \* TLSv1.2 (IN), TLS header, Supplemental data (23):
+  DEBUG \[2024-03-01 00:08:36.926\]: \* Connection \#0 to host
+  js2.jetstream-cloud.org left intact
 
 ``` mermaid
 graph LR
@@ -136,7 +210,6 @@ graph LR
     xb6b26dab56b30531(["sd_map_ca_png"]):::outdated --> xe0fba61fbc506510(["report"]):::outdated
     x4ddb5a4dffb2b7e4(["sd_map_pima_png"]):::outdated --> xe0fba61fbc506510(["report"]):::outdated
     x7f5b21a1115ff63a(["sd_map_srer_png"]):::outdated --> xe0fba61fbc506510(["report"]):::outdated
-    x0faa310f699b45a5["summary_stats"]:::outdated --> xe0fba61fbc506510(["report"]):::outdated
     x80cf9d1bb79c21e3(["chopping_file"]):::uptodate --> x10672e980111f5c2(["chopping_agb"]):::outdated
     x9f7f8cade5fecf35(["esa_agb"]):::outdated --> x10672e980111f5c2(["chopping_agb"]):::outdated
     x74a8a38fc5a3e271(["agb_stack"]):::outdated --> xb6b26dab56b30531(["sd_map_ca_png"]):::outdated
@@ -177,7 +250,7 @@ graph LR
   linkStyle 1 stroke-width:0px;
   linkStyle 2 stroke-width:0px;
   linkStyle 3 stroke-width:0px;
-  linkStyle 124 stroke-width:0px;
+  linkStyle 123 stroke-width:0px;
 ```
 
 ## File structure
@@ -224,6 +297,7 @@ fs::dir_tree(recurse = 1)
     ├── data_files.txt
     ├── docs
     │   ├── _extensions
+    │   ├── _targets.yaml
     │   ├── fig
     │   ├── report.html
     │   ├── report.qmd
