@@ -11,7 +11,7 @@ library(fs)
 library(quarto)
 
 #Debug s3 bucket issues
-options(paws.log_level = 4L)
+# options(paws.log_level = 4L)
 
 # Set target options:
 tar_option_set(
@@ -28,15 +28,15 @@ tar_option_set(
   # controller = crew::crew_controller_local(workers = 2, seconds_idle = 60),
   
   # Use s3 bucket for targets store
-  repository = "aws", #comment out or change to "local" to store targets locally on disk
-  resources = tar_resources(
-    aws = tar_resources_aws(
-      bucket = "test123456", #TODO: Maybe create a new bucket with Julian's help eventually
-      prefix = "carbon_stores",
-      endpoint = "https://js2.jetstream-cloud.org:8001",
-      max_tries = 10
-    )
-  )
+  # repository = "aws", #comment out or change to "local" to store targets locally on disk
+  # resources = tar_resources(
+  #   aws = tar_resources_aws(
+  #     bucket = "test123456", #TODO: Maybe create a new bucket with Julian's help eventually
+  #     prefix = "carbon_stores",
+  #     endpoint = "https://js2.jetstream-cloud.org:8001",
+  #     max_tries = 10
+  #   )
+  # )
 )
 
 # Run the R scripts in the R/ folder with your custom functions:
