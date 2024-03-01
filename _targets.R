@@ -10,6 +10,9 @@ library(tidyr)
 library(fs)
 library(quarto)
 
+#Debug s3 bucket issues
+options(paws.log_level = 4L)
+
 # Set target options:
 tar_option_set(
   # packages that your targets need to run
