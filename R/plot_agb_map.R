@@ -18,7 +18,8 @@
 plot_agb_map <- function(agb_stack, subset, downsample = TRUE, path = "docs/fig", ext = c("png", "pdf"), ...) {
 
   ext <- match.arg(ext)
-  filename <- paste0("map_agb_", deparse(substitute(subset)), ".", ext)
+  subset_str <- deparse(substitute(subset))
+  filename <- paste0("map_agb_", subset_str, ".", ext)
   
   agb_subset <- crop(agb_stack, subset, mask = TRUE, overwrite = TRUE)
   if (isFALSE(downsample)) {
@@ -40,6 +41,20 @@ plot_agb_map <- function(agb_stack, subset, downsample = TRUE, path = "docs/fig"
     labs(fill = "AGB (Mg/ha)") +
     theme_minimal(base_size = 10) +
     theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  
+  # "bespoke" modifications by subset
+  
+  if (subset_str == "ca") {
+    p <- p +
+      scale_fill_gradientn(
+        colours = map_cols,
+        limits = c(0, 750),
+        breaks = c(0, 150, 300, 450, 600, 750),
+        labels = c("0", "150", "300", "450", "600", "≥750"),
+        oob = scales::squish,
+        na.value = "transparent"
+      )
+  }
   
   if (fs::path_ext(filename) %in% c("pdf", "svg", "eps", "ps")) {
     p <- ggrastr::rasterise(p, layer = "Raster", dpi = 200, dev = "ragg_png")
