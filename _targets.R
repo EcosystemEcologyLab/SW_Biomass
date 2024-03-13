@@ -6,6 +6,7 @@
 # Load packages required to define the pipeline:
 library(targets)
 library(tarchetypes)
+library(geotargets)
 library(tidyr)
 library(fs)
 library(quarto)
@@ -50,32 +51,31 @@ tar_plan(
   # repository = "local" to prevent this. Logic above changes the path to the
   # correct place depending on where this is run.
   tar_file(esa_files, dir_ls("data/rasters/ESA_CCI/", glob = "*.tif*"), repository = "local"),
-  tar_target(esa_agb, read_clean_esa(esa_files), format = format_geotiff),
+  tar_terra_rast(esa_agb, read_clean_esa(esa_files)),
   tar_file(chopping_file, "data/rasters/Chopping/MISR_agb_estimates_20002021.tif", repository = "local"),
-  tar_target(chopping_agb, read_clean_chopping(chopping_file, esa_agb), format = format_geotiff),
+  tar_terra_rast(chopping_agb, read_clean_chopping(chopping_file, esa_agb)),
   tar_file(liu_file, "data/rasters/Liu/Aboveground_Carbon_1993_2012.nc", repository = "local"),
-  tar_target(liu_agb, read_clean_liu(liu_file, esa_agb), format = format_geotiff),
+  tar_terra_rast(liu_agb, read_clean_liu(liu_file, esa_agb)),
   tar_file(xu_file, "data/rasters/Xu/test10a_cd_ab_pred_corr_2000_2019_v2.tif", repository = "local"),
-  tar_target(xu_agb, read_clean_xu(xu_file, esa_agb), format = format_geotiff),
+  tar_terra_rast(xu_agb, read_clean_xu(xu_file, esa_agb)),
   # tar_file(rap_file, "data/rasters/RAP/vegetation-biomass-v3-2010.tif"),
-  # tar_target(rap_agb, read_clean_rap(rap_file, esa_agb), format = format_geotiff),
+  # tar_terra_rast(rap_agb, read_clean_rap(rap_file, esa_agb)),
   tar_file(ltgnn_files, fs::dir_ls("data/rasters/LT_GNN", glob = "*.zip"), repository = "local"),
-  tar_target(ltgnn_agb, read_clean_lt_gnn(ltgnn_files, esa_agb), format = format_geotiff),
+  tar_terra_rast(ltgnn_agb, read_clean_lt_gnn(ltgnn_files, esa_agb)),
   tar_file(menlove_dir, "data/rasters/Menlove/data/", repository = "local"), 
-  tar_target(menlove_agb, read_clean_menlove(menlove_dir, esa_agb), format = format_geotiff),
+  tar_terra_rast(menlove_agb, read_clean_menlove(menlove_dir, esa_agb)),
   tar_file(gedi_file, "data/rasters/GEDI_L4B_v2.1/data/GEDI04_B_MW019MW223_02_002_02_R01000M_MU.tif",
            repository = "local"),
-  tar_target(gedi_agb, read_clean_gedi(gedi_file, esa_agb), format = format_geotiff),
+  tar_terra_rast(gedi_agb, read_clean_gedi(gedi_file, esa_agb)),
 
   # Stack em! ---------------------------------------------------------------
   # I think this will be helpful for calculations and plotting?
   # Downside: will create a big file.
   
   #ignoring RAP for the moment
-  tar_target(
+  tar_terra_rast(
     agb_stack,
-    c(esa_agb, chopping_agb, liu_agb, xu_agb, ltgnn_agb, menlove_agb, gedi_agb),
-    format = format_geotiff
+    c(esa_agb, chopping_agb, liu_agb, xu_agb, ltgnn_agb, menlove_agb, gedi_agb)
   ),
   
   # Plots -------------------------------------------------------------------
