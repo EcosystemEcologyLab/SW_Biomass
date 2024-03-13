@@ -61,4 +61,4 @@ plot_list <-
   })
 patchwork::wrap_plots(plot_list)
 
-ggsave("NEON_data.png", height = 10, width = 10)
+ggsave("notes/NEON_data.png", height = 10, width = 10)
