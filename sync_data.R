@@ -30,7 +30,27 @@ args <- c("-az", #-a archive mode, -z compress files
           paste0("--files-from=", file_list),"./", #transfer these specific files
           dst) 
 # Just print the shell command:
-# cat("rsync", args) 
+cat("rsync", args)
 
 # Or run the shell command through R
-processx::run("rsync", args = args, echo_cmd = TRUE, stdout = "", spinner = TRUE)
+# processx::run("rsync", args = args, echo_cmd = TRUE, stdout = "", spinner = TRUE)
+
+
+# Sync to Yang's VPS ------------------------------------------------------
+
+# To use sftp, the batch file needs to have full paths to all files and each line needs to include the "put" command
+dirs <- paths_local[fs::is_dir(paths_local)]
+files <- paths_local[fs::is_file(paths_local)]
+
+sftp_files <- "sftp_files.txt"
+paste("put", c(files, fs::dir_ls(dirs))) |> writeLines(sftp_files)
+
+args <- c(
+  "-b", sftp_files, #use batch file
+  "eric@5.255.109.71:swbiomass"
+)
+
+# processx::run("sftp", args = args, echo_cmd = TRUE)
+
+#or run on commandline
+cat("sftp", args)
