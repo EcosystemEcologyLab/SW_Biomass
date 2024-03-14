@@ -22,7 +22,7 @@ library(here)
 So far the data products include:
 
 | Product                               | Downloaded (including CA) | Wrangled |
-|-------------------------------|----------------------|-------------------|
+|----------------------------------|-----------------------|----------------|
 | Xu AGBC                               | ✅                        | ✅       |
 | Liu AGBC                              | ✅                        | ✅       |
 | LT-GNN AGB                            | ✅                        | ✅       |
@@ -59,7 +59,8 @@ Observations:
 #| label: fig-map_agb_az
 #| fig-cap: Maps of AGB for each data product in Arizona.
 #| fig-align: center
-include_graphics(tar_read(agb_map_az_png))
+include_graphics(tar_read(agb_map_az_png, store = here("_targets")) |>
+                   fs::path_rel("docs"))
 ```
 
 #### California
@@ -68,7 +69,8 @@ include_graphics(tar_read(agb_map_az_png))
 #| label: fig-map_agb_ca
 #| fig-cap: Maps of AGB for each data product in California.
 #| fig-align: center
-include_graphics(tar_read(agb_map_ca_png))
+include_graphics(tar_read(agb_map_ca_png, store = here("_targets")) |>
+                   fs::path_rel("docs"))
 ```
 
 #### SRER
@@ -78,7 +80,8 @@ include_graphics(tar_read(agb_map_ca_png))
 #| fig-cap: Maps of AGB for each data product in SRER
 #| fig-align: center
 
-include_graphics(tar_read(agb_map_srer_png))
+include_graphics(tar_read(agb_map_srer_png, store = here("_targets")) |>
+                   fs::path_rel("docs"))
 ```
 
 #### Pima County
@@ -88,7 +91,8 @@ include_graphics(tar_read(agb_map_srer_png))
 #| fig-cap: Maps of AGB for each data product in Pima County
 #| fig-align: center
 
-include_graphics(tar_read(agb_map_pima_png))
+include_graphics(tar_read(agb_map_pima_png, store = here("_targets")) |>
+                   fs::path_rel("docs"))
 ```
 
 ### Median {#sec-median}
@@ -100,7 +104,8 @@ include_graphics(tar_read(agb_map_pima_png))
 #| fig-cap: Median AGB across data products
 #| fig-align: center
 
-include_graphics(tar_read(median_map_az_png)) 
+include_graphics(tar_read(median_map_az_png, store = here("_targets")) |>
+                   fs::path_rel("docs"))
 ```
 
 #### California
@@ -110,7 +115,8 @@ include_graphics(tar_read(median_map_az_png))
 #| fig-cap: Median AGB across data products
 #| fig-align: center
 
-include_graphics(tar_read(median_map_ca_png))
+include_graphics(tar_read(median_map_ca_png, store = here("_targets")) |>
+                   fs::path_rel("docs"))
 ```
 
 #### SRER
@@ -120,7 +126,8 @@ include_graphics(tar_read(median_map_ca_png))
 #| fig-cap: Median AGB across data products
 #| fig-align: center
 
-include_graphics(tar_read(median_map_srer_png))
+include_graphics(tar_read(median_map_srer_png, store = here("_targets")) |>
+                   fs::path_rel("docs"))
 ```
 
 #### Pima County
@@ -130,7 +137,8 @@ include_graphics(tar_read(median_map_srer_png))
 #| fig-cap: Median AGB across data products
 #| fig-align: center
 
-include_graphics(tar_read(median_map_pima_png))
+include_graphics(tar_read(median_map_pima_png, store = here("_targets")) |>
+                   fs::path_rel("docs"))
 ```
 
 ### Standard Deviation {#sec-sd}
@@ -143,7 +151,8 @@ include_graphics(tar_read(median_map_pima_png))
 #|  Map of standard deviation of each raster pixel showing areas with the highest variation among data products in yellow and areas with the least variation in dark purple. Note: the color gradient is on a log scale.
 #| fig-align: center
 
-include_graphics(tar_read(sd_map_az_png))
+include_graphics(tar_read(sd_map_az_png, store = here("_targets")) |>
+                   fs::path_rel("docs"))
 ```
 
 #### California
@@ -154,7 +163,8 @@ include_graphics(tar_read(sd_map_az_png))
 #|  Map of standard deviation of each raster pixel showing areas with the highest variation among data products in yellow and areas with the least variation in dark purple. Note: the color gradient is on a log scale.
 #| fig-align: center
 
-include_graphics(tar_read(sd_map_ca_png))
+include_graphics(tar_read(sd_map_ca_png, store = here("_targets")) |>
+                   fs::path_rel("docs"))
 ```
 
 #### SRER
@@ -165,7 +175,8 @@ include_graphics(tar_read(sd_map_ca_png))
 #|  Map of standard deviation of each raster pixel showing areas with the highest variation among data products in yellow and areas with the least variation in dark purple. Note: the color gradient is on a log scale.
 #| fig-align: center
 
-include_graphics(tar_read(sd_map_srer_png))
+include_graphics(tar_read(sd_map_srer_png, store = here("_targets")) |>
+                   fs::path_rel("docs"))
 ```
 
 #### Pima County
@@ -176,7 +187,8 @@ include_graphics(tar_read(sd_map_srer_png))
 #|  Map of standard deviation of each raster pixel showing areas with the highest variation among data products in yellow and areas with the least variation in dark purple. Note: the color gradient is on a log scale.
 #| fig-align: center
 
-include_graphics(tar_read(sd_map_pima_png))
+include_graphics(tar_read(sd_map_pima_png, store = here("_targets")) |>
+                   fs::path_rel("docs"))
 ```
 
 ### Data distribution {#sec-data-distribution}
@@ -194,7 +206,8 @@ It ended up being relatively easy to just do my own kernel density estimation, s
 #| fig-cap: Distribution of Arizona AGB values by data product.
 #| fig-align: center
 
-include_graphics(tar_read(ridge_az_png))
+include_graphics(tar_read(ridge_az_png, store = here("_targets")) |>
+                   fs::path_rel("docs"))
 ```
 
 #### California
@@ -204,7 +217,8 @@ include_graphics(tar_read(ridge_az_png))
 #| fig-cap: Distribution of Arizona AGB values by data product.
 #| fig-align: center
 
-include_graphics(tar_read(ridge_ca_png))
+include_graphics(tar_read(ridge_ca_png, store = here("_targets")) |>
+                   fs::path_rel("docs"))
 ```
 
 #### SRER
@@ -214,7 +228,8 @@ include_graphics(tar_read(ridge_ca_png))
 #| fig-cap: Distribution of Arizona AGB values by data product.
 #| fig-align: center
 
-include_graphics(tar_read(ridge_srer_png))
+include_graphics(tar_read(ridge_srer_png, store = here("_targets")) |>
+                   fs::path_rel("docs"))
 ```
 
 #### Pima County
@@ -224,7 +239,8 @@ include_graphics(tar_read(ridge_srer_png))
 #| fig-cap: Distribution of Arizona AGB values by data product.
 #| fig-align: center
 
-include_graphics(tar_read(ridge_pima_png))
+include_graphics(tar_read(ridge_pima_png, store = here("_targets")) |>
+                   fs::path_rel("docs"))
 ```
 
 ### Scatter plots
@@ -235,7 +251,8 @@ include_graphics(tar_read(ridge_pima_png))
 #|   Scatter plots showing relationship between each data product on the y-axis and the ESA product on the x-axis.  Plots show a random sample of 200,000 pixels from Arizona (out of a total 35,342,827 pixels).
 #| layout-ncol: 3
 
-include_graphics(tar_read(scatter_plots))
+include_graphics(tar_read(scatter_plots, store = here("_targets")) |>
+                   fs::path_rel("docs"))
 ```
 
 <!-- ### Point density plots -->
@@ -261,7 +278,7 @@ include_graphics(tar_read(scatter_plots))
 #| tbl-cap: "Summary statistics calculated on median AGB across data products for each geographical subset."
 #| echo: false
 library(gt)
-targets::tar_read(summary_stats) |>
+targets::tar_read(summary_stats, store = here("_targets")) |>
   gt::gt() |>
   fmt_number() |>
   opt_stylize() |>

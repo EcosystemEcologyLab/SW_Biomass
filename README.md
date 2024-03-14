@@ -228,6 +228,7 @@ fs::dir_tree(recurse = 1)
     ├── docs
     │   ├── fig
     │   ├── report.html
+    │   ├── report.qmd
     │   └── report_files
     ├── notes
     │   ├── NEON_data.png
@@ -245,7 +246,6 @@ fs::dir_tree(recurse = 1)
     │   ├── settings.json
     │   └── staging
     ├── renv.lock
-    ├── report.qmd
     └── sync_data_jetstream2.R
 
 - `R/` contains functions used in the `targets` pipeline.

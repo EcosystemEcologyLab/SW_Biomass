@@ -195,7 +195,8 @@ tar_plan(
 
   # # Render docs -------------------------------------------------------------
   #report
-  tar_quarto(report), #renders everything in _quarto.yml
+  # tar_quarto(report), #renders everything in _quarto.yml
+  # tar_quarto(report, "docs/report.qmd"),
 
   #README
   tar_quarto(readme, "README.qmd", cue = tar_cue(mode = "always"))
