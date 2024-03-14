@@ -41,7 +41,8 @@ graph LR
   subgraph Legend
     direction LR
     x7420bd9270f8d27d([""Up to date""]):::uptodate --- xa8565c104d8f0705([""Dispatched""]):::dispatched
-    xa8565c104d8f0705([""Dispatched""]):::dispatched --- xbf4603d6c2c2ad6b([""Stem""]):::none
+    xa8565c104d8f0705([""Dispatched""]):::dispatched --- x0a52b03877696646([""Outdated""]):::outdated
+    x0a52b03877696646([""Outdated""]):::outdated --- xbf4603d6c2c2ad6b([""Stem""]):::none
     xbf4603d6c2c2ad6b([""Stem""]):::none --- x70a5fa6bea6f298d[""Pattern""]:::none
   end
   subgraph Graph
@@ -118,24 +119,24 @@ graph LR
     x7fb455d668686b01(["az"]):::uptodate --> x8eb9930459a46535(["sd_map_az_pdf"]):::uptodate
     x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> x31a8f9ae377f5b5a(["ridge_srer_pdf"]):::uptodate
     xe3a3f405d949368a(["srer"]):::uptodate --> x31a8f9ae377f5b5a(["ridge_srer_pdf"]):::uptodate
-    xe26c29a782da5ac5(["agb_map_az_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::uptodate
-    x0a6b9a67bcd0c70a(["agb_map_ca_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::uptodate
-    xb7aedba3b60a69b7(["agb_map_pima_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::uptodate
-    xc8d1f4f8b0320bf6(["agb_map_srer_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::uptodate
-    x699ca8a0068688fa(["median_map_az_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::uptodate
-    x5c325302d7cd68a7(["median_map_ca_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::uptodate
-    x754426ac252a6210(["median_map_pima_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::uptodate
-    x5f2c2a5de9c73409(["median_map_srer_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::uptodate
-    xb8f1367168074e6c(["ridge_az_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::uptodate
-    x60c69b5a4aa33a2c(["ridge_ca_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::uptodate
-    x853e79625694a360(["ridge_pima_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::uptodate
-    x377c593b0eb4d7e4(["ridge_srer_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::uptodate
-    xa9c8870bcb5985fd["scatter_plots"]:::uptodate --> xe0fba61fbc506510(["report"]):::uptodate
-    xf671b7369bfa8ec1(["sd_map_az_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::uptodate
-    xb6b26dab56b30531(["sd_map_ca_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::uptodate
-    x4ddb5a4dffb2b7e4(["sd_map_pima_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::uptodate
-    x7f5b21a1115ff63a(["sd_map_srer_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::uptodate
-    x0faa310f699b45a5["summary_stats"]:::uptodate --> xe0fba61fbc506510(["report"]):::uptodate
+    xe26c29a782da5ac5(["agb_map_az_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::outdated
+    x0a6b9a67bcd0c70a(["agb_map_ca_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::outdated
+    xb7aedba3b60a69b7(["agb_map_pima_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::outdated
+    xc8d1f4f8b0320bf6(["agb_map_srer_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::outdated
+    x699ca8a0068688fa(["median_map_az_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::outdated
+    x5c325302d7cd68a7(["median_map_ca_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::outdated
+    x754426ac252a6210(["median_map_pima_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::outdated
+    x5f2c2a5de9c73409(["median_map_srer_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::outdated
+    xb8f1367168074e6c(["ridge_az_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::outdated
+    x60c69b5a4aa33a2c(["ridge_ca_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::outdated
+    x853e79625694a360(["ridge_pima_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::outdated
+    x377c593b0eb4d7e4(["ridge_srer_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::outdated
+    xa9c8870bcb5985fd["scatter_plots"]:::uptodate --> xe0fba61fbc506510(["report"]):::outdated
+    xf671b7369bfa8ec1(["sd_map_az_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::outdated
+    xb6b26dab56b30531(["sd_map_ca_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::outdated
+    x4ddb5a4dffb2b7e4(["sd_map_pima_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::outdated
+    x7f5b21a1115ff63a(["sd_map_srer_png"]):::uptodate --> xe0fba61fbc506510(["report"]):::outdated
+    x0faa310f699b45a5["summary_stats"]:::uptodate --> xe0fba61fbc506510(["report"]):::outdated
     x80cf9d1bb79c21e3(["chopping_file"]):::uptodate --> x10672e980111f5c2(["chopping_agb"]):::uptodate
     x9f7f8cade5fecf35(["esa_agb"]):::uptodate --> x10672e980111f5c2(["chopping_agb"]):::uptodate
     x74a8a38fc5a3e271(["agb_stack"]):::uptodate --> xb6b26dab56b30531(["sd_map_ca_png"]):::uptodate
@@ -170,11 +171,13 @@ graph LR
   end
   classDef uptodate stroke:#000000,color:#ffffff,fill:#354823;
   classDef dispatched stroke:#000000,color:#000000,fill:#DC863B;
+  classDef outdated stroke:#000000,color:#000000,fill:#78B7C5;
   classDef none stroke:#000000,color:#000000,fill:#94a4ac;
   linkStyle 0 stroke-width:0px;
   linkStyle 1 stroke-width:0px;
   linkStyle 2 stroke-width:0px;
-  linkStyle 123 stroke-width:0px;
+  linkStyle 3 stroke-width:0px;
+  linkStyle 124 stroke-width:0px;
 ```
 
 ## File structure
@@ -223,7 +226,6 @@ fs::dir_tree(recurse = 1)
     │   └── shapefiles
     ├── data_files.txt
     ├── docs
-    │   ├── docs
     │   ├── fig
     │   ├── report.html
     │   └── report_files
