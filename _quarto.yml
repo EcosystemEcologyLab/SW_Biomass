@@ -1,2 +1,4 @@
 project: 
-  execute-dir: file
+  output-dir: docs
+  render: 
+    - report.qmd

@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|0f9496dca5615e58|||||||||||||||
+.Random.seed|object|406812ae8e18a61d|||||||||||||||
 agb_df_az|stem|b597268b4331440a|1f35935a7f4a56fc|78c46def1478d4f6|576721348||t19795.868857768s|c13f96c3e939a68b|476992627|rds|local|vector|||40.619||
 agb_map_az_pdf|stem|c2239009ded0af52|0d46cabb84c9296e|898c48854a8f56f9|299079410|docs/fig/map_agb_az.pdf|t19795.8937504563s|f80e8250ced6e09e|1366805|file|local|vector|||45.042||
 agb_map_az_png|stem|6bec9ca719b48177|ae82fbf745430696|898c48854a8f56f9|1341958534|docs/fig/map_agb_az.png|t19795.8707617283s|d53a2674d99d9b32|569346|file|local|vector|||32.049||
@@ -55,8 +55,8 @@ read_clean_lt_gnn|function|96b9c2b85d14a9ee|||||||||||||||
 read_clean_menlove|function|3b81694467ae6962|||||||||||||||
 read_clean_rap|function|a25e26de10896dd0|||||||||||||||
 read_clean_xu|function|968de229c5083800|||||||||||||||
-readme|stem|7afe670f6922b5c5|c2c4b6e3bcf05d55|ef46db3751d8e999|980901812|README.md*README.qmd|t19795.7000454941s|5440dd73ade578e7|19551|file|local|vector|||30.553||
-report|stem||a2b9942ec23bb1f7|c6be1289cc2ffe2c|787668912||t19795.9103128135s||0|file|local|vector|||19.73||33m39m System command quarto failed
+readme|stem|23ea68bde28136ec|c2c4b6e3bcf05d55|ef46db3751d8e999|980901812|README.md*README.qmd|t19796.7960513636s|2aa8547ca6aa5f75|19379|file|local|vector|||27.358||
+report|stem|2ce11ff9ef986fbf|1e1557185d5a38ce|c46b472735177c71|787668912|docs*report.qmd*_quarto.yml*.nojekyll|t19796.7953567881s|04765613dbd28217|7636|file|local|vector|||10.283||
 ridge_az_pdf|stem|dc8ec24b40c9ee3b|12260239ca9b6dbf|923fcb1c9e82a7ff|-369156954|docs/fig/agb_density_az.pdf|t19795.8863198458s|5a2847d9afedbe53|522466|file|local|vector|||85.67||
 ridge_az_png|stem|14edd90c18066734|00e130810b7dd23f|923fcb1c9e82a7ff|-305061300|docs/fig/agb_density_az.png|t19795.8791396485s|dd8c583ea42b8c2c|40896|file|local|vector|||74.524||
 ridge_ca_pdf|stem|21673c5aeb0d2fbd|6132fe3b423a156e|91ffd507b43f4ba7|-1758332972|docs/fig/agb_density_ca.pdf|t19795.7254678184s|9f4a211368699fa3|641011|file|local|vector|||244.917||
@@ -92,3 +92,4 @@ trim_image|function|e2abccd420bbac12|||||||||||||||
 xu_agb|stem|f1e36533fe69665b|98613758b7225c5f|b9d78aa1bf917cc5|-1617632401||t19795.712123897s|2243a0f1cda044cf|397109397|format_custom&read=ZnVuY3Rpb24gKHBhdGgpIAp0ZXJyYTo6cmFzdChwYXRoKQ&write=ZnVuY3Rpb24gKG9iamVjdCwgcGF0aCkgCnsKICAgIHRlcnJhOjp3cml0ZVJhc3RlcihvYmplY3QsIHBhdGgsIGZpbGV0eXBlID0gIkdUaWZmIiwgb3ZlcndyaXRlID0gVFJVRSwgCiAgICAgICAgZ2RhbCA9ICJFTkNPRElORz1VVEYtOCIpCn0&marshal=ZnVuY3Rpb24gKG9iamVjdCkgCnRlcnJhOjp3cmFwKG9iamVjdCk&unmarshal=ZnVuY3Rpb24gKG9iamVjdCkgCnRlcnJhOjp1bndyYXAob2JqZWN0KQ&convert=&copy=&repository=|local|vector|||32.303||
 xu_file|stem|99f393a41f1c3066|b16a5d4beecff7eb|ef46db3751d8e999|1350703402|data/rasters/Xu/test10a_cd_ab_pred_corr_2000_2019_v2.tif|t18870.8779712958s|6d8928ec0ba586d2|114424129|file|local|vector|||0||
 zip_plots|function|bc8639a6a281ce68|||||||||||||||
+zip_scatter_plots|stem|5fcdb7a5ea41b9f7|5279c2c48c334f3e|91b5c237effb0c5f|1074610006|docs/fig/scatter.zip|t19796.7913097589s|9b874f4889751739|443020|file|local|vector|||0.097||
