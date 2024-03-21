@@ -27,7 +27,7 @@ site_ids <- neon_core |> as_tibble() |> select(siteName, siteID)
 neon_flights <-
   st_read("data/shapefiles/AOP_flightBoxes/") |> 
   mutate(siteName = str_remove(siteName, " NEON")) |> 
-  filter(siteID %in% core_ids)
+  filter(siteID %in% neon_core$siteID)
 
 # kmz file
 #What layers are available?
