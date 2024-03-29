@@ -12,7 +12,7 @@ library(fs)
 library(quarto)
 
 #Debug s3 bucket issues
-# options(paws.log_level = 4L)
+# options(paws.log_level = 4L, paws.log_file = "paws_log.txt")
 
 # Set target options:
 tar_option_set(
@@ -30,12 +30,21 @@ tar_option_set(
   
   # Use s3 bucket for targets store
   # repository = "aws", #comment out or change to "local" to store targets locally on disk
+  ## Jetstream2 bucket:
   # resources = tar_resources(
   #   aws = tar_resources_aws(
   #     bucket = "test123456", #TODO: Maybe create a new bucket with Julian's help eventually
   #     prefix = "carbon_stores",
   #     endpoint = "https://js2.jetstream-cloud.org:8001",
   #     max_tries = 10
+  #   )
+  # )
+  ## Wasabi bucket:
+  # resources = tar_resources(
+  #   aws = tar_resources_aws(
+  #     bucket = "targets-test",
+  #     prefix = "carbon_stores",
+  #     endpoint = "https://s3.us-central-1.wasabisys.com"
   #   )
   # )
 )
