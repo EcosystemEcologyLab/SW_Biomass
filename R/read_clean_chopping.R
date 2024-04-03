@@ -10,7 +10,7 @@
 #' 
 #' @return SpatRaster object
 #' 
-read_clean_chopping <- function(file, esa) {
+read_clean_chopping <- function(file, esa, region) {
   # Read in file and select
   # Spans 2000 - 2021 so layer 10 is 2010
   chopping_agb_2010 <- terra::rast(file, lyrs = 10)
@@ -21,5 +21,5 @@ read_clean_chopping <- function(file, esa) {
   varnames(chopping_agb_2010) <- "AGB"
 
   # Project and crop
-  project_crop_esa(chopping_agb_2010, esa)
+  project_crop_esa(chopping_agb_2010, esa, region)
 }
