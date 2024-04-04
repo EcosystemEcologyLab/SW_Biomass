@@ -22,6 +22,8 @@ neon_field <- st_read("data/shapefiles/Field_Sampling_Boundaries_2020/")
 neon_core <- neon_field |> 
   filter(siteType == "Core Terrestrial")
 site_ids <- neon_core |> as_tibble() |> select(siteName, siteID)
+ggplot() +
+  geom_sf(data = neon_core[1,])
 
 # Flight boundaries for 2021 (these may change year to year)
 neon_flights <-
