@@ -13,8 +13,13 @@ make_agb_stack <- function(..., esa, region) {
   rast_cropped <- rast_list |> 
     purrr::map(\(x) crop(x, vect(region), overwrite = TRUE, mask = TRUE, extend = TRUE))
   
+  #use method = "near" for low res dataset like Liu et al.
   rast_proj <- rast_cropped |> #this wastes some time by projecting esa to esa
-    purrr::map(\(x) project(x, rast_cropped[[1]], threads = 4))
+    purrr::map(\(x) {
+      method <- ifelse(names(x) == "Liu et al.", "near", "bilinear")
+      project(x, rast_cropped[[1]], method = method, threads = 4)
+      
+    })
   
   rast_stack <- rast(rast_proj)
   varnames(rast_stack) <- purrr::map_chr(rast_list, varnames) #not sure if this is best, but whatever
