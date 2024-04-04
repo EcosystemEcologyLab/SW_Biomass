@@ -61,6 +61,8 @@ tar_plan(
   ca_az = make_ca_az_sf(),
   
   # Read and harmonize 2010 AGB data products ------------
+  # Intially cropped to CONUS when read in, and transformed to common CRS (but
+  # not common resolution).
   # By default, tar_file() with repository="aws" uploads the files to the s3
   # bucket.  Since they're already on an attached volume on Jetstream2, I use
   # repository = "local" to prevent this. Logic above changes the path to the
@@ -83,15 +85,21 @@ tar_plan(
            repository = "local"),
   tar_terra_rast(gedi_agb, read_clean_gedi(gedi_file, esa_agb, conus)),
 
-  # Stack em! ---------------------------------------------------------------
-  # I think this will be helpful for calculations and plotting?
-  # Downside: will create a big file.
+
+  # Extract data for every NEON & Ameriflux site ----------------------------
+  #TODO: Create vect for NEON sites (polygons)
+  #TODO: Create vect for Ameriflux sites (points -> polygons??)
+  #TODO: Extract AGB from each product for each vect & get mean for each site, export as CSV
+    
   
+  # Stack em! ---------------------------------------------------------------
+  # Project to common resolution, crop to CA and AZ, and create a multi-layer raster stack
+
   #ignoring RAP for the moment
   tar_terra_rast(
     agb_stack,
-    make_agb_stack(esa_agb, chopping_agb, liu_agb, xu_agb, ltgnn_agb, menlove_agb, gedi_agb,
-                   region = ca_az)
+    make_agb_stack(chopping_agb, liu_agb, xu_agb, ltgnn_agb, menlove_agb, gedi_agb,
+                   esa = esa_agb, region = ca_az)
   ),
   
   # Plots -------------------------------------------------------------------
