@@ -17,7 +17,7 @@ library(quarto)
 # Set target options:
 tar_option_set(
   # packages that your targets need to run
-  packages = c("ncdf4", "terra", "fs", "purrr", "units", "tidyterra", "ggplot2", "sf", "maps", "tidyr", "dplyr", "stringr", "stars", "magick", "ggridges", "ggrastr", "svglite", "ggtext", "ggthemes", "KernSmooth", "patchwork", "tibble"), 
+  packages = c("ncdf4", "terra", "fs", "purrr", "units", "tidyterra", "ggplot2", "sf", "maps", "tidyr", "dplyr", "stringr", "stars", "magick", "ggridges", "ggrastr", "svglite", "ggtext", "ggthemes", "KernSmooth", "patchwork", "tibble", "amerifluxr"), 
   #
   # For distributed computing in tar_make(), supply a {crew} controller
   # as discussed at https://books.ropensci.org/targets/crew.html.
@@ -55,8 +55,6 @@ tar_source()
 
 tar_plan(
   # Read shapefiles ---------------------------------------
-  tar_file(neon_file, "data/shapefiles/Field_Sampling_Boundaries_2020/"),
-  tar_terra_vect(neon_core, vect(neon_file) |> filter(siteType == "Core Terrestrial")),
   conus = maps::map("usa", plot = FALSE, fill = TRUE) |> st_as_sf(),
   ca_az = make_ca_az_sf(),
   
@@ -87,9 +85,21 @@ tar_plan(
 
 
   # Extract data for every NEON & Ameriflux site ----------------------------
-  #TODO: Create vect for NEON sites (polygons)
-  #TODO: Create vect for Ameriflux sites (points -> polygons??)
   #TODO: Extract AGB from each product for each vect & get mean for each site, export as CSV
+  tar_file(neon_kmz, "data/shapefiles/NEON_Field_Sites_KMZ_v18_Mar2023.kmz"),
+  tar_file(neon_field_path, "data/shapefiles/Field_Sampling_Boundaries_2020/"),
+  # TODO switch to tar_sf() once it exists?
+  tar_target(
+    site_locs,
+    get_site_locs(neon_kmz, neon_field_path)
+  ),
+  tar_map(
+    values = tibble(product = rlang::syms(c("esa_agb", "chopping_agb", "gedi_agb"))),
+    tar_target(
+      sites,
+      extract_agb_site(product, site_locs)
+    )
+  ),
     
   
   # Stack em! ---------------------------------------------------------------
