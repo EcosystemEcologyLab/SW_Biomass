@@ -26,16 +26,9 @@ read_clean_menlove <- function(dir, esa, region) {
     st_intersection(region)
   
   #rasterize
-  template <- stars::st_as_stars(
-    sf::st_bbox(esa),
-    dx = res(esa)[1],
-    dy = res(esa)[2],
-    values = NA_real_
-  )
-  menlove_stars <- st_rasterize(menlove_cropped, template)
-  
-  #convert to SpatRaster and add names and units
-  menlove_rast <- terra::rast(menlove_stars)
+  template <- terra::rast(resolution = res(esa), extent = ext(region))
+  menlove_rast <- terra::rasterize(menlove_cropped, template, field = "CRM_LIVE_D")
+  #add names and units
   units(menlove_rast) <- "Mg/ha"
   varnames(menlove_rast) <- "AGB"
   names(menlove_rast) <- "Menlove & Healey"
