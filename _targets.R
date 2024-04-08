@@ -94,11 +94,23 @@ tar_plan(
     get_site_locs(neon_kmz, neon_field_path)
   ),
   tar_map(
-    values = tibble(product = rlang::syms(c("esa_agb", "chopping_agb", "gedi_agb"))),
+    values = tibble(
+      product = rlang::syms(
+        c("esa_agb", "chopping_agb", "gedi_agb", "liu_agb", "ltgnn_agb", "menlove_agb", "xu_agb")
+        # c("liu_agb", "menlove_agb")
+      )
+    ),
     tar_target(
       sites,
-      extract_agb_site(product, site_locs)
+      extract_agb_site(product, site_locs) 
     )
+  ),
+  #collect, pivot wider, join to site_locs
+  tar_target(
+    sites_wide_csv,
+    pivot_sites(sites_esa_agb, sites_chopping_agb, sites_gedi_agb, sites_liu_agb, 
+                sites_ltgnn_agb, sites_menlove_agb, sites_xu_agb, site_locs = site_locs),
+    format = "file"
   ),
     
   

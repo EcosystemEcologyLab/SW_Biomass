@@ -2,13 +2,16 @@
 extract_agb_site <- function(rast, sites) {
   site_buffer <- sites |> st_buffer(1000) |> vect()
   
-  site_agb <- terra::extract(rast, site_buffer, fun = mean, exact = TRUE, na.rm = TRUE)
+  # zonal() is slightly faster than extract()
+  site_agb <- terra::zonal(rast, site_buffer, exact = TRUE, na.rm = TRUE)
+  
   out <- site_agb |> 
-    rename(site_rownum = 1, agb = 2) |>
+    #TODO this might not be working
+    rename(agb = 1) |>
     mutate(
-      site_rownum = as.character(site_rownum),
-      product = varnames(rast)
-      )
+      product = names(rast), #TODO this isn't working. need to get the object name instead I guess? tricky Or maybe use names(rast)?
+      site_rowid = 1:n()
+      ) |> as_tibble()
   out  
 }
 
