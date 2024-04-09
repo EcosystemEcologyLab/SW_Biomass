@@ -142,6 +142,7 @@ tar_plan(
   ca = maps::map("state", "california", plot = FALSE, fill = TRUE) |> 
     st_as_sf() |> 
     st_transform(st_crs(agb_stack)) |> 
+    st_make_valid() |> 
     mutate(subset = "CA"),
   srer = st_read(srer_dir) |> 
     st_transform(st_crs(agb_stack)) |> 
@@ -224,7 +225,7 @@ tar_plan(
   ),
   
   # Scatter plots against ESA, just for Arizona for now
-  tar_target(agb_df_az, as_tibble(as.data.frame(crop(agb_stack, az, mask = TRUE)))),
+  tar_target(agb_df_az, as_tibble(as.data.frame(crop(agb_stack, az, mask = TRUE, overwrite = TRUE)))),
   tar_target(plot_comparisons, colnames(agb_df_az)[colnames(agb_df_az)!="ESA CCI"]),
   tar_target(
     scatter_plots,
