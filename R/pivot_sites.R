@@ -1,3 +1,4 @@
+# Combine and pivot wider data extracted from each data product
 pivot_sites <- function(..., site_locs, out_path = "docs/site_data.csv") {
   sites_long <- bind_rows(...)
   site_locs <- 
