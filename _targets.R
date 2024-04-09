@@ -17,7 +17,7 @@ library(quarto)
 # Set target options:
 tar_option_set(
   # packages that your targets need to run
-  packages = c("ncdf4", "terra", "fs", "purrr", "units", "tidyterra", "ggplot2", "sf", "maps", "tidyr", "dplyr", "stringr", "stars", "magick", "ggridges", "ggrastr", "svglite", "ggtext", "ggthemes", "KernSmooth", "patchwork", "tibble"), 
+  packages = c("ncdf4", "terra", "fs", "purrr", "units", "tidyterra", "ggplot2", "sf", "maps", "tidyr", "dplyr", "stringr", "stars", "magick", "ggridges", "ggrastr", "svglite", "ggtext", "ggthemes", "KernSmooth", "patchwork", "tibble", "amerifluxr"), 
   #
   # For distributed computing in tar_make(), supply a {crew} controller
   # as discussed at https://books.ropensci.org/targets/crew.html.
@@ -54,37 +54,74 @@ tar_source()
 # source("other_functions.R") # Source other scripts as needed.
 
 tar_plan(
+  # Read shapefiles ---------------------------------------
+  conus = maps::map("usa", plot = FALSE, fill = TRUE) |> st_as_sf(),
+  ca_az = make_ca_az_sf(),
+  
   # Read and harmonize 2010 AGB data products ------------
+  # Intially cropped to CONUS when read in, and transformed to common CRS (but
+  # not common resolution).
   # By default, tar_file() with repository="aws" uploads the files to the s3
   # bucket.  Since they're already on an attached volume on Jetstream2, I use
   # repository = "local" to prevent this. Logic above changes the path to the
   # correct place depending on where this is run.
   tar_file(esa_files, dir_ls("data/rasters/ESA_CCI/", glob = "*.tif*"), repository = "local"),
-  tar_terra_rast(esa_agb, read_clean_esa(esa_files)),
+  tar_terra_rast(esa_agb, read_clean_esa(esa_files, conus)),
   tar_file(chopping_file, "data/rasters/Chopping/MISR_agb_estimates_20002021.tif", repository = "local"),
-  tar_terra_rast(chopping_agb, read_clean_chopping(chopping_file, esa_agb)),
+  tar_terra_rast(chopping_agb, read_clean_chopping(chopping_file, esa_agb, conus)),
   tar_file(liu_file, "data/rasters/Liu/Aboveground_Carbon_1993_2012.nc", repository = "local"),
-  tar_terra_rast(liu_agb, read_clean_liu(liu_file, esa_agb)),
+  tar_terra_rast(liu_agb, read_clean_liu(liu_file, esa_agb, conus)),
   tar_file(xu_file, "data/rasters/Xu/test10a_cd_ab_pred_corr_2000_2019_v2.tif", repository = "local"),
-  tar_terra_rast(xu_agb, read_clean_xu(xu_file, esa_agb)),
+  tar_terra_rast(xu_agb, read_clean_xu(xu_file, esa_agb, conus)),
   # tar_file(rap_file, "data/rasters/RAP/vegetation-biomass-v3-2010.tif"),
-  # tar_terra_rast(rap_agb, read_clean_rap(rap_file, esa_agb)),
+  # tar_terra_rast(rap_agb, read_clean_rap(rap_file, esa_agb, conus)),
   tar_file(ltgnn_files, fs::dir_ls("data/rasters/LT_GNN", glob = "*.zip"), repository = "local"),
-  tar_terra_rast(ltgnn_agb, read_clean_lt_gnn(ltgnn_files, esa_agb)),
+  tar_terra_rast(ltgnn_agb, read_clean_lt_gnn(ltgnn_files, esa_agb, conus)),
   tar_file(menlove_dir, "data/rasters/Menlove/data/", repository = "local"), 
-  tar_terra_rast(menlove_agb, read_clean_menlove(menlove_dir, esa_agb)),
+  tar_terra_rast(menlove_agb, read_clean_menlove(menlove_dir, esa_agb, conus)),
   tar_file(gedi_file, "data/rasters/GEDI_L4B_v2.1/data/GEDI04_B_MW019MW223_02_002_02_R01000M_MU.tif",
            repository = "local"),
-  tar_terra_rast(gedi_agb, read_clean_gedi(gedi_file, esa_agb)),
+  tar_terra_rast(gedi_agb, read_clean_gedi(gedi_file, esa_agb, conus)),
 
-  # Stack em! ---------------------------------------------------------------
-  # I think this will be helpful for calculations and plotting?
-  # Downside: will create a big file.
+
+  # Extract data for every NEON & Ameriflux site ----------------------------
+  #TODO: Extract AGB from each product for each vect & get mean for each site, export as CSV
+  tar_file(neon_kmz, "data/shapefiles/NEON_Field_Sites_KMZ_v18_Mar2023.kmz"),
+  tar_file(neon_field_path, "data/shapefiles/Field_Sampling_Boundaries_2020/"),
+  # TODO switch to tar_sf() once it exists?
+  tar_target(
+    site_locs,
+    get_site_locs(neon_kmz, neon_field_path)
+  ),
+  tar_map(
+    values = tibble(
+      product = rlang::syms(
+        c("esa_agb", "chopping_agb", "gedi_agb", "liu_agb", "ltgnn_agb", "menlove_agb", "xu_agb")
+        # c("liu_agb", "menlove_agb")
+      )
+    ),
+    tar_target(
+      sites,
+      extract_agb_site(product, site_locs) 
+    )
+  ),
+  #collect, pivot wider, join to site_locs
+  tar_target(
+    sites_wide_csv,
+    pivot_sites(sites_esa_agb, sites_chopping_agb, sites_gedi_agb, sites_liu_agb, 
+                sites_ltgnn_agb, sites_menlove_agb, sites_xu_agb, site_locs = site_locs),
+    format = "file"
+  ),
+    
   
+  # Stack em! ---------------------------------------------------------------
+  # Project to common resolution, crop to CA and AZ, and create a multi-layer raster stack
+
   #ignoring RAP for the moment
   tar_terra_rast(
     agb_stack,
-    c(esa_agb, chopping_agb, liu_agb, xu_agb, ltgnn_agb, menlove_agb, gedi_agb)
+    make_agb_stack(chopping_agb, liu_agb, xu_agb, ltgnn_agb, menlove_agb, gedi_agb,
+                   esa = esa_agb, region = ca_az)
   ),
   
   # Plots -------------------------------------------------------------------
@@ -105,6 +142,7 @@ tar_plan(
   ca = maps::map("state", "california", plot = FALSE, fill = TRUE) |> 
     st_as_sf() |> 
     st_transform(st_crs(agb_stack)) |> 
+    st_make_valid() |> 
     mutate(subset = "CA"),
   srer = st_read(srer_dir) |> 
     st_transform(st_crs(agb_stack)) |> 
@@ -187,7 +225,7 @@ tar_plan(
   ),
   
   # Scatter plots against ESA, just for Arizona for now
-  tar_target(agb_df_az, as_tibble(as.data.frame(crop(agb_stack, az, mask = TRUE)))),
+  tar_target(agb_df_az, as_tibble(as.data.frame(crop(agb_stack, az, mask = TRUE, overwrite = TRUE)))),
   tar_target(plot_comparisons, colnames(agb_df_az)[colnames(agb_df_az)!="ESA CCI"]),
   tar_target(
     scatter_plots,

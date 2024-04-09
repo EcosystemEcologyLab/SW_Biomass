@@ -4,7 +4,7 @@
 #'
 #' @return SpatRaster object
 #' 
-read_clean_esa <- function(files) {
+read_clean_esa <- function(files, region) {
   # read in tiles and combine
   esa_agb_2010 <- 
     files |> 
@@ -17,13 +17,17 @@ read_clean_esa <- function(files) {
   names(esa_agb_2010) <- "ESA CCI"
   varnames(esa_agb_2010) <- "AGB"
   
-  # Crop to AZ + CA
-  ca_az_sf <- 
-    maps::map("state", c("arizona", "california"), plot = FALSE, fill = TRUE) |> 
-    st_as_sf() |> 
-    st_transform(st_crs(esa_agb_2010))
+  region <- st_transform(region, st_crs(esa_agb_2010))
+
+  # check if esa_agb_2010 is inside extent of region already and skip cropping
+  if (!all(relate(ext(esa_agb_2010), ext(region), "within"))) {
+    esa_agb_2010 <- 
+      esa_agb_2010 |> 
+      crop(region, mask = FALSE, overwrite = TRUE)
+    
+  }
+  esa_agb <- esa_agb_2010 |> mask(region)
   
-  #TODO should mask be FALSE and masking happen later just before calculations?
-  esa_agb_2010 |> 
-    crop(ca_az_sf, mask = TRUE)
+  #return
+  esa_agb
 }

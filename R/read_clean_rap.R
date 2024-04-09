@@ -6,7 +6,7 @@
 #' @param esa SpatRaster for ESA dataset to be used as template for extent and projection
 #'
 #' @return SpatRaster object with two layers
-read_clean_rap <- function(file, esa) {
+read_clean_rap <- function(file, esa, region) {
   rap_agb_2010 <-
     terra::rast(file, win = ext(esa), snap = "out")
   #or, download just SW directly from web
@@ -21,5 +21,5 @@ read_clean_rap <- function(file, esa) {
   units(rap_agb_2010) <- c("Mg/ha", "Mg/ha")
   
   # Project and crop 
-  project_crop_esa(rap_agb_2010, esa)
+  project_crop_esa(rap_agb_2010, esa, region)
 }

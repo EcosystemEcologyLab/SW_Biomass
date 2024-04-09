@@ -1,11 +1,11 @@
 #' Title
 #'
 #' @param files vector of paths to .zip files in data/rasters/LT_GNN/
-#' @param esa SpatRaster for ESA dataset to be used as template for extent and projection
-#'
+#' @param esa SpatRaster for ESA dataset to be used as template for projection
+#' @param region sf object used to crop and mask raster
 #' @return a SpatRaster object
 #' 
-read_clean_lt_gnn <- function(files, esa) {
+read_clean_lt_gnn <- function(files, esa, region) {
   
   tifs <- 
     files |> 
@@ -34,5 +34,5 @@ read_clean_lt_gnn <- function(files, esa) {
   units(tiles_combined) <- c("Mg/ha")
 
   # Project and crop
-  project_crop_esa(tiles_combined, esa)
+  project_crop_esa(tiles_combined, esa, region)
 }

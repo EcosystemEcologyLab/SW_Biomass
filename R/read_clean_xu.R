@@ -5,7 +5,7 @@
 #'
 #' @return SpatRaster object
 #' 
-read_clean_xu <- function(file, esa) {
+read_clean_xu <- function(file, esa, region) {
   # Xu
   xu_agb_2010 <-
     terra::rast(file, win = ext(esa), snap = "out")[[10]] * 2.2 #conversion from MgC/ha to Mg/ha
@@ -14,5 +14,5 @@ read_clean_xu <- function(file, esa) {
   varnames(xu_agb_2010) <- "AGB"
   
   # Project and crop
-  project_crop_esa(xu_agb_2010, esa)
+  project_crop_esa(xu_agb_2010, esa, region)
 }

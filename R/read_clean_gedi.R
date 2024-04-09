@@ -10,7 +10,7 @@
 #'
 #' @return a SpatRaster object
 #' 
-read_clean_gedi <- function(file, esa) {
+read_clean_gedi <- function(file, esa, region) {
   #Read in file
   gedi_agb <- terra::rast(file)
   
@@ -20,5 +20,5 @@ read_clean_gedi <- function(file, esa) {
   names(gedi_agb) <- "GEDI L4B"
   
   # Project and crop
-  project_crop_esa(gedi_agb, esa)
+  project_crop_esa(gedi_agb, esa, region)
 }

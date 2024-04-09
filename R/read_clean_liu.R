@@ -4,7 +4,7 @@
 #' @param esa SpatRaster for ESA dataset to be used as template for extent and projection
 #' @return a SpatRaster object
 #' 
-read_clean_liu = function(file, esa) {
+read_clean_liu = function(file, esa, region) {
   # Open Liu AGBc netCDF file
   liu.nc <- nc_open(file)
   
@@ -56,6 +56,5 @@ read_clean_liu = function(file, esa) {
   # Project and Crop
   # See discussion on projection of this dataset here:
   # https://github.com/cct-datascience/SW_Biomass/issues/13
-  project_crop_esa(out_2010, esa, method = "near")
-
+  project_crop_esa(out_2010, esa, region, method = "near")
 }

@@ -12,15 +12,26 @@
 #'   different from the ESA product.
 #'
 #' @return SpatRaster
-project_crop_esa <- function(rast, esa, method = "bilinear") {
-  ca_az_sf <- 
-    maps::map("state", c("arizona", "california"), plot = FALSE, fill = TRUE) |> 
-    st_as_sf() |> 
-    st_transform(st_crs(esa))
+project_crop_esa <- function(rast, esa, region, method = "bilinear", project = FALSE) {
   
-  project(rast, esa,
-          method = method,
-          threads = 4) |> 
-    crop(ca_az_sf, mask = TRUE)
-
+  #just changes CRS
+  rast_proj <- project(rast, crs(esa),
+                       method = method, #might not be necessary
+                       threads = 4) 
+  region <- st_transform(region, st_crs(rast_proj))
+  if (!all(relate(ext(rast_proj), ext(region), "within"))) {
+    #just crops
+    rast_proj <- rast_proj |> 
+      crop(region, overwrite = TRUE)
+  } 
+  # just masks
+  rast_out <- rast_proj |> 
+    mask(region)
+  #NOTE this no longer changes resolution
+  
+  if (isTRUE(project)) {
+    rast_out <- project(rast_out, crs(esa), res = res(esa))
+  }
+  # return
+  rast_out
 }
