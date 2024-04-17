@@ -178,6 +178,7 @@ tar_plan(
   
   # Density ridge plots
   #TODO this would be faster if the plots were made once and saved twice.  Don't have the same limitations as geom_spatraster where you can't save the resulting ggplot objects as targets.
+  #TODO make these plots using data in original resolution?
   tar_map(
     values = list(ext = c("png", "pdf")),
     
