@@ -1031,23 +1031,6 @@
       ],
       "Hash": "52ef83f93f74833007f193b2d4c159a2"
     },
-    "ggpointdensity": {
-      "Package": "ggpointdensity",
-      "Version": "0.1.0",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "ggpointdensity",
-      "RemoteUsername": "LKremer",
-      "RemotePkgRef": "LKremer/ggpointdensity",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "02f3ab24eb22e3e34294baeca23a8998db43be70",
-      "Requirements": [
-        "R",
-        "ggplot2"
-      ],
-      "Hash": "cccdef817d092d662ee1ef267e73d02b"
-    },
     "ggrastr": {
       "Package": "ggrastr",
       "Version": "1.0.2",
@@ -1552,9 +1535,9 @@
     },
     "knitr": {
       "Package": "knitr",
-      "Version": "1.45",
+      "Version": "1.46",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "evaluate",
@@ -1564,7 +1547,7 @@
         "xfun",
         "yaml"
       ],
-      "Hash": "1ec462871063897135c1bcbe0fc8f07d"
+      "Hash": "6e008ab1d696a5283c79765fa7b56b47"
     },
     "labeling": {
       "Package": "labeling",
@@ -2350,13 +2333,13 @@
     },
     "secretbase": {
       "Package": "secretbase",
-      "Version": "0.3.0.1",
+      "Version": "0.4.0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "R"
       ],
-      "Hash": "0c5ec9858d64bdcbde3e5ebf35d5a34c"
+      "Hash": "e9591ffb6d5adcc9284213e496ed7fe9"
     },
     "selectr": {
       "Package": "selectr",
@@ -2396,7 +2379,7 @@
     },
     "sf": {
       "Package": "sf",
-      "Version": "1.0-15",
+      "Version": "1.0-16",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -2415,7 +2398,7 @@
         "units",
         "utils"
       ],
-      "Hash": "f432b3379fb1a47046e253468b6b6b6d"
+      "Hash": "ad57b543f7c3fca05213ba78ff63df9b"
     },
     "shiny": {
       "Package": "shiny",
@@ -2611,16 +2594,16 @@
     },
     "tarchetypes": {
       "Package": "tarchetypes",
-      "Version": "0.8.0",
+      "Version": "0.9.0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "R",
-        "digest",
         "dplyr",
         "fs",
         "parallel",
         "rlang",
+        "secretbase",
         "targets",
         "tibble",
         "tidyselect",
@@ -2628,11 +2611,11 @@
         "vctrs",
         "withr"
       ],
-      "Hash": "38eddad863e58b95761d967887d7b59a"
+      "Hash": "094a74cdaa048b727d52aebf4c80ed7a"
     },
     "targets": {
       "Package": "targets",
-      "Version": "1.6.0",
+      "Version": "1.7.0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -2643,7 +2626,6 @@
         "cli",
         "codetools",
         "data.table",
-        "digest",
         "igraph",
         "knitr",
         "ps",
@@ -2657,7 +2639,7 @@
         "vctrs",
         "yaml"
       ],
-      "Hash": "35b83348e5cf547715687c93ce5c2126"
+      "Hash": "27ee47827a89430be0d38b78c0cb8fb7"
     },
     "terra": {
       "Package": "terra",
