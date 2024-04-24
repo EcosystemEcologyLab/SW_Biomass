@@ -26,7 +26,7 @@ tar_option_set(
   # which run as local R processes. Each worker launches when there is work
   # to do and exits if 60 seconds pass with no tasks to run.
   #
-  # controller = crew::crew_controller_local(workers = 2, seconds_idle = 60),
+  # controller = crew::crew_controller_local(workers = 3, seconds_idle = 60),
   
   # Use s3 bucket for targets store
   # repository = "aws", #comment out or change to "local" to store targets locally on disk
@@ -85,7 +85,6 @@ tar_plan(
 
 
   # Extract data for every NEON & Ameriflux site ----------------------------
-  #TODO: Extract AGB from each product for each vect & get mean for each site, export as CSV
   tar_file(neon_kmz, "data/shapefiles/NEON_Field_Sites_KMZ_v18_Mar2023.kmz"),
   tar_file(neon_field_path, "data/shapefiles/Field_Sampling_Boundaries_2020/"),
   # TODO switch to tar_sf() once it exists?
@@ -97,7 +96,6 @@ tar_plan(
     values = tibble(
       product = rlang::syms(
         c("esa_agb", "chopping_agb", "gedi_agb", "liu_agb", "ltgnn_agb", "menlove_agb", "xu_agb")
-        # c("liu_agb", "menlove_agb")
       )
     ),
     tar_target(
@@ -180,7 +178,8 @@ tar_plan(
   #TODO this would be faster if the plots were made once and saved twice.  Don't have the same limitations as geom_spatraster where you can't save the resulting ggplot objects as targets.
   #TODO make these plots using data in original resolution?
   tar_map(
-    values = list(ext = c("png", "pdf")),
+    values = list(ext = "png"), #for prototyping
+    # values = list(ext = c("png", "pdf")), #uncomment to produce publication quality figures
     
     tar_target(
       ridge_az,

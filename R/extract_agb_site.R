@@ -1,6 +1,6 @@
 # use branching to apply this to all the raster datasets and rowbind the results
 extract_agb_site <- function(rast, sites) {
-  site_buffer <- sites |> st_buffer(1000) |> vect()
+  site_buffer <- sites |> sf::st_buffer(1000) |> terra::vect()
   
   # zonal() is slightly faster than extract()
   site_agb <- terra::zonal(rast, site_buffer, exact = TRUE, na.rm = TRUE)
