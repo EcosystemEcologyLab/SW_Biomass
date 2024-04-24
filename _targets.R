@@ -65,7 +65,7 @@ tar_plan(
   # bucket.  Since they're already on an attached volume on Jetstream2, I use
   # repository = "local" to prevent this. Logic above changes the path to the
   # correct place depending on where this is run.
-  tar_file(esa_files, dir_ls("data/rasters/ESA_CCI/", glob = "*.tif*"), repository = "local"),
+  tar_file(esa_files, dir_ls("data/rasters/ESA_CCI/", glob = "*2010-fv4.0.tif*"), repository = "local"),
   tar_terra_rast(esa_agb, read_clean_esa(esa_files, conus)),
   tar_file(chopping_file, "data/rasters/Chopping/MISR_agb_estimates_20002021.tif", repository = "local"),
   tar_terra_rast(chopping_agb, read_clean_chopping(chopping_file, esa_agb, conus)),
