@@ -6,6 +6,6 @@
 /.quarto/
 
 #raw data files
-/data/rasters/*
+/data/AGB_cleaned/*
 /data/shapefiles/*
 !/**/.gitkeep
