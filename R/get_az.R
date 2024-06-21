@@ -1,5 +1,5 @@
-make_az_sf <- function(esa_crs) {
+get_az <- function() {
   maps::map("state", "arizona", plot = FALSE, fill = TRUE) |> 
     st_as_sf() |> 
-    st_transform(esa_crs)
+    terra::vect()
 }
