@@ -6,8 +6,7 @@ read_agb <- function(path, win_vect) {
     
     out <- 
       terra::rast(path, win = terra::ext(win_vect)) |> 
-      terra::crop(win_vect) |> 
-      terra::mask(win_vect)
+      terra::crop(win_vect)
   }
   if (fs::is_dir(path)) {
     tifs <- fs::dir_ls(path, glob = "*.tif") 
@@ -16,8 +15,7 @@ read_agb <- function(path, win_vect) {
   
     out <-
       vrt(tifs, set_names = TRUE) |> 
-      crop(win_vect) |> 
-      mask(win_vect)
+      crop(win_vect)
   }
   out
 }
