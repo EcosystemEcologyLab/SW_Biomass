@@ -19,7 +19,8 @@ library(quarto)
 # Set target options:
 tar_option_set(
   # packages that your targets need to run
-  packages = c("terra", "fs", "purrr", "units", "tidyterra", "ggplot2", "sf", "maps", "tidyr", "dplyr", "stringr", "stars", "magick", "ggridges", "ggrastr", "svglite", "ggtext", "ggthemes", "KernSmooth", "patchwork", "tibble", "amerifluxr"), 
+  #TODO: update this list of packages
+  packages = c("terra", "fs", "exactextractr", "purrr", "units", "tidyterra", "ggplot2", "sf", "maps", "tidyr", "dplyr", "stringr", "stars", "magick", "ggridges", "ggrastr", "svglite", "ggtext", "ggthemes", "KernSmooth", "patchwork", "tibble", "amerifluxr"), 
   controller = crew::crew_controller_local(workers = 2, seconds_idle = 60)
 )
 
@@ -44,6 +45,7 @@ inputs <- tar_plan(
   tar_file(gedi_file, "data/AGB_cleaned/gedi/gedi_2019-2023.tif"),
   tar_file(chopping_file, "data/AGB_cleaned/chopping/chopping_2000-2021.tif"),
   tar_file(esa_dir, "data/AGB_cleaned/esa_cci/"),
+  tar_file(ltgnn_dir, "data/AGB_cleaned/lt_gnn/"),
   
   # Read in rasters (all layers for now)
   tar_terra_rast(xu_agb, read_agb(xu_file, ca_az)),
@@ -52,26 +54,71 @@ inputs <- tar_plan(
   tar_terra_rast(gedi_agb, read_agb(gedi_file, ca_az)),
   tar_terra_rast(chopping_agb, read_agb(chopping_file, ca_az)),
   tar_terra_rast(esa_agb, read_agb(esa_dir, ca_az)),
+  tar_terra_rast(ltgnn_agb, read_agb(ltgnn_dir, ca_az))
 )
   # Get summary statistics for AZ, CA, Pima County, SRER
-stats <- tar_plan(
+agb <- tar_plan(
   tar_map(
     values = tidyr::expand_grid(
-      product = syms(c("xu_agb", "liu_agb", "menlove_agb", "gedi_agb", "chopping_agb", "esa_agb")),
-      subset = syms(c("pima", "ca", "az", "srer"))
+      product = syms(c("xu_agb", "liu_agb", "menlove_agb", "gedi_agb", "chopping_agb", "esa_agb", "ltgnn_agb")),
+      subset = syms(c("pima", "srer", "ca", "az"))
     ),
-    summarize_agb(product, subset)
+    tar_target(
+      summary,
+      summarize_agb(product, subset),
+      storage = "worker",
+      retrieval = "worker"
+    )
   )
 )
 
-summary <- tar_plan(
+agb_summary <- tar_plan(
   tar_combine(
     agb_stats,
-    stats, 
+    agb, #refers to the above list of targets to combine
     command = dplyr::bind_rows(!!!.x)
+  ),
+  tar_target(
+    agb_trend_plot,
+    plot_agb_trend(agb_stats)
   )
+  #TODO plot totals (sum column) over time for each subset
+  #TODO export plots as .png
+  #TODO export data as .csv
 )
 
+# # Reproject just 2010 layer to common CRS
+# reproject <- tar_plan(
+#   tar_map( #for each product
+#     values = list(
+#       product = syms(c("esa_agb", "xu_agb", "liu_agb", "menlove_agb", "gedi_agb", "chopping_agb", "ltgnn_agb"))
+#     ),
+#     tar_terra_rast(
+#       common,
+#       project_to_esa(product, esa_agb),
+#       description = "Extract 2010, transform to common CRS & resolution",
+#       storage = "worker",
+#       retrieval = "worker"
+#     )
+#   )
+# )
+
+# stack <- tar_plan(
+#   tar_combine(
+#     stack,
+#     reproject, #refers to all the targets created above
+#     command = terra::rast(!!!.x) #not sure if this works, might need a c() in there
+#   ),
+#   tar_terra_rast(
+#     sd,
+#    #TODO create this function or refactor existing function
+#     calc_sd(stack) #calc SD across products
+#   )
+# )
+
+# sd_summary <- tar_plan(
+# 
+# )
 
 
   # # Extract data for every NEON & Ameriflux site ----------------------------
@@ -238,4 +285,9 @@ summary <- tar_plan(
   # tar_quarto(readme, "README.qmd", cue = tar_cue(mode = "always"))
 # )
 
-list(inputs, stats, summary)
+list2(
+  inputs,
+  agb,
+  agb_summary,
+  # reproject
+  )
