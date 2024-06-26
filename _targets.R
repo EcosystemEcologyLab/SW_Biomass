@@ -56,7 +56,7 @@ inputs <- tar_plan(
   tar_terra_rast(esa_agb, read_agb(esa_dir, ca_az)),
   tar_terra_rast(ltgnn_agb, read_agb(ltgnn_dir, ca_az))
 )
-  # Get summary statistics for AZ, CA, Pima County, SRER
+# Get summary statistics for AZ, CA, Pima County, SRER
 agb <- tar_plan(
   tar_map(
     values = tidyr::expand_grid(
@@ -87,207 +87,177 @@ agb_summary <- tar_plan(
   #TODO export data as .csv
 )
 
-# # Reproject just 2010 layer to common CRS
-# reproject <- tar_plan(
-#   tar_map( #for each product
-#     values = list(
-#       product = syms(c("esa_agb", "xu_agb", "liu_agb", "menlove_agb", "gedi_agb", "chopping_agb", "ltgnn_agb"))
-#     ),
-#     tar_terra_rast(
-#       common,
-#       project_to_esa(product, esa_agb),
-#       description = "Extract 2010, transform to common CRS & resolution",
-#       storage = "worker",
-#       retrieval = "worker"
-#     )
-#   )
-# )
+# Reproject just 2010 layer to common CRS
+reproject <- tar_plan(
+  tar_map( #for each product
+    values = list(
+      product = syms(c("esa_agb", "xu_agb", "liu_agb", "menlove_agb", "gedi_agb", "chopping_agb", "ltgnn_agb"))
+    ),
+    tar_terra_rast(
+      common,
+      project_to_esa(product, esa_agb),
+      description = "Extract 2010, transform to common CRS & resolution",
+      storage = "worker",
+      retrieval = "worker"
+    )
+  )
+)
 
-# stack <- tar_plan(
-#   tar_combine(
-#     stack,
-#     reproject, #refers to all the targets created above
-#     command = terra::rast(!!!.x) #not sure if this works, might need a c() in there
-#   ),
-#   tar_terra_rast(
-#     sd,
-#    #TODO create this function or refactor existing function
-#     calc_sd(stack) #calc SD across products
-#   )
-# )
-
-# sd_summary <- tar_plan(
-# 
-# )
-
-
-  # # Extract data for every NEON & Ameriflux site ----------------------------
-  # tar_file(neon_kmz, "data/shapefiles/NEON_Field_Sites_KMZ_v18_Mar2023.kmz"),
-  # tar_file(neon_field_path, "data/shapefiles/Field_Sampling_Boundaries_2020/"),
-  # # TODO switch to tar_sf() once it exists?
-  # tar_target(
-  #   site_locs,
-  #   get_site_locs(neon_kmz, neon_field_path)
-  # ),
-  # tar_map(
-  #   values = tibble(
-  #     product = rlang::syms(
-  #       c("esa_agb", "chopping_agb", "gedi_agb", "liu_agb", "ltgnn_agb", "menlove_agb", "xu_agb")
-  #     )
-  #   ),
-  #   tar_target(
-  #     sites,
-  #     extract_agb_site(product, site_locs) 
-  #   )
-  # ),
-  # #collect, pivot wider, join to site_locs
-  # tar_target(
-  #   sites_wide_csv,
-  #   pivot_sites(sites_esa_agb, sites_chopping_agb, sites_gedi_agb, sites_liu_agb, 
-  #               sites_ltgnn_agb, sites_menlove_agb, sites_xu_agb, site_locs = site_locs),
-  #   format = "file"
-  # ),
-  #   
-  # 
-  # # Stack em! ---------------------------------------------------------------
-  # # Project to common resolution, crop to CA and AZ, and create a multi-layer raster stack
-  # 
-  # #ignoring RAP for the moment
-  # tar_terra_rast(
+stack <- tar_plan(
+  # tar_combine( #need a geotargets version of this to work
   #   agb_stack,
-  #   make_agb_stack(chopping_agb, liu_agb, xu_agb, ltgnn_agb, menlove_agb, gedi_agb,
-  #                  esa = esa_agb, region = ca_az)
+  #   reproject, #refers to all the targets created above
+  #   command = c(!!!.x),
+  #   storage = "worker",
+  #   retrieval = "worker"
   # ),
-  # 
-  # # Plots -------------------------------------------------------------------
-  # tar_file(srer_dir, "data/shapefiles/srerboundary/", repository = "local"),
-  # tar_file(pima_dir, "data/shapefiles/Pima_County_Boundary/", repository = "local"),
-  # 
-  # # Dynamic branching example.  Might be more useful when there are a lot more subsets
-  # # tar_target(subsets,
-  # #            make_shape_list(crs = st_crs(agb_stack), srer_dir = srer_dir, pima_dir = pima_dir),
-  # #            iteration = "list"),
-  # # tar_target(test, ext(crop(agb_stack, subsets))[1], pattern = map(subsets)),
-  # 
-  # # Use static branching to make all the maps of all the subsets
-  # az = maps::map("state", "arizona", plot = FALSE, fill = TRUE) |> 
-  #   st_as_sf() |> 
-  #   st_transform(st_crs(agb_stack)) |> 
-  #   mutate(subset = "AZ"),
-  # ca = maps::map("state", "california", plot = FALSE, fill = TRUE) |> 
-  #   st_as_sf() |> 
-  #   st_transform(st_crs(agb_stack)) |> 
-  #   st_make_valid() |> 
-  #   mutate(subset = "CA"),
-  # srer = st_read(srer_dir) |> 
-  #   st_transform(st_crs(agb_stack)) |> 
-  #   mutate(subset = "SRER"),
-  # pima = st_read(pima_dir) |> 
-  #   st_transform(st_crs(agb_stack)) |> 
-  #   mutate(subset = "Pima County"),
-  # 
-  # tar_map(
-  #   values = tidyr::expand_grid(
-  #     subset = rlang::syms(c("az", "ca", "srer", "pima")),
-  #     file_ext = c("png", "pdf")
-  #   ),
-  #   # Maps faceted by data product
-  #   tar_target(
-  #     agb_map, 
-  #     plot_agb_map(agb_stack, subset, downsample = TRUE, ext = file_ext), 
-  #     format = "file"
-  #   ),
-  #   # Maps of median AGB across products
-  #   tar_target(
-  #     median_map,
-  #     plot_median_map(agb_stack, subset, downsample = FALSE, ext = file_ext, height = 2),
-  #     format = "file"
-  #   ),
-  #   # # Maps of SD across products
-  #   tar_target(
-  #     sd_map,
-  #     plot_sd_map(agb_stack, subset, downsample = FALSE, ext = file_ext, height = 2),
-  #     format = "file"
-  #   )
-  # ),
-  # 
-  # # Density ridge plots
-  # #TODO this would be faster if the plots were made once and saved twice.  Don't have the same limitations as geom_spatraster where you can't save the resulting ggplot objects as targets.
-  # #TODO make these plots using data in original resolution?
-  # tar_map(
-  #   values = list(ext = "png"), #for prototyping
-  #   # values = list(ext = c("png", "pdf")), #uncomment to produce publication quality figures
-  #   
-  #   tar_target(
-  #     ridge_az,
-  #     plot_agb_ridges(agb_stack, az,
-  #                     filename = paste("agb_density_az", ext, sep = "."),
-  #                     height = 2, width = 4.2),
-  #     format = "file"
-  #   ),
-  #   tar_target(
-  #     ridge_ca,
-  #     plot_agb_ridges(agb_stack, ca,
-  #                     break_x = 50,
-  #                     filename = paste("agb_density_ca", ext, sep = "."),
-  #                     height = 2, width = 4.2),
-  #     format = "file"
-  #   ),
-  #   tar_target(
-  #     ridge_pima,
-  #     plot_agb_ridges(agb_stack, pima,
-  #                     break_x = c(30, 50),
-  #                     filename = paste("agb_density_pima", ext, sep = "."),
-  #                     height = 2, width = 4.2),
-  #     format = "file"
-  #   ),
-  #   tar_target(
-  #     ridge_srer,
-  #     plot_agb_ridges(agb_stack, srer,
-  #                     break_plot = FALSE,
-  #                     filename = paste("agb_density_srer", ext, sep = "."),
-  #                     height = 2, width = 4.2),
-  #     format = "file"
-  #   )
-  # ),
-  # 
-  # # Summary statistics
-  # tar_target(subsets,
-  #            list("AZ" = az, "CA" = ca, "SRER" = srer, "Pima County" = pima),
-  #            iteration = "list"),
-  # tar_target(
-  #   summary_stats,
-  #   calc_summary(agb_stack, subsets),
-  #   pattern = map(subsets)
-  # ),
-  # 
-  # # Scatter plots against ESA, just for Arizona for now
-  # tar_target(agb_df_az, as_tibble(as.data.frame(crop(agb_stack, az, mask = TRUE, overwrite = TRUE)))),
-  # tar_target(plot_comparisons, colnames(agb_df_az)[colnames(agb_df_az)!="ESA CCI"]),
-  # tar_target(
-  #   scatter_plots,
-  #   plot_scatter(
-  #     agb_df_az,
-  #     comparison = plot_comparisons,
-  #     height = 2,
-  #     width = 2
-  #   ),
-  #   pattern = map(plot_comparisons),
-  #   format = "file"
-  # ),
-  # tar_target(zip_scatter_plots, zip_plots(scatter_plots, "docs/fig/scatter.zip"), format = "file"),
-  # 
-  # # # Render docs -------------------------------------------------------------
-  # #report
-  # tar_quarto(report, "docs/report.qmd", working_directory = "docs"),
-  # 
-  # #README
-  # tar_quarto(readme, "README.qmd", cue = tar_cue(mode = "always"))
+  tar_terra_rast(
+    agb_stack,
+    c(
+      common_esa_agb,
+      common_xu_agb,
+      common_liu_agb, 
+      common_menlove_agb,
+      common_gedi_agb,
+      common_chopping_agb,
+      common_ltgnn_agb
+    ),
+    storage = "worker",
+    retrieval = "worker"
+  )
+)
+
+
+# # Plots -------------------------------------------------------------------
+# tar_file(srer_dir, "data/shapefiles/srerboundary/", repository = "local"),
+# tar_file(pima_dir, "data/shapefiles/Pima_County_Boundary/", repository = "local"),
+# 
+# # Dynamic branching example.  Might be more useful when there are a lot more subsets
+# # tar_target(subsets,
+# #            make_shape_list(crs = st_crs(agb_stack), srer_dir = srer_dir, pima_dir = pima_dir),
+# #            iteration = "list"),
+# # tar_target(test, ext(crop(agb_stack, subsets))[1], pattern = map(subsets)),
+# 
+# # Use static branching to make all the maps of all the subsets
+# az = maps::map("state", "arizona", plot = FALSE, fill = TRUE) |> 
+#   st_as_sf() |> 
+#   st_transform(st_crs(agb_stack)) |> 
+#   mutate(subset = "AZ"),
+# ca = maps::map("state", "california", plot = FALSE, fill = TRUE) |> 
+#   st_as_sf() |> 
+#   st_transform(st_crs(agb_stack)) |> 
+#   st_make_valid() |> 
+#   mutate(subset = "CA"),
+# srer = st_read(srer_dir) |> 
+#   st_transform(st_crs(agb_stack)) |> 
+#   mutate(subset = "SRER"),
+# pima = st_read(pima_dir) |> 
+#   st_transform(st_crs(agb_stack)) |> 
+#   mutate(subset = "Pima County"),
+# 
+# tar_map(
+#   values = tidyr::expand_grid(
+#     subset = rlang::syms(c("az", "ca", "srer", "pima")),
+#     file_ext = c("png", "pdf")
+#   ),
+#   # Maps faceted by data product
+#   tar_target(
+#     agb_map, 
+#     plot_agb_map(agb_stack, subset, downsample = TRUE, ext = file_ext), 
+#     format = "file"
+#   ),
+#   # Maps of median AGB across products
+#   tar_target(
+#     median_map,
+#     plot_median_map(agb_stack, subset, downsample = FALSE, ext = file_ext, height = 2),
+#     format = "file"
+#   ),
+#   # # Maps of SD across products
+#   tar_target(
+#     sd_map,
+#     plot_sd_map(agb_stack, subset, downsample = FALSE, ext = file_ext, height = 2),
+#     format = "file"
+#   )
+# ),
+# 
+# # Density ridge plots
+# #TODO this would be faster if the plots were made once and saved twice.  Don't have the same limitations as geom_spatraster where you can't save the resulting ggplot objects as targets.
+# #TODO make these plots using data in original resolution?
+# tar_map(
+#   values = list(ext = "png"), #for prototyping
+#   # values = list(ext = c("png", "pdf")), #uncomment to produce publication quality figures
+#   
+#   tar_target(
+#     ridge_az,
+#     plot_agb_ridges(agb_stack, az,
+#                     filename = paste("agb_density_az", ext, sep = "."),
+#                     height = 2, width = 4.2),
+#     format = "file"
+#   ),
+#   tar_target(
+#     ridge_ca,
+#     plot_agb_ridges(agb_stack, ca,
+#                     break_x = 50,
+#                     filename = paste("agb_density_ca", ext, sep = "."),
+#                     height = 2, width = 4.2),
+#     format = "file"
+#   ),
+#   tar_target(
+#     ridge_pima,
+#     plot_agb_ridges(agb_stack, pima,
+#                     break_x = c(30, 50),
+#                     filename = paste("agb_density_pima", ext, sep = "."),
+#                     height = 2, width = 4.2),
+#     format = "file"
+#   ),
+#   tar_target(
+#     ridge_srer,
+#     plot_agb_ridges(agb_stack, srer,
+#                     break_plot = FALSE,
+#                     filename = paste("agb_density_srer", ext, sep = "."),
+#                     height = 2, width = 4.2),
+#     format = "file"
+#   )
+# ),
+# 
+# # Summary statistics
+# tar_target(subsets,
+#            list("AZ" = az, "CA" = ca, "SRER" = srer, "Pima County" = pima),
+#            iteration = "list"),
+# tar_target(
+#   summary_stats,
+#   calc_summary(agb_stack, subsets),
+#   pattern = map(subsets)
+# ),
+# 
+# # Scatter plots against ESA, just for Arizona for now
+# tar_target(agb_df_az, as_tibble(as.data.frame(crop(agb_stack, az, mask = TRUE, overwrite = TRUE)))),
+# tar_target(plot_comparisons, colnames(agb_df_az)[colnames(agb_df_az)!="ESA CCI"]),
+# tar_target(
+#   scatter_plots,
+#   plot_scatter(
+#     agb_df_az,
+#     comparison = plot_comparisons,
+#     height = 2,
+#     width = 2
+#   ),
+#   pattern = map(plot_comparisons),
+#   format = "file"
+# ),
+# tar_target(zip_scatter_plots, zip_plots(scatter_plots, "docs/fig/scatter.zip"), format = "file"),
+# 
+# # # Render docs -------------------------------------------------------------
+# #report
+# tar_quarto(report, "docs/report.qmd", working_directory = "docs"),
+# 
+# #README
+# tar_quarto(readme, "README.qmd", cue = tar_cue(mode = "always"))
 # )
 
 list2(
   inputs,
   agb,
   agb_summary,
-  # reproject
-  )
+  reproject,
+  stack
+)
