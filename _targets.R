@@ -127,7 +127,7 @@ stack <- tar_plan(
   ),
   tar_terra_rast(
     sd_stack,
-    terra::stdev(agb_stack),
+    terra::stdev(agb_stack, na.rm = TRUE),
     storage = "worker",
     retrieval = "worker"
   )
@@ -164,23 +164,28 @@ plots <- tar_plan(
       subset = rlang::syms(c("az", "ca", "srer", "pima")),
       file_ext = c("png", "pdf")
     ),
-    # Maps faceted by data product
-    tar_target(
-      agb_map,
-      plot_agb_map(agb_stack, subset, downsample = TRUE, ext = file_ext),
-      format = "file"
-    ),
+    #TODO shouldn't I just do this with the original rasters, not the re-projected rasters?
+    # Maps faceted by data product 
+    # tar_target(
+    #   agb_map,
+    #   plot_agb_map(agb_stack, subset, downsample = TRUE, ext = file_ext),
+    #   format = "file"
+    # ),
     # Maps of median AGB across products
     tar_target(
       median_map,
       plot_median_map(agb_stack, subset, downsample = FALSE, ext = file_ext, height = 2),
-      format = "file"
+      format = "file",
+      storage = "worker",
+      retrieval = "worker"
     ),
     # # Maps of SD across products
     tar_target(
       sd_map,
-      plot_sd_map(agb_stack, subset, downsample = FALSE, ext = file_ext, height = 2),
-      format = "file"
+      plot_sd_map(sd_stack, subset, downsample = FALSE, ext = file_ext, height = 2),
+      format = "file",
+      storage = "worker",
+      retrieval = "worker"
     )
   ),
 )
