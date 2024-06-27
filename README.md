@@ -10,7 +10,7 @@ public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostat
 
 <!-- badges: end -->
 
-This is a research compendium for work in progress comparing estimates
+This is a research compendium for a NASA CMS proposal comparing estimates
 of above-ground biomass in Arizona from different data products. This is
 a collaboration between [CCT-Data
 Science](https://datascience.cct.arizona.edu/) and the [David Moore
