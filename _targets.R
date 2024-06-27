@@ -124,62 +124,68 @@ stack <- tar_plan(
     ),
     storage = "worker",
     retrieval = "worker"
+  ),
+  tar_terra_rast(
+    sd_stack,
+    terra::stdev(agb_stack),
+    storage = "worker",
+    retrieval = "worker"
   )
 )
 
+sd <- tar_plan(
+  tar_map( #for every subset...
+    values = list(
+      subset = syms(c("pima", "srer", "ca", "az"))
+    ),
+    #... do this target:
+    tar_target(
+      sd_summary,
+      summarize_sd(sd_stack, subset),
+      storage = "worker",
+      retrieval = "worker"
+    )
+  )
+)
+
+sd_summary <- tar_plan(
+  tar_combine(
+    sd_stats,
+    sd, #refers to the above list of targets to combine
+    command = dplyr::bind_rows(!!!.x)
+  ),
+  #TODO: target to write out as .csv
+)
 
 # # Plots -------------------------------------------------------------------
-# tar_file(srer_dir, "data/shapefiles/srerboundary/", repository = "local"),
-# tar_file(pima_dir, "data/shapefiles/Pima_County_Boundary/", repository = "local"),
-# 
-# # Dynamic branching example.  Might be more useful when there are a lot more subsets
-# # tar_target(subsets,
-# #            make_shape_list(crs = st_crs(agb_stack), srer_dir = srer_dir, pima_dir = pima_dir),
-# #            iteration = "list"),
-# # tar_target(test, ext(crop(agb_stack, subsets))[1], pattern = map(subsets)),
-# 
-# # Use static branching to make all the maps of all the subsets
-# az = maps::map("state", "arizona", plot = FALSE, fill = TRUE) |> 
-#   st_as_sf() |> 
-#   st_transform(st_crs(agb_stack)) |> 
-#   mutate(subset = "AZ"),
-# ca = maps::map("state", "california", plot = FALSE, fill = TRUE) |> 
-#   st_as_sf() |> 
-#   st_transform(st_crs(agb_stack)) |> 
-#   st_make_valid() |> 
-#   mutate(subset = "CA"),
-# srer = st_read(srer_dir) |> 
-#   st_transform(st_crs(agb_stack)) |> 
-#   mutate(subset = "SRER"),
-# pima = st_read(pima_dir) |> 
-#   st_transform(st_crs(agb_stack)) |> 
-#   mutate(subset = "Pima County"),
-# 
-# tar_map(
-#   values = tidyr::expand_grid(
-#     subset = rlang::syms(c("az", "ca", "srer", "pima")),
-#     file_ext = c("png", "pdf")
-#   ),
-#   # Maps faceted by data product
-#   tar_target(
-#     agb_map, 
-#     plot_agb_map(agb_stack, subset, downsample = TRUE, ext = file_ext), 
-#     format = "file"
-#   ),
-#   # Maps of median AGB across products
-#   tar_target(
-#     median_map,
-#     plot_median_map(agb_stack, subset, downsample = FALSE, ext = file_ext, height = 2),
-#     format = "file"
-#   ),
-#   # # Maps of SD across products
-#   tar_target(
-#     sd_map,
-#     plot_sd_map(agb_stack, subset, downsample = FALSE, ext = file_ext, height = 2),
-#     format = "file"
-#   )
-# ),
-# 
+plots <- tar_plan(
+  tar_map(
+    values = tidyr::expand_grid(
+      subset = rlang::syms(c("az", "ca", "srer", "pima")),
+      file_ext = c("png", "pdf")
+    ),
+    # Maps faceted by data product
+    tar_target(
+      agb_map,
+      plot_agb_map(agb_stack, subset, downsample = TRUE, ext = file_ext),
+      format = "file"
+    ),
+    # Maps of median AGB across products
+    tar_target(
+      median_map,
+      plot_median_map(agb_stack, subset, downsample = FALSE, ext = file_ext, height = 2),
+      format = "file"
+    ),
+    # # Maps of SD across products
+    tar_target(
+      sd_map,
+      plot_sd_map(agb_stack, subset, downsample = FALSE, ext = file_ext, height = 2),
+      format = "file"
+    )
+  ),
+)
+
+#
 # # Density ridge plots
 # #TODO this would be faster if the plots were made once and saved twice.  Don't have the same limitations as geom_spatraster where you can't save the resulting ggplot objects as targets.
 # #TODO make these plots using data in original resolution?
@@ -259,5 +265,8 @@ list2(
   agb,
   agb_summary,
   reproject,
-  stack
+  stack,
+  sd,
+  sd_summary,
+  plots
 )
