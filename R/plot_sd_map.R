@@ -19,6 +19,7 @@ plot_sd_map <- function(agb_stack, subset, downsample = TRUE, path = "docs/fig",
   ext <- match.arg(ext)
   filename <- paste0("map_sd_", deparse(substitute(subset)), ".", ext)
   
+  subset <- project(subset, agb_stack)
   agb_sd <- agb_stack |> 
     crop(subset, mask = TRUE, overwrite = TRUE) |> 
     stdev(na.rm = TRUE)
