@@ -3,8 +3,8 @@
 #' @note these plots have to be created and saved in one function.  Saving the
 #'   ggplot object doesn't work with geom_spatraster
 #'
-#' @param agb_stack agb_stack target
-#' @param subset SpatVector object to crop and mask agb_stack
+#' @param sd_stack sd_stack target
+#' @param subset SpatVector object to crop and mask sd_stack
 #' @param downsample logical; include all pixels in the dataset or let
 #'   geom_spatraster() do it's default downsampling?
 #' @param path passed to ggsave()
@@ -14,15 +14,14 @@
 #' @return nothing, called for side effects
 #'
 #' @examples
-#' plot_sd_map(agb_stack)
-plot_sd_map <- function(agb_stack, subset, downsample = TRUE, path = "docs/fig", ext = c("png", "pdf"), ...) {
+#' plot_sd_map(sd_stack)
+plot_sd_map <- function(sd_stack, subset, downsample = TRUE, path = "docs/fig", ext = c("png", "pdf"), ...) {
   ext <- match.arg(ext)
   filename <- paste0("map_sd_", deparse(substitute(subset)), ".", ext)
   
-  subset <- project(subset, agb_stack)
-  agb_sd <- agb_stack |> 
-    crop(subset, mask = TRUE, overwrite = TRUE) |> 
-    stdev(na.rm = TRUE)
+  subset <- project(subset, sd_stack)
+  agb_sd <- sd_stack |> 
+    crop(subset, mask = TRUE, overwrite = TRUE)
   
   #I add 1 to the data here because trans = "log1p" and scales::breaks_log()
   #don't work together. So, this is the first half of a log(x+1) transformation.
@@ -57,7 +56,7 @@ plot_sd_map <- function(agb_stack, subset, downsample = TRUE, path = "docs/fig",
     p <- ggrastr::rasterise(p, layer = "Raster", dpi = 200, dev = "ragg_png")
     ggsave(filename = filename, path = path, plot = p, useDingbats = FALSE, ...)
   } else {
-    ggsave(filename = filename, path = path, plot = p, dpi = 200, ...)
+    ggsave(filename = filename, path = path, plot = p, dpi = 200, bg = "white", ...)
     trim_image(fs::path(path, filename))
   }
 
