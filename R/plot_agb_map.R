@@ -21,6 +21,7 @@ plot_agb_map <- function(agb_stack, subset, downsample = TRUE, path = "docs/fig"
   subset_str <- deparse(substitute(subset))
   filename <- paste0("map_agb_", subset_str, ".", ext)
   
+  subset <- project(subset, agb_stack)
   agb_subset <- crop(agb_stack, subset, mask = TRUE, overwrite = TRUE)
   if (isFALSE(downsample)) {
     n <- length(values(agb_subset[[1]]))

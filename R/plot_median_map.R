@@ -19,6 +19,8 @@
 plot_median_map <- function(agb_stack, subset, downsample = TRUE, path = "docs/fig", ext = c("png", "pdf"), ...) {
   ext <- match.arg(ext)
   filename <- paste0("map_median_", deparse(substitute(subset)), ".", ext)
+  #put vector on same CRS as raster
+  subset <- project(subset, agb_stack)
   agb_median <- agb_stack |> 
     crop(subset, mask = TRUE, overwrite = TRUE) |> 
     median(na.rm = TRUE)
@@ -53,7 +55,7 @@ plot_median_map <- function(agb_stack, subset, downsample = TRUE, path = "docs/f
     p <- ggrastr::rasterise(p, layer = "Raster", dpi = 200, dev = "ragg_png") #TODO check that this is actually working
     ggsave(filename = filename, path = path, plot = p, useDingbats = FALSE, ...)
   } else {
-    ggsave(filename = filename, path = path, plot = p, dpi = 200,  ...)
+    ggsave(filename = filename, path = path, plot = p, dpi = 200, bg = "white",  ...)
     trim_image(fs::path(path, filename))
   }
 }
