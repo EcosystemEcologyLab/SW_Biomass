@@ -19,7 +19,7 @@
 #' 
 #' @return file path
 plot_agb_ridges <- function(agb_stack, subset, break_plot = TRUE, break_x = 20, rel_widths = c(1, 0.5), path = "docs/fig", filename = "agb_ridge.png", ...) {
-  
+  subset <- project(subset, agb_stack)
   agb_df <- 
     agb_stack |>
     terra::crop(subset, mask = TRUE, overwrite = TRUE) |>
@@ -71,6 +71,6 @@ plot_agb_ridges <- function(agb_stack, subset, break_plot = TRUE, break_x = 20, 
   if (fs::path_ext(filename) %in% c("pdf", "svg", "eps", "ps")) {
     ggsave(filename = filename, path = path, plot = p_out, useDingbats = FALSE, ...)
   } else {
-    ggsave(filename = filename, path = path, plot = p_out, dpi = 200, ...)
+    ggsave(filename = filename, path = path, plot = p_out, dpi = 200, bg = "white", ...)
   }
 }
