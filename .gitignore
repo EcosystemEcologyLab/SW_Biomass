@@ -8,4 +8,5 @@
 #raw data files
 /data/rasters/*
 /data/shapefiles/*
+/data/AGB_cleaned/*
 !/**/.gitkeep
