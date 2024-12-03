@@ -15,6 +15,12 @@ authors:
       University of Arizona, Communications & Cyber
       Technologies
     orcid: 'https://orcid.org/0000-0002-7430-7879'
+  - given-names: Charles
+    family-names: Devine
+    affiliation: >-
+      University of Arizona, School of Natural Resources &
+      The Environment
+    orcid: 'https://orcid.org/0000-0003-1651-7613'
   - given-names: David J.P.
     family-names: Moore
     email: davidjpmoore@arizona.edu
@@ -22,12 +28,6 @@ authors:
       University of Arizona, School of Natural Resources &
       The Environment
     orcid: 'https://orcid.org/0000-0002-6462-3288'
-  - given-names: Charles
-    family-names: Devine
-    affiliation: >-
-      University of Arizona, School of Natural Resources &
-      The Environment
-    orcid: 'https://orcid.org/0000-0003-1651-7613'
 repository-code: 'https://github.com/EcosystemEcologyLab/SW_Biomass'
 license: MIT
 version: v0.1.0
